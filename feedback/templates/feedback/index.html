@@ -1,0 +1,66 @@
+{% extends 'jkservice/index.html' %}
+{% load static %}
+{% block css_js %}
+    <script src="{% static 'feedback/js/send_message.js' %}"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#contacts').addClass('active');
+            $('title').html('Жилкомсервис - Контакты, обратная связь');
+        });
+    </script>
+    <link rel="stylesheet" href="{% static 'feedback/css/advanced.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <p>Время работы: 8:00-16:00<br>перерыв с 12:00-13:00<br>выходной: cуббота, воскресенье<br>часы приема граждан руководителем: понедельник, вторник, среда, <nobr>четверг с 9:00-11:00</nobr>, <nobr>пятница неприемный день.</nobr></p>
+            <p>Почтовый адрес: 160515, Вологодская область, Вологодский район, п. Семенково, <nobr>пер. Майский, 7б</nobr></p>
+            <p>Телефон приемной: (8172) 77-87-89</p>
+        </div>
+    </div>
+    <div class="row feedback-row">
+        <div class="col-md-1"></div>
+        <div class="col-md-8">
+            <form id="feedback-form">{% csrf_token %}
+                <div class="row form-block">
+                    <div class="col-md-3 text-right">
+                        <label for="email">{{ form.email.label }}</label>
+                    </div>
+                    <div class="col-md-9">
+                        {{ form.email }}
+                    </div>
+                </div>
+                <div class="row form-block">
+                    <div class="col-md-3 text-right">
+                        <label for="subject">{{ form.subject.label }}</label>
+                    </div>
+                    <div class="col-md-9">
+                        {{ form.subject }}
+                    </div>
+                </div>
+                <div class="row form-block">
+                    <div class="col-md-3 text-right">
+                        <label for="message">{{ form.message.label }}</label>
+                    </div>
+                    <div class="col-md-9">
+                        {{ form.message }}
+                    </div>
+                </div>
+                <div class="row">
+                        {{ form.captcha }}
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <input type="button" id="send" value="Отправить" onclick="send_message()" class="btn btn-default">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+    <div class="row">
+        <div class=".col-md-12 text-center">
+            <p id="report" class="text-danger"></p>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'jkservice/index.html' %}
+{% load static %}
+{% block css_js %}
+    <script src="{% static 'jkservice/js/add_statement.js' %}"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#houses').addClass('active');
+            $('title').html('Жилкомсервис - Дома');
+        });
+    </script>
+    <link rel="stylesheet" href="{% static 'jkservice/css/watermet.css' %}">
+{% endblock %}
+{% block content %}
+{% endblock %}

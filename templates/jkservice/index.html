@@ -1,0 +1,167 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <meta content="жкх, ук, вологда, управляющая компания, жилкомсервис, семенково, семенково-1, аэропорт, фетинино, дубровское" name="keywords">
+    <meta content="Управляющая компания Жилкомсервис" name="searchtitle">
+    <meta content="Общество с ограниченной отвественностью управляющая компания 'Жилкомсервис'. Вологодская область, Семенково, пер. Майский, дом 7б, тел. 77-87-89" name="description">
+    <title>Жилкомсервис - Главная</title>
+    <script src="{% static 'jkservice/js/jquery-1.11.0.js' %}"></script>
+    <script src="{% static 'jkservice/js/bootstrap.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'jkservice/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'jkservice/css/advanced.css' %}">
+    <link rel="shortcut icon" href="{% static 'jkservice/img/favicon.ico' %}">
+    {% block css_js %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#home').addClass('active');
+        });
+    </script>
+    {% endblock %}
+</head>
+<body id="body">
+    <div class="navbar navbar-inverse navbar-static-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse" type="button">
+                    <span class="sr-only">
+                        Меню
+                    </span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">
+                        УК "Жилкомсервис"
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" style="height: auto;">
+                <ul class="nav navbar-nav">
+                    <li id="home">
+                        <a href="/">Главная</a>
+                    </li>
+                    <li id="news">
+                        <a href="/news">Новости</a>
+                    </li>
+                    <li id="watermets">
+                        <a href="/watermet">Передать показания</a>
+                    </li>
+                    <li id="houses">
+                        <a href="/houses">Дома</a>
+                    </li>
+                    <li id="docs" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Документы
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="#">
+                                    Тарифы
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    Услуги
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    Нормативные акты
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="#">
+                                    Архив документов
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li id="contacts">
+                        <a href="/feedback">Контакты</a>
+                    </li>
+                </ul>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="container main-body">
+    {% block content %}
+        <div class="row">
+            <div class="col-sm-8 main">
+                <div class="row placeholders">
+                    <div class="col-md-4 placeholder">
+                        <img src="{% static 'jkservice/img/meter.png' %}" class="img-responsive" alt="meter" onclick="location.href='/watermet'" title="Передать показания счетчиков">
+                        <p>Передать показания счетчиков горячей и холодной воды.</p>
+                        <button class="btn btn-primary" type="button" onclick="location.href='/watermet'">
+                            Подробнее >>
+                        </button>
+                    </div>
+                    <div class="col-md-4 placeholder">
+                        <img src="{% static 'jkservice/img/folder.png' %}" class="img-responsive" alt="folder" onclick="location.href='/houses'" title="Дома">
+                        <p>Ознакомиться и загрузить документы по вашему дому.</p>
+                        <button class="btn btn-primary" type="button" onclick="location.href='/houses'">
+                            Подробнее >>
+                        </button>
+                    </div>
+                    <div class="col-md-4 placeholder">
+                        <img src="{% static 'jkservice/img/mail.png' %}" class="img-responsive" alt="folder" onclick="location.href='/feedback'" title="Контакты, обратная связь.">
+                        <p>Написать нам письмо по любому волнующему вас вопросу.</p>
+                        <button class="btn btn-primary" type="button" onclick="location.href='/feedback'">
+                            Подробнее >>
+                        </button>
+                    </div>
+                </div>
+                <div class="row phone-box">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-8 text-right">
+                        <h4>Аварийная служба (круглосуточно): <nobr>(8172) 77-86-89</nobr><br><nobr>(8172) 77-87-89</nobr></h4>
+                        <h4>Приемная: <nobr>(8172) 77-87-89</nobr></h4>
+                        <h4>Бухгалтерия: <nobr>(8172) 77-87-18</nobr></h4>
+                        <h4>Начисление платежей: <nobr>(8172) 77-87-29</nobr></h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>Режим работы</h4>
+                        <p>Время работы: 8:00-16:00<br>перерыв с 12:00-13:00<br>выходной: cуббота, воскресенье<br>часы приема граждан руководителем: понедельник, вторник, среда, четверг<nobr>с 9:00-11:00</nobr>, пятница неприемный день.</p>
+                        <hr>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>Реквизиты</h4>
+                        <p>Название организации: Управлющая компания "Жилкомсервис"<br>Директор: Литомина Наталия Викторовна<br>Название банка: ЗАО "Вологдабанк"<br><nobr>БИК: 041909717</nobr><br><nobr>Расчетный счет: 40702810500000001616</nobr><br><nobr>Корреспондентский счет: 301018104000000717</nobr><br><nobr>ИНН: 3507305767 КПП: 350701001</nobr><br>Юридический адрес: 160515, Вологодская область, Вологодский район, п. Семенково, пер. Майский, 7б<br>Почтовый адрес: 160515, Вологодская область, Вологодский район, п. Семенково, пер. Майский, 7б</p>
+                        <div class="text-right">
+                            <a href="/media/other/details.pdf"><ins>Скачать реквизиты pdf</ins></a>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3 col-sm-offset-1 sidebar">
+                <a href="/news">
+                    <h4>Новости:</h4>
+                </a>
+                {% for note in news %}
+                <p class="date-time">{{ note.news_date|date:"j E G:i" }}</p>
+                <p>
+                    <a href="/news/#news{{ note.id }}">{{ note.brief }}</a>
+                </p>
+                {% endfor %}
+            </div>
+        </div>
+    {% endblock %}
+    </div>
+    <div class="footer">
+        <div class="container">
+            <p class="text-muted">ООО Управляющая компания "Жилкомсервис" 2014</p>
+        </div>
+    </div>
+<div class="modal"></div>
+</body>
+</html>

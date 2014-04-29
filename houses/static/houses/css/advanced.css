@@ -1,0 +1,27 @@
+body {
+  min-width: 1000px;
+  padding-bottom: 30px;
+}
+
+.container {
+  width: 1000px;
+  max-width: none !important;
+}
+
+.container .navbar-header,
+.container .navbar-collapse {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.navbar-header {
+  float: left;
+}
+
+.navbar-collapse {
+  height: auto !important;
+}
+
+a, a:hover, a:focus {
+  color: #333;
+}

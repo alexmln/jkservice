@@ -1,0 +1,83 @@
+{% extends 'jkservice/index.html' %}
+{% load static %}
+{% block css_js %}
+    <script src="{% static 'jkservice/js/add_statement.js' %}"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#watermets').addClass('active');
+            $('title').html('Жилкомсервис - Счетчики');
+        });
+    </script>
+    <link rel="stylesheet" href="{% static 'jkservice/css/watermet.css' %}">
+{% endblock %}
+{% block content %}
+<div class="col-md-3"></div>
+    <div class="col-md-6">
+        <form id='myform'>{% csrf_token %}
+            <div class="row form-block">
+                <div class="col-md-6 text-right">
+                    <label for="company">{{ form.company.label}}</label>
+                </div>
+                <div class="col-md-6 text-left">
+                    {{ form.company }}
+                </div>
+            </div>
+            <div class="row form-block">
+                <div class="col-md-6 text-right">
+                    <label for="pa">{{ form.pa.label}}</label>
+                </div>
+                <div class="col-md-6 text-left">
+                    {{ form.pa }}
+                </div>
+            </div>
+            <div class="row form-block">
+                <div class="col-md-6 text-right">
+                    <label for="cwm_1">{{ form.cwm_1.label}}</label>
+                </div>
+                <div class="col-md-6 text-left">
+                    {{ form.cwm_1 }}
+                </div>
+            </div>
+            <div class="row form-block">
+                <div class="col-md-6 text-right">
+                    <label for="cwm_2">{{ form.cwm_2.label}}</label>
+                </div>
+                <div class="col-md-6 text-left">
+                    {{ form.cwm_2 }}
+                </div>
+            </div>
+            <div class="row form-block">
+                <div class="col-md-6 text-right">
+                    <label for="hwm_1">{{ form.hwm_1.label}}</label>
+                </div>
+                <div class="col-md-6 text-left">
+                    {{ form.hwm_1 }}
+                </div>
+            </div>
+            <div class="row form-block">
+                <div class="col-md-6 text-right">
+                    <label for="hwm_2">{{ form.hwm_2.label}}</label>
+                </div>
+                <div class="col-md-6 text-left">
+                    {{ form.hwm_2 }}
+                </div>
+            </div>
+            <div class="row form-block">
+                    {{ form.captcha }}
+            </div>
+            <div class="row text-center">
+                <input type='button' id='set' class="btn btn-default" value='Отправить' onclick='add_statement()'>
+            </div>
+        </form>
+
+            <div class="row">
+                <div class=".col-md-4"></div>
+                <div class=".col-md-4 text-center">
+                    <p id="message" class="text-danger"></p>
+                </div>
+                <div class=".col-md-4"></div>
+            </div>
+    </div>
+    <div class="col-md-3">
+    </div>
+{% endblock %}

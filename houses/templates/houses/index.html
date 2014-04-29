@@ -1,0 +1,89 @@
+{% extends 'jkservice/index.html' %}
+{% load static %}
+{% block css_js %}
+    <link rel="stylesheet" href="{% static 'houses/css/advanced.css' %}">
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#houses').addClass('active');
+            $('title').html('Жилкомсервис - Дома');
+        });
+    </script>
+{% endblock %}
+{% block content %}
+        <div>
+            <h3>Дома, находящиеся под управлением</h3>
+        </div>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        Адрес
+                    </th>
+                    <th>
+                        Площадь
+                    </th>
+                    <th>
+                        Год ввода в эксплуатацию
+                    </th>
+                    <th>
+                        Сотояние
+                    </th>
+                    <th>
+                        Количество жителей
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for house in houses %}
+            {% if house.contract %}
+                <tr>
+                    <th>
+                        <a href="{% url 'detail' house.house_id %}">{{ house.get_settlement_display }}{% if house.street_name %} ул {{ house.street_name }}{% endif %} д.{{ house.house_number }}{% if house.comment %} {{ house.comment }}{% endif %}</a>
+                    </th>
+                    <th>
+                        {{ house.house_area }}
+                    </th>
+                    <th>
+                        {{ house.house_year }}
+                    </th>
+                    <th>
+                        {{ house.get_house_status_display }}
+                    </th>
+                    <th>
+                        {{ house.house_population }}
+                    </th>
+                </tr>
+            {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
+        <div>
+            <h3>Дома, обслуживание которых завершено</h3>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        Адрес
+                    </th>
+                    <th>
+                        Дата и причина расторжения договора
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for house in houses %}
+            {% if not house.contract %}
+                <tr>
+                    <th>
+                        {{ house.get_settlement_display }}{% if house.street_name %} ул {{ house.street_name }}{% endif %} д.{{ house.house_number }}
+                    </th>
+                    <th>
+                        {{ house.comment }}
+                    </th>
+                </tr>
+            {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
+        </div>
+{% endblock %}
