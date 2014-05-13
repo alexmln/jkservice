@@ -1,0 +1,5191 @@
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: auth_group; Type: TABLE; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE TABLE auth_group (
+    id integer NOT NULL,
+    name character varying(80) NOT NULL
+);
+
+
+ALTER TABLE public.auth_group OWNER TO django;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE auth_group_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_id_seq OWNER TO django;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE auth_group_id_seq OWNED BY auth_group.id;
+
+
+--
+-- Name: auth_group_permissions; Type: TABLE; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE TABLE auth_group_permissions (
+    id integer NOT NULL,
+    group_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_group_permissions OWNER TO django;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE auth_group_permissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_permissions_id_seq OWNER TO django;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE auth_group_permissions_id_seq OWNED BY auth_group_permissions.id;
+
+
+--
+-- Name: auth_permission; Type: TABLE; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE TABLE auth_permission (
+    id integer NOT NULL,
+    name character varying(50) NOT NULL,
+    content_type_id integer NOT NULL,
+    codename character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.auth_permission OWNER TO django;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE auth_permission_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_permission_id_seq OWNER TO django;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE auth_permission_id_seq OWNED BY auth_permission.id;
+
+
+--
+-- Name: auth_user; Type: TABLE; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE TABLE auth_user (
+    id integer NOT NULL,
+    password character varying(128) NOT NULL,
+    last_login timestamp with time zone NOT NULL,
+    is_superuser boolean NOT NULL,
+    username character varying(30) NOT NULL,
+    first_name character varying(30) NOT NULL,
+    last_name character varying(30) NOT NULL,
+    email character varying(75) NOT NULL,
+    is_staff boolean NOT NULL,
+    is_active boolean NOT NULL,
+    date_joined timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.auth_user OWNER TO django;
+
+--
+-- Name: auth_user_groups; Type: TABLE; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE TABLE auth_user_groups (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    group_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_user_groups OWNER TO django;
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE auth_user_groups_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_groups_id_seq OWNER TO django;
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE auth_user_groups_id_seq OWNED BY auth_user_groups.id;
+
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE auth_user_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_id_seq OWNER TO django;
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE auth_user_id_seq OWNED BY auth_user.id;
+
+
+--
+-- Name: auth_user_user_permissions; Type: TABLE; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE TABLE auth_user_user_permissions (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_user_user_permissions OWNER TO django;
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE auth_user_user_permissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_user_permissions_id_seq OWNER TO django;
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE auth_user_user_permissions_id_seq OWNED BY auth_user_user_permissions.id;
+
+
+--
+-- Name: captcha_captchastore; Type: TABLE; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE TABLE captcha_captchastore (
+    id integer NOT NULL,
+    challenge character varying(32) NOT NULL,
+    response character varying(32) NOT NULL,
+    hashkey character varying(40) NOT NULL,
+    expiration timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.captcha_captchastore OWNER TO django;
+
+--
+-- Name: captcha_captchastore_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE captcha_captchastore_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.captcha_captchastore_id_seq OWNER TO django;
+
+--
+-- Name: captcha_captchastore_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE captcha_captchastore_id_seq OWNED BY captcha_captchastore.id;
+
+
+--
+-- Name: company_1; Type: TABLE; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE TABLE company_1 (
+    pa integer NOT NULL,
+    cwm_1 character varying(14),
+    cwm_2 character varying(14),
+    hwm_1 character varying(14),
+    hwm_2 character varying(14),
+    update_time timestamp without time zone
+);
+
+
+ALTER TABLE public.company_1 OWNER TO django;
+
+--
+-- Name: company_2; Type: TABLE; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE TABLE company_2 (
+    pa integer NOT NULL,
+    cwm_1 numeric,
+    cwm_2 numeric,
+    hwm_1 numeric,
+    hwm_2 numeric
+);
+
+
+ALTER TABLE public.company_2 OWNER TO django;
+
+--
+-- Name: company_3; Type: TABLE; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE TABLE company_3 (
+    pa integer NOT NULL,
+    cwm_1 numeric,
+    cwm_2 numeric,
+    hwm_1 numeric,
+    hwm_2 numeric
+);
+
+
+ALTER TABLE public.company_3 OWNER TO django;
+
+--
+-- Name: django_admin_log; Type: TABLE; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE TABLE django_admin_log (
+    id integer NOT NULL,
+    action_time timestamp with time zone NOT NULL,
+    user_id integer NOT NULL,
+    content_type_id integer,
+    object_id text,
+    object_repr character varying(200) NOT NULL,
+    action_flag smallint NOT NULL,
+    change_message text NOT NULL,
+    CONSTRAINT django_admin_log_action_flag_check CHECK ((action_flag >= 0))
+);
+
+
+ALTER TABLE public.django_admin_log OWNER TO django;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE django_admin_log_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_admin_log_id_seq OWNER TO django;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE django_admin_log_id_seq OWNED BY django_admin_log.id;
+
+
+--
+-- Name: django_content_type; Type: TABLE; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE TABLE django_content_type (
+    id integer NOT NULL,
+    name character varying(100) NOT NULL,
+    app_label character varying(100) NOT NULL,
+    model character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.django_content_type OWNER TO django;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE django_content_type_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_content_type_id_seq OWNER TO django;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE django_content_type_id_seq OWNED BY django_content_type.id;
+
+
+--
+-- Name: django_session; Type: TABLE; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE TABLE django_session (
+    session_key character varying(40) NOT NULL,
+    session_data text NOT NULL,
+    expire_date timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_session OWNER TO django;
+
+--
+-- Name: feedback_feedback; Type: TABLE; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE TABLE feedback_feedback (
+    id integer NOT NULL,
+    email character varying(75) NOT NULL,
+    subject text NOT NULL,
+    message text NOT NULL,
+    date timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.feedback_feedback OWNER TO django;
+
+--
+-- Name: feedback_feedback_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE feedback_feedback_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.feedback_feedback_id_seq OWNER TO django;
+
+--
+-- Name: feedback_feedback_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE feedback_feedback_id_seq OWNED BY feedback_feedback.id;
+
+
+--
+-- Name: houses_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE houses_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.houses_id_seq OWNER TO postgres;
+
+--
+-- Name: houses; Type: TABLE; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE TABLE houses (
+    house_id integer DEFAULT nextval('houses_id_seq'::regclass) NOT NULL,
+    settlement_id integer,
+    street_id integer,
+    house_num integer,
+    house_corp integer,
+    house_litera character(1),
+    note text
+);
+
+
+ALTER TABLE public.houses OWNER TO django;
+
+--
+-- Name: houses_house; Type: TABLE; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE TABLE houses_house (
+    house_id integer NOT NULL,
+    settlement character varying(2) NOT NULL,
+    street_name character varying(30) NOT NULL,
+    house_number character varying(8) NOT NULL,
+    house_litera character varying(2) NOT NULL,
+    house_corp character varying(2) NOT NULL,
+    house_area character varying(10) NOT NULL,
+    house_year character varying(4) NOT NULL,
+    house_status character varying(2) NOT NULL,
+    house_population character varying(5) NOT NULL,
+    contract boolean NOT NULL,
+    comment character varying(300) NOT NULL
+);
+
+
+ALTER TABLE public.houses_house OWNER TO django;
+
+--
+-- Name: houses_house_house_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE houses_house_house_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.houses_house_house_id_seq OWNER TO django;
+
+--
+-- Name: houses_house_house_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE houses_house_house_id_seq OWNED BY houses_house.house_id;
+
+
+--
+-- Name: houses_settlement; Type: TABLE; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE TABLE houses_settlement (
+    id integer NOT NULL
+);
+
+
+ALTER TABLE public.houses_settlement OWNER TO django;
+
+--
+-- Name: news_newsmodel; Type: TABLE; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE TABLE news_newsmodel (
+    id integer NOT NULL,
+    brief text NOT NULL,
+    news_date timestamp with time zone NOT NULL,
+    news_text text NOT NULL
+);
+
+
+ALTER TABLE public.news_newsmodel OWNER TO django;
+
+--
+-- Name: news_newsmodel_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE news_newsmodel_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.news_newsmodel_id_seq OWNER TO django;
+
+--
+-- Name: news_newsmodel_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE news_newsmodel_id_seq OWNED BY news_newsmodel.id;
+
+
+--
+-- Name: personal_accounts_dub; Type: TABLE; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE TABLE personal_accounts_dub (
+    pa integer NOT NULL,
+    house_id integer,
+    apartment integer,
+    apartment_litera character varying(1),
+    room integer,
+    room_litera character varying(1),
+    note text
+);
+
+
+ALTER TABLE public.personal_accounts_dub OWNER TO django;
+
+--
+-- Name: personal_accounts_fet; Type: TABLE; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE TABLE personal_accounts_fet (
+    pa integer NOT NULL,
+    house_id integer,
+    apartment integer,
+    apartment_litera character varying(1),
+    room integer,
+    room_litera character varying(1),
+    note text
+);
+
+
+ALTER TABLE public.personal_accounts_fet OWNER TO django;
+
+--
+-- Name: personal_accounts_uk; Type: TABLE; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE TABLE personal_accounts_uk (
+    pa integer NOT NULL,
+    house_id integer,
+    apartment integer,
+    apartment_litera character varying(1),
+    room integer,
+    room_litera character varying(1),
+    note text
+);
+
+
+ALTER TABLE public.personal_accounts_uk OWNER TO django;
+
+--
+-- Name: settlements; Type: TABLE; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE TABLE settlements (
+    settlement_id integer NOT NULL,
+    settlement_name character varying(40)
+);
+
+
+ALTER TABLE public.settlements OWNER TO django;
+
+--
+-- Name: settlements_settlement_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE settlements_settlement_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.settlements_settlement_id_seq OWNER TO django;
+
+--
+-- Name: settlements_settlement_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE settlements_settlement_id_seq OWNED BY settlements.settlement_id;
+
+
+--
+-- Name: streets; Type: TABLE; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE TABLE streets (
+    street_id integer NOT NULL,
+    street_name character varying(40)
+);
+
+
+ALTER TABLE public.streets OWNER TO django;
+
+--
+-- Name: streets_street_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE streets_street_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.streets_street_id_seq OWNER TO django;
+
+--
+-- Name: streets_street_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE streets_street_id_seq OWNED BY streets.street_id;
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_group ALTER COLUMN id SET DEFAULT nextval('auth_group_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_group_permissions ALTER COLUMN id SET DEFAULT nextval('auth_group_permissions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_permission ALTER COLUMN id SET DEFAULT nextval('auth_permission_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_user ALTER COLUMN id SET DEFAULT nextval('auth_user_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_user_groups ALTER COLUMN id SET DEFAULT nextval('auth_user_groups_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_user_user_permissions ALTER COLUMN id SET DEFAULT nextval('auth_user_user_permissions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY captcha_captchastore ALTER COLUMN id SET DEFAULT nextval('captcha_captchastore_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY django_admin_log ALTER COLUMN id SET DEFAULT nextval('django_admin_log_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY django_content_type ALTER COLUMN id SET DEFAULT nextval('django_content_type_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY feedback_feedback ALTER COLUMN id SET DEFAULT nextval('feedback_feedback_id_seq'::regclass);
+
+
+--
+-- Name: house_id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY houses_house ALTER COLUMN house_id SET DEFAULT nextval('houses_house_house_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY news_newsmodel ALTER COLUMN id SET DEFAULT nextval('news_newsmodel_id_seq'::regclass);
+
+
+--
+-- Name: settlement_id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY settlements ALTER COLUMN settlement_id SET DEFAULT nextval('settlements_settlement_id_seq'::regclass);
+
+
+--
+-- Name: street_id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY streets ALTER COLUMN street_id SET DEFAULT nextval('streets_street_id_seq'::regclass);
+
+
+--
+-- Data for Name: auth_group; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY auth_group (id, name) FROM stdin;
+\.
+
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('auth_group_id_seq', 1, false);
+
+
+--
+-- Data for Name: auth_group_permissions; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY auth_group_permissions (id, group_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('auth_group_permissions_id_seq', 1, false);
+
+
+--
+-- Data for Name: auth_permission; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY auth_permission (id, name, content_type_id, codename) FROM stdin;
+1	Can add log entry	1	add_logentry
+2	Can change log entry	1	change_logentry
+3	Can delete log entry	1	delete_logentry
+4	Can add permission	2	add_permission
+5	Can change permission	2	change_permission
+6	Can delete permission	2	delete_permission
+7	Can add group	3	add_group
+8	Can change group	3	change_group
+9	Can delete group	3	delete_group
+10	Can add user	4	add_user
+11	Can change user	4	change_user
+12	Can delete user	4	delete_user
+13	Can add content type	5	add_contenttype
+14	Can change content type	5	change_contenttype
+15	Can delete content type	5	delete_contenttype
+16	Can add session	6	add_session
+17	Can change session	6	change_session
+18	Can delete session	6	delete_session
+22	Can add captcha store	8	add_captchastore
+23	Can change captcha store	8	change_captchastore
+24	Can delete captcha store	8	delete_captchastore
+28	Can add house	10	add_house
+29	Can change house	10	change_house
+30	Can delete house	10	delete_house
+31	Can add news model	11	add_newsmodel
+32	Can change news model	11	change_newsmodel
+33	Can delete news model	11	delete_newsmodel
+34	Can add feedback	12	add_feedback
+35	Can change feedback	12	change_feedback
+36	Can delete feedback	12	delete_feedback
+\.
+
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('auth_permission_id_seq', 36, true);
+
+
+--
+-- Data for Name: auth_user; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
+1	pbkdf2_sha256$12000$5c1D9SMQWkWL$gBQUay1abSyfwVFU4RUjp4SKiuc3Id9iq6eppFBdIVg=	2014-04-29 21:53:52.036231+04	t	alexmln			fromlnkv@gmail.com	t	t	2014-03-04 22:32:49.436+04
+\.
+
+
+--
+-- Data for Name: auth_user_groups; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY auth_user_groups (id, user_id, group_id) FROM stdin;
+\.
+
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('auth_user_groups_id_seq', 1, false);
+
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('auth_user_id_seq', 1, true);
+
+
+--
+-- Data for Name: auth_user_user_permissions; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY auth_user_user_permissions (id, user_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('auth_user_user_permissions_id_seq', 1, false);
+
+
+--
+-- Data for Name: captcha_captchastore; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY captcha_captchastore (id, challenge, response, hashkey, expiration) FROM stdin;
+1302	DUXSNJW	duxsnjw	11801471c9eec99f37661b1f0ac555258705b493	2014-04-29 21:32:37.547652+04
+1304	DAIUFLZ	daiuflz	3c2b37ebd93347db8c9460c1cb6989814006d700	2014-04-29 23:27:59.563849+04
+1306	QEKOQHT	qekoqht	891bf8676022a9b42f8b368074ad8b13af0dff59	2014-04-30 00:18:45.330528+04
+1308	QRHCKVD	qrhckvd	17ce443e68c1b3b6ccd1d995411fa7f6a241efe9	2014-05-01 11:02:19.704723+04
+1310	TIHZTIH	tihztih	2f19d2ca9bc5eb7e99d974d8f7977312c3aa9b0e	2014-05-06 11:05:57.991445+04
+1312	SRDNPFS	srdnpfs	0b7c6b5ccbd13ed98da6481fef558fd54ee50db2	2014-05-07 04:16:56.743976+04
+1314	OOSDAPN	oosdapn	4bd13d138019bd571bed84effafbef3fd9092b96	2014-05-07 04:16:57.154+04
+1316	SRJJGBO	srjjgbo	c21f964ff9e317f31f96d7ede9f0c7f95973c1bb	2014-05-07 04:17:09.443972+04
+1318	SIQEIFL	siqeifl	9b47ab050bf823d5cb7a897a6914bab6c66b2204	2014-05-07 04:17:10.45403+04
+1320	CSJBMVL	csjbmvl	49337de12169eef24dc4c045b6d7cba459e95ef6	2014-05-07 04:17:13.748407+04
+1322	QPIXGID	qpixgid	af71940a223c8c558b583123cc7ce3ca97cac86d	2014-05-07 04:17:16.235615+04
+1324	LIHPACF	lihpacf	209fc3c92a4643351f3bf51c77c07b4a7db5dd6d	2014-05-10 04:38:39.305085+04
+1326	DRWADMG	drwadmg	781d10fe64c55ef1561cf479c01613fe97bd8769	2014-05-12 11:39:02.965505+04
+1328	XRCAPOI	xrcapoi	16b90142d5c38df6728ce67cd83b7ad1c5c2f83f	2014-05-12 22:43:49.57178+04
+1330	WQPYGOP	wqpygop	dc29c28b56fb718da3d49b91851ea1336f5dc701	2014-05-12 23:00:12.81151+04
+1332	XZAYUOC	xzayuoc	c605eb6651b500719f75e2d7b41bc94d543a25f7	2014-05-12 23:01:52.971441+04
+1303	KUPWRDX	kupwrdx	e84999371059e87dc55544f9dbd59914130853ef	2014-04-29 22:51:53.884928+04
+1305	VUNONZA	vunonza	3b5b6bdaff9218a6bc9150b95ed26d543e2f78ec	2014-04-29 23:34:56.671854+04
+1307	OBPTFMX	obptfmx	43f27b91a4cda1503778dce8e5e29f4919a6f0e8	2014-05-01 11:02:05.383097+04
+1309	VABMIXR	vabmixr	7212d3dc0a4d6656fe0692b8a64723e31cd2e517	2014-05-06 11:05:45.598874+04
+1311	SQXBIUH	sqxbiuh	27652fb3e9ad40b8f98069c153a646ec59d52d31	2014-05-06 11:06:01.89891+04
+1313	RIFFKKE	riffkke	fd2efdbbf4a597175be96012ef6f4e26d9914c0a	2014-05-07 04:16:56.853517+04
+1315	YPJAXZX	ypjaxzx	663ce411cb94d3fff3b3ff8bcec940a1cdf6b10d	2014-05-07 04:16:57.250951+04
+1317	NDWBFXV	ndwbfxv	0c6e0e914b123bc9fa1e9dfa34b903a479f8be65	2014-05-07 04:17:09.53809+04
+1319	DQRLUZJ	dqrluzj	c6f2687dc376b1d1b67b862b0ff52fa5c32f50c7	2014-05-07 04:17:10.540409+04
+1321	KUOXJRD	kuoxjrd	168ca062b571403de383f4a83b9983f881853e9b	2014-05-07 04:17:13.839793+04
+1323	QETLMOG	qetlmog	a1b09ee104724c422c39b2c5303c3166acaa88a5	2014-05-07 04:17:16.32142+04
+1325	WYBJNTF	wybjntf	5772476ce245c943316eeb4be9c4cdefd27c5fd4	2014-05-10 04:38:39.702595+04
+1327	IOQVNOB	ioqvnob	3d1be94559da230cf2b8757bc3ddd8bf33c97ed6	2014-05-12 22:00:49.447954+04
+1329	HBSYTBV	hbsytbv	3a71cf6514fa6f7d094f11841de5016e127e97e3	2014-05-12 22:43:49.953622+04
+1331	QVZMNVJ	qvzmnvj	8e0fa1d28e5808b38bdfa8699a49480b46ea161f	2014-05-12 23:01:50.591251+04
+1333	NQWWYYW	nqwwyyw	4f992c3fd55a1124aafc7d9f81e2fa832771e690	2014-05-12 23:06:48.328652+04
+1301	FMONKOV	fmonkov	dbddef31432eafbebfe3fc754d731456716046db	2014-04-29 11:42:44.097725+04
+\.
+
+
+--
+-- Name: captcha_captchastore_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('captcha_captchastore_id_seq', 1333, true);
+
+
+--
+-- Data for Name: company_1; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY company_1 (pa, cwm_1, cwm_2, hwm_1, hwm_2, update_time) FROM stdin;
+3	\N	\N	\N	\N	\N
+1477	\N	\N	\N	\N	\N
+1478	\N	\N	\N	\N	\N
+1479	\N	\N	\N	\N	\N
+1480	\N	\N	\N	\N	\N
+1481	\N	\N	\N	\N	\N
+1482	\N	\N	\N	\N	\N
+1483	\N	\N	\N	\N	\N
+1484	\N	\N	\N	\N	\N
+1485	\N	\N	\N	\N	\N
+1486	\N	\N	\N	\N	\N
+1487	\N	\N	\N	\N	\N
+1488	\N	\N	\N	\N	\N
+1489	\N	\N	\N	\N	\N
+1490	\N	\N	\N	\N	\N
+1491	\N	\N	\N	\N	\N
+1492	\N	\N	\N	\N	\N
+1493	\N	\N	\N	\N	\N
+1494	\N	\N	\N	\N	\N
+1495	\N	\N	\N	\N	\N
+1496	\N	\N	\N	\N	\N
+1497	\N	\N	\N	\N	\N
+1498	\N	\N	\N	\N	\N
+1499	\N	\N	\N	\N	\N
+1500	\N	\N	\N	\N	\N
+1501	\N	\N	\N	\N	\N
+1502	\N	\N	\N	\N	\N
+1503	\N	\N	\N	\N	\N
+1504	\N	\N	\N	\N	\N
+1505	\N	\N	\N	\N	\N
+1506	\N	\N	\N	\N	\N
+1507	\N	\N	\N	\N	\N
+1508	\N	\N	\N	\N	\N
+1509	\N	\N	\N	\N	\N
+1510	\N	\N	\N	\N	\N
+1511	\N	\N	\N	\N	\N
+1512	\N	\N	\N	\N	\N
+1513	\N	\N	\N	\N	\N
+1514	\N	\N	\N	\N	\N
+1515	\N	\N	\N	\N	\N
+1516	\N	\N	\N	\N	\N
+1517	\N	\N	\N	\N	\N
+1518	\N	\N	\N	\N	\N
+1519	\N	\N	\N	\N	\N
+1520	\N	\N	\N	\N	\N
+1521	\N	\N	\N	\N	\N
+1522	\N	\N	\N	\N	\N
+1523	\N	\N	\N	\N	\N
+1524	\N	\N	\N	\N	\N
+1525	\N	\N	\N	\N	\N
+1526	\N	\N	\N	\N	\N
+1527	\N	\N	\N	\N	\N
+1528	\N	\N	\N	\N	\N
+1529	\N	\N	\N	\N	\N
+1530	\N	\N	\N	\N	\N
+1531	\N	\N	\N	\N	\N
+1532	\N	\N	\N	\N	\N
+1533	\N	\N	\N	\N	\N
+1534	\N	\N	\N	\N	\N
+1535	\N	\N	\N	\N	\N
+1536	\N	\N	\N	\N	\N
+1537	\N	\N	\N	\N	\N
+1538	\N	\N	\N	\N	\N
+1539	\N	\N	\N	\N	\N
+1615	\N	\N	\N	\N	\N
+1540	\N	\N	\N	\N	\N
+1541	\N	\N	\N	\N	\N
+1614	\N	\N	\N	\N	\N
+1542	\N	\N	\N	\N	\N
+1616	\N	\N	\N	\N	\N
+1543	\N	\N	\N	\N	\N
+1617	\N	\N	\N	\N	\N
+1544	\N	\N	\N	\N	\N
+1618	\N	\N	\N	\N	\N
+1545	\N	\N	\N	\N	\N
+1546	\N	\N	\N	\N	\N
+1547	\N	\N	\N	\N	\N
+1548	\N	\N	\N	\N	\N
+1549	\N	\N	\N	\N	\N
+1550	\N	\N	\N	\N	\N
+1551	\N	\N	\N	\N	\N
+1552	\N	\N	\N	\N	\N
+1553	\N	\N	\N	\N	\N
+1554	\N	\N	\N	\N	\N
+1555	\N	\N	\N	\N	\N
+1556	\N	\N	\N	\N	\N
+1557	\N	\N	\N	\N	\N
+1558	\N	\N	\N	\N	\N
+1559	\N	\N	\N	\N	\N
+1560	\N	\N	\N	\N	\N
+1561	\N	\N	\N	\N	\N
+1562	\N	\N	\N	\N	\N
+1563	\N	\N	\N	\N	\N
+1564	\N	\N	\N	\N	\N
+2124	\N	\N	\N	\N	\N
+1566	\N	\N	\N	\N	\N
+1567	\N	\N	\N	\N	\N
+1568	\N	\N	\N	\N	\N
+1569	\N	\N	\N	\N	\N
+1570	\N	\N	\N	\N	\N
+1571	\N	\N	\N	\N	\N
+1572	\N	\N	\N	\N	\N
+1573	\N	\N	\N	\N	\N
+1574	\N	\N	\N	\N	\N
+1575	\N	\N	\N	\N	\N
+1576	\N	\N	\N	\N	\N
+1577	\N	\N	\N	\N	\N
+1578	\N	\N	\N	\N	\N
+1579	\N	\N	\N	\N	\N
+1580	\N	\N	\N	\N	\N
+1581	\N	\N	\N	\N	\N
+1582	\N	\N	\N	\N	\N
+1583	\N	\N	\N	\N	\N
+1584	\N	\N	\N	\N	\N
+1585	\N	\N	\N	\N	\N
+1586	\N	\N	\N	\N	\N
+1587	\N	\N	\N	\N	\N
+1588	\N	\N	\N	\N	\N
+1589	\N	\N	\N	\N	\N
+1590	\N	\N	\N	\N	\N
+1592	\N	\N	\N	\N	\N
+1593	\N	\N	\N	\N	\N
+1594	\N	\N	\N	\N	\N
+1595	\N	\N	\N	\N	\N
+1596	\N	\N	\N	\N	\N
+1597	\N	\N	\N	\N	\N
+1598	\N	\N	\N	\N	\N
+1599	\N	\N	\N	\N	\N
+1600	\N	\N	\N	\N	\N
+1601	\N	\N	\N	\N	\N
+1602	\N	\N	\N	\N	\N
+1603	\N	\N	\N	\N	\N
+1604	\N	\N	\N	\N	\N
+1605	\N	\N	\N	\N	\N
+1606	\N	\N	\N	\N	\N
+1607	\N	\N	\N	\N	\N
+1608	\N	\N	\N	\N	\N
+1609	\N	\N	\N	\N	\N
+1610	\N	\N	\N	\N	\N
+1611	\N	\N	\N	\N	\N
+1612	\N	\N	\N	\N	\N
+1613	\N	\N	\N	\N	\N
+1619	\N	\N	\N	\N	\N
+1620	\N	\N	\N	\N	\N
+1621	\N	\N	\N	\N	\N
+1622	\N	\N	\N	\N	\N
+1623	\N	\N	\N	\N	\N
+1624	\N	\N	\N	\N	\N
+1625	\N	\N	\N	\N	\N
+1626	\N	\N	\N	\N	\N
+1627	\N	\N	\N	\N	\N
+1628	\N	\N	\N	\N	\N
+1756	\N	\N	\N	\N	\N
+1629	\N	\N	\N	\N	\N
+1630	\N	\N	\N	\N	\N
+1631	\N	\N	\N	\N	\N
+1632	\N	\N	\N	\N	\N
+1633	\N	\N	\N	\N	\N
+1714	\N	\N	\N	\N	\N
+1752	\N	\N	\N	\N	\N
+1715	\N	\N	\N	\N	\N
+2257	\N	\N	\N	\N	\N
+1782	\N	\N	\N	\N	\N
+1800	\N	\N	\N	\N	\N
+1792	\N	\N	\N	\N	\N
+1793	\N	\N	\N	\N	\N
+1785	\N	\N	\N	\N	\N
+1796	\N	\N	\N	\N	\N
+2311	\N	\N	\N	\N	\N
+1795	\N	\N	\N	\N	\N
+1780	\N	\N	\N	\N	\N
+1794	\N	\N	\N	\N	\N
+1799	\N	\N	\N	\N	\N
+1787	\N	\N	\N	\N	\N
+1789	\N	\N	\N	\N	\N
+1781	\N	\N	\N	\N	\N
+1783	\N	\N	\N	\N	\N
+2286	\N	\N	\N	\N	\N
+1786	\N	\N	\N	\N	\N
+1798	\N	\N	\N	\N	\N
+2313	\N	\N	\N	\N	\N
+1790	\N	\N	\N	\N	\N
+1834	\N	\N	\N	\N	\N
+1801	\N	\N	\N	\N	\N
+1791	\N	\N	\N	\N	\N
+1802	\N	\N	\N	\N	\N
+1778	\N	\N	\N	\N	\N
+2146	\N	\N	\N	\N	\N
+1784	\N	\N	\N	\N	\N
+1797	\N	\N	\N	\N	\N
+1788	\N	\N	\N	\N	\N
+1779	\N	\N	\N	\N	\N
+2122	\N	\N	\N	\N	\N
+1816	\N	\N	\N	\N	\N
+1817	\N	\N	\N	\N	\N
+1805	\N	\N	\N	\N	\N
+1821	\N	\N	\N	\N	\N
+1818	\N	\N	\N	\N	\N
+1830	\N	\N	\N	\N	\N
+2119	\N	\N	\N	\N	\N
+1812	\N	\N	\N	\N	\N
+1811	\N	\N	\N	\N	\N
+1823	\N	\N	\N	\N	\N
+1829	\N	\N	\N	\N	\N
+1833	\N	\N	\N	\N	\N
+1831	\N	\N	\N	\N	\N
+1803	\N	\N	\N	\N	\N
+1822	\N	\N	\N	\N	\N
+1832	\N	\N	\N	\N	\N
+1824	\N	\N	\N	\N	\N
+1813	\N	\N	\N	\N	\N
+1825	\N	\N	\N	\N	\N
+1826	\N	\N	\N	\N	\N
+1804	\N	\N	\N	\N	\N
+1827	\N	\N	\N	\N	\N
+1806	\N	\N	\N	\N	\N
+1807	\N	\N	\N	\N	\N
+1828	\N	\N	\N	\N	\N
+1815	\N	\N	\N	\N	\N
+1814	\N	\N	\N	\N	\N
+1820	\N	\N	\N	\N	\N
+1819	\N	\N	\N	\N	\N
+1810	\N	\N	\N	\N	\N
+1809	\N	\N	\N	\N	\N
+1808	\N	\N	\N	\N	\N
+2149	\N	\N	\N	\N	\N
+2150	\N	\N	\N	\N	\N
+2255	\N	\N	\N	\N	\N
+1994	\N	\N	\N	\N	\N
+1961	\N	\N	\N	\N	\N
+2319	\N	\N	\N	\N	\N
+2299	\N	\N	\N	\N	\N
+2309	\N	\N	\N	\N	\N
+2101	\N	\N	\N	\N	\N
+2006	\N	\N	\N	\N	\N
+2007	\N	\N	\N	\N	\N
+2008	\N	\N	\N	\N	\N
+2009	\N	\N	\N	\N	\N
+2010	\N	\N	\N	\N	\N
+2080	\N	\N	\N	\N	\N
+2011	\N	\N	\N	\N	\N
+2012	\N	\N	\N	\N	\N
+2013	\N	\N	\N	\N	\N
+2014	\N	\N	\N	\N	\N
+2015	\N	\N	\N	\N	\N
+2016	\N	\N	\N	\N	\N
+2017	\N	\N	\N	\N	\N
+2018	\N	\N	\N	\N	\N
+2019	\N	\N	\N	\N	\N
+2020	\N	\N	\N	\N	\N
+2021	\N	\N	\N	\N	\N
+2022	\N	\N	\N	\N	\N
+2023	\N	\N	\N	\N	\N
+2024	\N	\N	\N	\N	\N
+2025	\N	\N	\N	\N	\N
+2026	\N	\N	\N	\N	\N
+2027	\N	\N	\N	\N	\N
+2028	\N	\N	\N	\N	\N
+2062	\N	\N	\N	\N	\N
+2063	\N	\N	\N	\N	\N
+2064	\N	\N	\N	\N	\N
+2065	\N	\N	\N	\N	\N
+2066	\N	\N	\N	\N	\N
+2067	\N	\N	\N	\N	\N
+2068	\N	\N	\N	\N	\N
+2069	\N	\N	\N	\N	\N
+2070	\N	\N	\N	\N	\N
+2071	\N	\N	\N	\N	\N
+2072	\N	\N	\N	\N	\N
+2073	\N	\N	\N	\N	\N
+1835	\N	\N	\N	\N	\N
+1836	\N	\N	\N	\N	\N
+1837	\N	\N	\N	\N	\N
+1838	\N	\N	\N	\N	\N
+1839	\N	\N	\N	\N	\N
+1840	\N	\N	\N	\N	\N
+1841	\N	\N	\N	\N	\N
+2142	\N	\N	\N	\N	\N
+2125	\N	\N	\N	\N	\N
+2135	\N	\N	\N	\N	\N
+2138	\N	\N	\N	\N	\N
+2143	\N	\N	\N	\N	\N
+2128	\N	\N	\N	\N	\N
+2145	\N	\N	\N	\N	\N
+2131	\N	\N	\N	\N	\N
+2130	\N	\N	\N	\N	\N
+2139	\N	\N	\N	\N	\N
+2141	\N	\N	\N	\N	\N
+2147	\N	\N	\N	\N	\N
+2127	\N	\N	\N	\N	\N
+2136	\N	\N	\N	\N	\N
+2137	\N	\N	\N	\N	\N
+2133	\N	\N	\N	\N	\N
+2134	\N	\N	\N	\N	\N
+2132	\N	\N	\N	\N	\N
+779	\N	\N	\N	\N	\N
+781	\N	\N	\N	\N	\N
+1761	\N	\N	\N	\N	\N
+1762	\N	\N	\N	\N	\N
+1842	\N	\N	\N	\N	\N
+1843	\N	\N	\N	\N	\N
+1844	\N	\N	\N	\N	\N
+1845	\N	\N	\N	\N	\N
+1846	\N	\N	\N	\N	\N
+1847	\N	\N	\N	\N	\N
+1848	\N	\N	\N	\N	\N
+1849	\N	\N	\N	\N	\N
+1850	\N	\N	\N	\N	\N
+1851	\N	\N	\N	\N	\N
+1852	\N	\N	\N	\N	\N
+1853	\N	\N	\N	\N	\N
+1854	\N	\N	\N	\N	\N
+1855	\N	\N	\N	\N	\N
+1856	\N	\N	\N	\N	\N
+1857	\N	\N	\N	\N	\N
+1858	\N	\N	\N	\N	\N
+1859	\N	\N	\N	\N	\N
+1860	\N	\N	\N	\N	\N
+1861	\N	\N	\N	\N	\N
+1862	\N	\N	\N	\N	\N
+1863	\N	\N	\N	\N	\N
+1864	\N	\N	\N	\N	\N
+1865	\N	\N	\N	\N	\N
+1866	\N	\N	\N	\N	\N
+2148	\N	\N	\N	\N	\N
+1867	\N	\N	\N	\N	\N
+1868	\N	\N	\N	\N	\N
+1869	\N	\N	\N	\N	\N
+1870	\N	\N	\N	\N	\N
+1871	\N	\N	\N	\N	\N
+1872	\N	\N	\N	\N	\N
+1873	\N	\N	\N	\N	\N
+1874	\N	\N	\N	\N	\N
+1875	\N	\N	\N	\N	\N
+1876	\N	\N	\N	\N	\N
+1877	\N	\N	\N	\N	\N
+1878	\N	\N	\N	\N	\N
+1879	\N	\N	\N	\N	\N
+1880	\N	\N	\N	\N	\N
+1881	\N	\N	\N	\N	\N
+1882	\N	\N	\N	\N	\N
+1883	\N	\N	\N	\N	\N
+1884	\N	\N	\N	\N	\N
+1885	\N	\N	\N	\N	\N
+1886	\N	\N	\N	\N	\N
+1887	\N	\N	\N	\N	\N
+1888	\N	\N	\N	\N	\N
+1889	\N	\N	\N	\N	\N
+1890	\N	\N	\N	\N	\N
+1891	\N	\N	\N	\N	\N
+1892	\N	\N	\N	\N	\N
+1893	\N	\N	\N	\N	\N
+1894	\N	\N	\N	\N	\N
+1895	\N	\N	\N	\N	\N
+1896	\N	\N	\N	\N	\N
+1897	\N	\N	\N	\N	\N
+1898	\N	\N	\N	\N	\N
+1899	\N	\N	\N	\N	\N
+1900	\N	\N	\N	\N	\N
+1901	\N	\N	\N	\N	\N
+1902	\N	\N	\N	\N	\N
+1903	\N	\N	\N	\N	\N
+1904	\N	\N	\N	\N	\N
+1905	\N	\N	\N	\N	\N
+1906	\N	\N	\N	\N	\N
+1929	\N	\N	\N	\N	\N
+1930	\N	\N	\N	\N	\N
+1931	\N	\N	\N	\N	\N
+1932	\N	\N	\N	\N	\N
+1933	\N	\N	\N	\N	\N
+1934	\N	\N	\N	\N	\N
+1936	\N	\N	\N	\N	\N
+1937	\N	\N	\N	\N	\N
+1938	\N	\N	\N	\N	\N
+1939	\N	\N	\N	\N	\N
+1940	\N	\N	\N	\N	\N
+1941	\N	\N	\N	\N	\N
+1942	\N	\N	\N	\N	\N
+1943	\N	\N	\N	\N	\N
+1944	\N	\N	\N	\N	\N
+1945	\N	\N	\N	\N	\N
+1946	\N	\N	\N	\N	\N
+1947	\N	\N	\N	\N	\N
+1948	\N	\N	\N	\N	\N
+1949	\N	\N	\N	\N	\N
+1950	\N	\N	\N	\N	\N
+1951	\N	\N	\N	\N	\N
+1952	\N	\N	\N	\N	\N
+1953	\N	\N	\N	\N	\N
+1954	\N	\N	\N	\N	\N
+1955	\N	\N	\N	\N	\N
+1956	\N	\N	\N	\N	\N
+1957	\N	\N	\N	\N	\N
+1958	\N	\N	\N	\N	\N
+1959	\N	\N	\N	\N	\N
+1960	\N	\N	\N	\N	\N
+2316	\N	\N	\N	\N	\N
+2317	\N	\N	\N	\N	\N
+2318	\N	\N	\N	\N	\N
+1907	\N	\N	\N	\N	\N
+1908	\N	\N	\N	\N	\N
+1909	\N	\N	\N	\N	\N
+2123	\N	\N	\N	\N	\N
+1962	\N	\N	\N	\N	\N
+1963	\N	\N	\N	\N	\N
+1964	\N	\N	\N	\N	\N
+1965	\N	\N	\N	\N	\N
+1966	\N	\N	\N	\N	\N
+1967	\N	\N	\N	\N	\N
+1968	\N	\N	\N	\N	\N
+1969	\N	\N	\N	\N	\N
+1970	\N	\N	\N	\N	\N
+1971	\N	\N	\N	\N	\N
+1972	\N	\N	\N	\N	\N
+1973	\N	\N	\N	\N	\N
+1974	\N	\N	\N	\N	\N
+1975	\N	\N	\N	\N	\N
+1976	\N	\N	\N	\N	\N
+1977	\N	\N	\N	\N	\N
+1978	\N	\N	\N	\N	\N
+1979	\N	\N	\N	\N	\N
+1980	\N	\N	\N	\N	\N
+1981	\N	\N	\N	\N	\N
+1982	\N	\N	\N	\N	\N
+1983	\N	\N	\N	\N	\N
+1984	\N	\N	\N	\N	\N
+1985	\N	\N	\N	\N	\N
+1986	\N	\N	\N	\N	\N
+1987	\N	\N	\N	\N	\N
+1988	\N	\N	\N	\N	\N
+1989	\N	\N	\N	\N	\N
+1990	\N	\N	\N	\N	\N
+1991	\N	\N	\N	\N	\N
+1992	\N	\N	\N	\N	\N
+1993	\N	\N	\N	\N	\N
+2120	\N	\N	\N	\N	\N
+1995	\N	\N	\N	\N	\N
+1996	\N	\N	\N	\N	\N
+1997	\N	\N	\N	\N	\N
+1998	\N	\N	\N	\N	\N
+1999	\N	\N	\N	\N	\N
+2000	\N	\N	\N	\N	\N
+2001	\N	\N	\N	\N	\N
+2002	\N	\N	\N	\N	\N
+2093	\N	\N	\N	\N	\N
+2094	\N	\N	\N	\N	\N
+2095	\N	\N	\N	\N	\N
+2096	\N	\N	\N	\N	\N
+2097	\N	\N	\N	\N	\N
+2039	\N	\N	\N	\N	\N
+2040	\N	\N	\N	\N	\N
+2041	\N	\N	\N	\N	\N
+2042	\N	\N	\N	\N	\N
+2043	\N	\N	\N	\N	\N
+2044	\N	\N	\N	\N	\N
+2045	\N	\N	\N	\N	\N
+2046	\N	\N	\N	\N	\N
+2047	\N	\N	\N	\N	\N
+2048	\N	\N	\N	\N	\N
+2049	\N	\N	\N	\N	\N
+2050	\N	\N	\N	\N	\N
+2051	\N	\N	\N	\N	\N
+2052	\N	\N	\N	\N	\N
+2053	\N	\N	\N	\N	\N
+2081	\N	\N	\N	\N	\N
+2082	\N	\N	\N	\N	\N
+2084	\N	\N	\N	\N	\N
+2085	\N	\N	\N	\N	\N
+2086	\N	\N	\N	\N	\N
+2087	\N	\N	\N	\N	\N
+2088	\N	\N	\N	\N	\N
+2089	\N	\N	\N	\N	\N
+2090	\N	\N	\N	\N	\N
+2092	\N	\N	\N	\N	\N
+2054	\N	\N	\N	\N	\N
+2055	\N	\N	\N	\N	\N
+2056	\N	\N	\N	\N	\N
+2057	\N	\N	\N	\N	\N
+2058	\N	\N	\N	\N	\N
+2059	\N	\N	\N	\N	\N
+2060	\N	\N	\N	\N	\N
+2061	\N	\N	\N	\N	\N
+1910	\N	\N	\N	\N	\N
+1911	\N	\N	\N	\N	\N
+1912	\N	\N	\N	\N	\N
+1913	\N	\N	\N	\N	\N
+2250	\N	\N	\N	\N	\N
+2140	\N	\N	\N	\N	\N
+745	\N	\N	\N	\N	\N
+773	\N	\N	\N	\N	\N
+774	\N	\N	\N	\N	\N
+775	\N	\N	\N	\N	\N
+1914	\N	\N	\N	\N	\N
+1915	\N	\N	\N	\N	\N
+1916	\N	\N	\N	\N	\N
+1919	\N	\N	\N	\N	\N
+1920	\N	\N	\N	\N	\N
+2306	\N	\N	\N	\N	\N
+2126	\N	\N	\N	\N	\N
+2106	\N	\N	\N	\N	\N
+2107	\N	\N	\N	\N	\N
+2108	\N	\N	\N	\N	\N
+1921	\N	\N	\N	\N	\N
+2074	\N	\N	\N	\N	\N
+2075	\N	\N	\N	\N	\N
+1922	\N	\N	\N	\N	\N
+1923	\N	\N	\N	\N	\N
+1924	\N	\N	\N	\N	\N
+1925	\N	\N	\N	\N	\N
+1918	\N	\N	\N	\N	\N
+1926	\N	\N	\N	\N	\N
+1927	\N	\N	\N	\N	\N
+1928	\N	\N	\N	\N	\N
+2261	\N	\N	\N	\N	\N
+2076	\N	\N	\N	\N	\N
+2077	\N	\N	\N	\N	\N
+2078	\N	\N	\N	\N	\N
+2079	\N	\N	\N	\N	\N
+1917	\N	\N	\N	\N	\N
+2003	\N	\N	\N	\N	\N
+2004	\N	\N	\N	\N	\N
+2109	\N	\N	\N	\N	\N
+2110	\N	\N	\N	\N	\N
+2111	\N	\N	\N	\N	\N
+2112	\N	\N	\N	\N	\N
+2292	\N	\N	\N	\N	\N
+2005	\N	\N	\N	\N	\N
+2267	\N	\N	\N	\N	\N
+302	\N	\N	\N	\N	\N
+644	\N	\N	\N	\N	\N
+645	\N	\N	\N	\N	\N
+646	\N	\N	\N	\N	\N
+647	\N	\N	\N	\N	\N
+648	\N	\N	\N	\N	\N
+649	\N	\N	\N	\N	\N
+650	\N	\N	\N	\N	\N
+708	\N	\N	\N	\N	\N
+709	\N	\N	\N	\N	\N
+710	\N	\N	\N	\N	\N
+711	\N	\N	\N	\N	\N
+712	\N	\N	\N	\N	\N
+713	\N	\N	\N	\N	\N
+714	\N	\N	\N	\N	\N
+715	\N	\N	\N	\N	\N
+716	\N	\N	\N	\N	\N
+717	\N	\N	\N	\N	\N
+718	\N	\N	\N	\N	\N
+719	\N	\N	\N	\N	\N
+720	\N	\N	\N	\N	\N
+661	\N	\N	\N	\N	\N
+662	\N	\N	\N	\N	\N
+663	\N	\N	\N	\N	\N
+664	\N	\N	\N	\N	\N
+665	\N	\N	\N	\N	\N
+670	\N	\N	\N	\N	\N
+671	\N	\N	\N	\N	\N
+672	\N	\N	\N	\N	\N
+673	\N	\N	\N	\N	\N
+674	\N	\N	\N	\N	\N
+675	\N	\N	\N	\N	\N
+676	\N	\N	\N	\N	\N
+677	\N	\N	\N	\N	\N
+678	\N	\N	\N	\N	\N
+679	\N	\N	\N	\N	\N
+74	\N	\N	\N	\N	\N
+75	\N	\N	\N	\N	\N
+76	\N	\N	\N	\N	\N
+77	\N	\N	\N	\N	\N
+78	\N	\N	\N	\N	\N
+311	\N	\N	\N	\N	\N
+312	\N	\N	\N	\N	\N
+313	\N	\N	\N	\N	\N
+314	\N	\N	\N	\N	\N
+315	\N	\N	\N	\N	\N
+316	\N	\N	\N	\N	\N
+317	\N	\N	\N	\N	\N
+318	\N	\N	\N	\N	\N
+319	\N	\N	\N	\N	\N
+320	\N	\N	\N	\N	\N
+321	\N	\N	\N	\N	\N
+322	\N	\N	\N	\N	\N
+323	\N	\N	\N	\N	\N
+324	\N	\N	\N	\N	\N
+325	\N	\N	\N	\N	\N
+326	\N	\N	\N	\N	\N
+327	\N	\N	\N	\N	\N
+328	\N	\N	\N	\N	\N
+329	\N	\N	\N	\N	\N
+330	\N	\N	\N	\N	\N
+331	\N	\N	\N	\N	\N
+332	\N	\N	\N	\N	\N
+333	\N	\N	\N	\N	\N
+334	\N	\N	\N	\N	\N
+335	\N	\N	\N	\N	\N
+336	\N	\N	\N	\N	\N
+337	\N	\N	\N	\N	\N
+338	\N	\N	\N	\N	\N
+339	\N	\N	\N	\N	\N
+340	\N	\N	\N	\N	\N
+25	\N	\N	\N	\N	\N
+26	\N	\N	\N	\N	\N
+27	\N	\N	\N	\N	\N
+28	\N	\N	\N	\N	\N
+29	\N	\N	\N	\N	\N
+30	\N	\N	\N	\N	\N
+31	\N	\N	\N	\N	\N
+32	\N	\N	\N	\N	\N
+33	\N	\N	\N	\N	\N
+60	\N	\N	\N	\N	\N
+61	\N	\N	\N	\N	\N
+62	\N	\N	\N	\N	\N
+63	\N	\N	\N	\N	\N
+64	\N	\N	\N	\N	\N
+65	\N	\N	\N	\N	\N
+66	\N	\N	\N	\N	\N
+67	\N	\N	\N	\N	\N
+68	\N	\N	\N	\N	\N
+69	\N	\N	\N	\N	\N
+70	\N	\N	\N	\N	\N
+13	\N	\N	\N	\N	\N
+14	\N	\N	\N	\N	\N
+15	\N	\N	\N	\N	\N
+16	\N	\N	\N	\N	\N
+17	\N	\N	\N	\N	\N
+18	\N	\N	\N	\N	\N
+19	\N	\N	\N	\N	\N
+20	\N	\N	\N	\N	\N
+21	\N	\N	\N	\N	\N
+22	\N	\N	\N	\N	\N
+23	\N	\N	\N	\N	\N
+24	\N	\N	\N	\N	\N
+49	\N	\N	\N	\N	\N
+50	\N	\N	\N	\N	\N
+51	\N	\N	\N	\N	\N
+52	\N	\N	\N	\N	\N
+53	\N	\N	\N	\N	\N
+54	\N	\N	\N	\N	\N
+55	\N	\N	\N	\N	\N
+56	\N	\N	\N	\N	\N
+57	\N	\N	\N	\N	\N
+58	\N	\N	\N	\N	\N
+59	\N	\N	\N	\N	\N
+4	\N	\N	\N	\N	\N
+5	\N	\N	\N	\N	\N
+6	\N	\N	\N	\N	\N
+7	\N	\N	\N	\N	\N
+8	\N	\N	\N	\N	\N
+9	\N	\N	\N	\N	\N
+10	\N	\N	\N	\N	\N
+11	\N	\N	\N	\N	\N
+12	\N	\N	\N	\N	\N
+37	\N	\N	\N	\N	\N
+38	\N	\N	\N	\N	\N
+39	\N	\N	\N	\N	\N
+40	\N	\N	\N	\N	\N
+41	\N	\N	\N	\N	\N
+42	\N	\N	\N	\N	\N
+43	\N	\N	\N	\N	\N
+44	\N	\N	\N	\N	\N
+45	\N	\N	\N	\N	\N
+46	\N	\N	\N	\N	\N
+47	\N	\N	\N	\N	\N
+48	\N	\N	\N	\N	\N
+104	\N	\N	\N	\N	\N
+105	\N	\N	\N	\N	\N
+106	\N	\N	\N	\N	\N
+107	\N	\N	\N	\N	\N
+108	\N	\N	\N	\N	\N
+109	\N	\N	\N	\N	\N
+110	\N	\N	\N	\N	\N
+111	\N	\N	\N	\N	\N
+112	\N	\N	\N	\N	\N
+113	\N	\N	\N	\N	\N
+114	\N	\N	\N	\N	\N
+115	\N	\N	\N	\N	\N
+116	\N	\N	\N	\N	\N
+117	\N	\N	\N	\N	\N
+118	\N	\N	\N	\N	\N
+119	\N	\N	\N	\N	\N
+120	\N	\N	\N	\N	\N
+121	\N	\N	\N	\N	\N
+122	\N	\N	\N	\N	\N
+123	\N	\N	\N	\N	\N
+124	\N	\N	\N	\N	\N
+125	\N	\N	\N	\N	\N
+126	\N	\N	\N	\N	\N
+127	\N	\N	\N	\N	\N
+128	\N	\N	\N	\N	\N
+129	\N	\N	\N	\N	\N
+130	\N	\N	\N	\N	\N
+159	\N	\N	\N	\N	\N
+160	\N	\N	\N	\N	\N
+161	\N	\N	\N	\N	\N
+162	\N	\N	\N	\N	\N
+163	\N	\N	\N	\N	\N
+164	\N	\N	\N	\N	\N
+165	\N	\N	\N	\N	\N
+166	\N	\N	\N	\N	\N
+167	\N	\N	\N	\N	\N
+168	\N	\N	\N	\N	\N
+169	\N	\N	\N	\N	\N
+170	\N	\N	\N	\N	\N
+171	\N	\N	\N	\N	\N
+172	\N	\N	\N	\N	\N
+173	\N	\N	\N	\N	\N
+174	\N	\N	\N	\N	\N
+175	\N	\N	\N	\N	\N
+176	\N	\N	\N	\N	\N
+177	\N	\N	\N	\N	\N
+178	\N	\N	\N	\N	\N
+179	\N	\N	\N	\N	\N
+180	\N	\N	\N	\N	\N
+181	\N	\N	\N	\N	\N
+182	\N	\N	\N	\N	\N
+183	\N	\N	\N	\N	\N
+184	\N	\N	\N	\N	\N
+185	\N	\N	\N	\N	\N
+84	\N	\N	\N	\N	\N
+85	\N	\N	\N	\N	\N
+86	\N	\N	\N	\N	\N
+87	\N	\N	\N	\N	\N
+88	\N	\N	\N	\N	\N
+89	\N	\N	\N	\N	\N
+90	\N	\N	\N	\N	\N
+91	\N	\N	\N	\N	\N
+92	\N	\N	\N	\N	\N
+93	\N	\N	\N	\N	\N
+94	\N	\N	\N	\N	\N
+95	\N	\N	\N	\N	\N
+96	\N	\N	\N	\N	\N
+97	\N	\N	\N	\N	\N
+98	\N	\N	\N	\N	\N
+99	\N	\N	\N	\N	\N
+100	\N	\N	\N	\N	\N
+101	\N	\N	\N	\N	\N
+102	\N	\N	\N	\N	\N
+103	\N	\N	\N	\N	\N
+132	\N	\N	\N	\N	\N
+133	\N	\N	\N	\N	\N
+134	\N	\N	\N	\N	\N
+135	\N	\N	\N	\N	\N
+136	\N	\N	\N	\N	\N
+137	\N	\N	\N	\N	\N
+138	\N	\N	\N	\N	\N
+139	\N	\N	\N	\N	\N
+140	\N	\N	\N	\N	\N
+141	\N	\N	\N	\N	\N
+142	\N	\N	\N	\N	\N
+143	\N	\N	\N	\N	\N
+144	\N	\N	\N	\N	\N
+145	\N	\N	\N	\N	\N
+146	\N	\N	\N	\N	\N
+147	\N	\N	\N	\N	\N
+148	\N	\N	\N	\N	\N
+150	\N	\N	\N	\N	\N
+151	\N	\N	\N	\N	\N
+152	\N	\N	\N	\N	\N
+153	\N	\N	\N	\N	\N
+154	\N	\N	\N	\N	\N
+155	\N	\N	\N	\N	\N
+156	\N	\N	\N	\N	\N
+157	\N	\N	\N	\N	\N
+158	\N	\N	\N	\N	\N
+149	\N	\N	\N	\N	\N
+680	\N	\N	\N	\N	\N
+681	\N	\N	\N	\N	\N
+682	\N	\N	\N	\N	\N
+683	\N	\N	\N	\N	\N
+684	\N	\N	\N	\N	\N
+685	\N	\N	\N	\N	\N
+686	\N	\N	\N	\N	\N
+687	\N	\N	\N	\N	\N
+261	\N	\N	\N	\N	\N
+262	\N	\N	\N	\N	\N
+263	\N	\N	\N	\N	\N
+264	\N	\N	\N	\N	\N
+265	\N	\N	\N	\N	\N
+266	\N	\N	\N	\N	\N
+267	\N	\N	\N	\N	\N
+268	\N	\N	\N	\N	\N
+269	\N	\N	\N	\N	\N
+270	\N	\N	\N	\N	\N
+271	\N	\N	\N	\N	\N
+272	\N	\N	\N	\N	\N
+273	\N	\N	\N	\N	\N
+276	\N	\N	\N	\N	\N
+277	\N	\N	\N	\N	\N
+278	\N	\N	\N	\N	\N
+279	\N	\N	\N	\N	\N
+280	\N	\N	\N	\N	\N
+281	\N	\N	\N	\N	\N
+282	\N	\N	\N	\N	\N
+283	\N	\N	\N	\N	\N
+284	\N	\N	\N	\N	\N
+285	\N	\N	\N	\N	\N
+286	\N	\N	\N	\N	\N
+288	\N	\N	\N	\N	\N
+289	\N	\N	\N	\N	\N
+290	\N	\N	\N	\N	\N
+291	\N	\N	\N	\N	\N
+292	\N	\N	\N	\N	\N
+294	\N	\N	\N	\N	\N
+295	\N	\N	\N	\N	\N
+206	\N	\N	\N	\N	\N
+207	\N	\N	\N	\N	\N
+2	\N	\N	\N	\N	\N
+208	\N	\N	\N	\N	\N
+209	\N	\N	\N	\N	\N
+210	\N	\N	\N	\N	\N
+211	\N	\N	\N	\N	\N
+212	\N	\N	\N	\N	\N
+213	\N	\N	\N	\N	\N
+214	\N	\N	\N	\N	\N
+215	\N	\N	\N	\N	\N
+216	\N	\N	\N	\N	\N
+217	\N	\N	\N	\N	\N
+218	\N	\N	\N	\N	\N
+219	\N	\N	\N	\N	\N
+220	\N	\N	\N	\N	\N
+221	\N	\N	\N	\N	\N
+222	\N	\N	\N	\N	\N
+223	\N	\N	\N	\N	\N
+224	\N	\N	\N	\N	\N
+225	\N	\N	\N	\N	\N
+226	\N	\N	\N	\N	\N
+227	\N	\N	\N	\N	\N
+526	\N	\N	\N	\N	\N
+527	\N	\N	\N	\N	\N
+528	\N	\N	\N	\N	\N
+529	\N	\N	\N	\N	\N
+530	\N	\N	\N	\N	\N
+531	\N	\N	\N	\N	\N
+532	\N	\N	\N	\N	\N
+533	\N	\N	\N	\N	\N
+534	\N	\N	\N	\N	\N
+535	\N	\N	\N	\N	\N
+536	\N	\N	\N	\N	\N
+537	\N	\N	\N	\N	\N
+538	\N	\N	\N	\N	\N
+539	\N	\N	\N	\N	\N
+540	\N	\N	\N	\N	\N
+541	\N	\N	\N	\N	\N
+542	\N	\N	\N	\N	\N
+543	\N	\N	\N	\N	\N
+544	\N	\N	\N	\N	\N
+545	\N	\N	\N	\N	\N
+546	\N	\N	\N	\N	\N
+547	\N	\N	\N	\N	\N
+548	\N	\N	\N	\N	\N
+549	\N	\N	\N	\N	\N
+228	\N	\N	\N	\N	\N
+229	\N	\N	\N	\N	\N
+230	\N	\N	\N	\N	\N
+231	\N	\N	\N	\N	\N
+232	\N	\N	\N	\N	\N
+233	\N	\N	\N	\N	\N
+234	\N	\N	\N	\N	\N
+235	\N	\N	\N	\N	\N
+236	\N	\N	\N	\N	\N
+237	\N	\N	\N	\N	\N
+238	\N	\N	\N	\N	\N
+239	\N	\N	\N	\N	\N
+240	\N	\N	\N	\N	\N
+241	\N	\N	\N	\N	\N
+242	\N	\N	\N	\N	\N
+243	\N	\N	\N	\N	\N
+244	\N	\N	\N	\N	\N
+245	\N	\N	\N	\N	\N
+246	\N	\N	\N	\N	\N
+247	\N	\N	\N	\N	\N
+248	\N	\N	\N	\N	\N
+249	\N	\N	\N	\N	\N
+250	\N	\N	\N	\N	\N
+251	\N	\N	\N	\N	\N
+620	\N	\N	\N	\N	\N
+621	\N	\N	\N	\N	\N
+622	\N	\N	\N	\N	\N
+623	\N	\N	\N	\N	\N
+624	\N	\N	\N	\N	\N
+625	\N	\N	\N	\N	\N
+626	\N	\N	\N	\N	\N
+627	\N	\N	\N	\N	\N
+628	\N	\N	\N	\N	\N
+629	\N	\N	\N	\N	\N
+630	\N	\N	\N	\N	\N
+631	\N	\N	\N	\N	\N
+632	\N	\N	\N	\N	\N
+633	\N	\N	\N	\N	\N
+634	\N	\N	\N	\N	\N
+635	\N	\N	\N	\N	\N
+636	\N	\N	\N	\N	\N
+637	\N	\N	\N	\N	\N
+638	\N	\N	\N	\N	\N
+639	\N	\N	\N	\N	\N
+640	\N	\N	\N	\N	\N
+641	\N	\N	\N	\N	\N
+642	\N	\N	\N	\N	\N
+198	\N	\N	\N	\N	\N
+252	\N	\N	\N	\N	\N
+1757	\N	\N	\N	\N	\N
+297	\N	\N	\N	\N	\N
+298	\N	\N	\N	\N	\N
+200	\N	\N	\N	\N	\N
+2285	\N	\N	\N	\N	\N
+342	\N	\N	\N	\N	\N
+196	\N	\N	\N	\N	\N
+2291	\N	\N	\N	\N	\N
+203	\N	\N	\N	\N	\N
+2269	\N	\N	\N	\N	\N
+197	\N	\N	\N	\N	\N
+254	\N	\N	\N	\N	\N
+2284	\N	\N	\N	\N	\N
+343	\N	\N	\N	\N	\N
+2151	\N	\N	\N	\N	\N
+187	\N	\N	\N	\N	\N
+199	\N	\N	\N	\N	\N
+255	\N	\N	\N	\N	\N
+2283	\N	\N	\N	\N	\N
+2263	\N	\N	\N	\N	\N
+341	\N	\N	\N	\N	\N
+346	\N	\N	\N	\N	\N
+347	\N	\N	\N	\N	\N
+689	\N	\N	\N	\N	\N
+688	\N	\N	\N	\N	\N
+303	\N	\N	\N	\N	\N
+701	\N	\N	\N	\N	\N
+702	\N	\N	\N	\N	\N
+652	\N	\N	\N	\N	\N
+653	\N	\N	\N	\N	\N
+700	\N	\N	\N	\N	\N
+344	\N	\N	\N	\N	\N
+296	\N	\N	\N	\N	\N
+692	\N	\N	\N	\N	\N
+693	\N	\N	\N	\N	\N
+699	\N	\N	\N	\N	\N
+698	\N	\N	\N	\N	\N
+703	\N	\N	\N	\N	\N
+704	\N	\N	\N	\N	\N
+706	\N	\N	\N	\N	\N
+705	\N	\N	\N	\N	\N
+1763	\N	\N	\N	\N	\N
+707	\N	\N	\N	\N	\N
+690	\N	\N	\N	\N	\N
+691	\N	\N	\N	\N	\N
+696	\N	\N	\N	\N	\N
+643	\N	\N	\N	\N	\N
+191	\N	\N	\N	\N	\N
+188	\N	\N	\N	\N	\N
+192	\N	\N	\N	\N	\N
+193	\N	\N	\N	\N	\N
+194	\N	\N	\N	\N	\N
+195	\N	\N	\N	\N	\N
+189	\N	\N	\N	\N	\N
+651	\N	\N	\N	\N	\N
+657	\N	\N	\N	\N	\N
+658	\N	\N	\N	\N	\N
+569	\N	\N	\N	\N	\N
+923	\N	\N	\N	\N	\N
+669	\N	\N	\N	\N	\N
+666	\N	\N	\N	\N	\N
+667	\N	\N	\N	\N	\N
+668	\N	\N	\N	\N	\N
+654	\N	\N	\N	\N	\N
+655	\N	\N	\N	\N	\N
+656	\N	\N	\N	\N	\N
+35	\N	\N	\N	\N	\N
+34	\N	\N	\N	\N	\N
+36	\N	\N	\N	\N	\N
+71	\N	\N	\N	\N	\N
+1238	\N	\N	\N	\N	\N
+2290	\N	\N	\N	\N	\N
+253	\N	\N	\N	\N	\N
+287	\N	\N	\N	\N	\N
+293	\N	\N	\N	\N	\N
+2115	\N	\N	\N	\N	\N
+186	\N	\N	\N	\N	\N
+72	\N	\N	\N	\N	\N
+73	\N	\N	\N	\N	\N
+79	\N	\N	\N	\N	\N
+80	\N	\N	\N	\N	\N
+81	\N	\N	\N	\N	\N
+82	\N	\N	\N	\N	\N
+83	\N	\N	\N	\N	\N
+301	\N	\N	\N	\N	\N
+275	\N	\N	\N	\N	\N
+1755	\N	\N	\N	\N	\N
+204	\N	\N	\N	\N	\N
+2121	\N	\N	\N	\N	\N
+274	\N	\N	\N	\N	\N
+730	\N	\N	\N	\N	\N
+731	\N	\N	\N	\N	\N
+733	\N	\N	\N	\N	\N
+735	\N	\N	\N	\N	\N
+734	\N	\N	\N	\N	\N
+737	\N	\N	\N	\N	\N
+736	\N	\N	\N	\N	\N
+309	\N	\N	\N	\N	\N
+769	\N	\N	\N	\N	\N
+768	\N	\N	\N	\N	\N
+766	\N	\N	\N	\N	\N
+765	\N	\N	\N	\N	\N
+308	\N	\N	\N	\N	\N
+764	\N	\N	\N	\N	\N
+767	\N	\N	\N	\N	\N
+307	\N	\N	\N	\N	\N
+304	\N	\N	\N	\N	\N
+305	\N	\N	\N	\N	\N
+306	\N	\N	\N	\N	\N
+760	\N	\N	\N	\N	\N
+762	\N	\N	\N	\N	\N
+759	\N	\N	\N	\N	\N
+750	\N	\N	\N	\N	\N
+345	\N	\N	\N	\N	\N
+1343	\N	\N	\N	\N	\N
+1344	\N	\N	\N	\N	\N
+1345	\N	\N	\N	\N	\N
+1346	\N	\N	\N	\N	\N
+1347	\N	\N	\N	\N	\N
+1348	\N	\N	\N	\N	\N
+1349	\N	\N	\N	\N	\N
+1350	\N	\N	\N	\N	\N
+1351	\N	\N	\N	\N	\N
+1352	\N	\N	\N	\N	\N
+1353	\N	\N	\N	\N	\N
+1354	\N	\N	\N	\N	\N
+1355	\N	\N	\N	\N	\N
+1356	\N	\N	\N	\N	\N
+1357	\N	\N	\N	\N	\N
+1358	\N	\N	\N	\N	\N
+1359	\N	\N	\N	\N	\N
+1442	\N	\N	\N	\N	\N
+1443	\N	\N	\N	\N	\N
+1444	\N	\N	\N	\N	\N
+1445	\N	\N	\N	\N	\N
+1446	\N	\N	\N	\N	\N
+1447	\N	\N	\N	\N	\N
+1448	\N	\N	\N	\N	\N
+1449	\N	\N	\N	\N	\N
+1450	\N	\N	\N	\N	\N
+1451	\N	\N	\N	\N	\N
+1452	\N	\N	\N	\N	\N
+1453	\N	\N	\N	\N	\N
+1424	\N	\N	\N	\N	\N
+1719	\N	\N	\N	\N	\N
+1360	\N	\N	\N	\N	\N
+1361	\N	\N	\N	\N	\N
+1362	\N	\N	\N	\N	\N
+1767	\N	\N	\N	\N	\N
+1	1	1	1	1	2014-04-14 22:27:11.282969
+\.
+
+
+--
+-- Data for Name: company_2; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY company_2 (pa, cwm_1, cwm_2, hwm_1, hwm_2) FROM stdin;
+298	\N	\N	\N	\N
+299	\N	\N	\N	\N
+300	\N	\N	\N	\N
+301	\N	\N	\N	\N
+302	\N	\N	\N	\N
+303	\N	\N	\N	\N
+304	\N	\N	\N	\N
+305	\N	\N	\N	\N
+306	\N	\N	\N	\N
+193	\N	\N	\N	\N
+194	\N	\N	\N	\N
+195	\N	\N	\N	\N
+196	\N	\N	\N	\N
+197	\N	\N	\N	\N
+198	\N	\N	\N	\N
+199	\N	\N	\N	\N
+200	\N	\N	\N	\N
+307	\N	\N	\N	\N
+308	\N	\N	\N	\N
+309	\N	\N	\N	\N
+310	\N	\N	\N	\N
+311	\N	\N	\N	\N
+312	\N	\N	\N	\N
+313	\N	\N	\N	\N
+314	\N	\N	\N	\N
+315	\N	\N	\N	\N
+316	\N	\N	\N	\N
+317	\N	\N	\N	\N
+318	\N	\N	\N	\N
+319	\N	\N	\N	\N
+320	\N	\N	\N	\N
+321	\N	\N	\N	\N
+322	\N	\N	\N	\N
+323	\N	\N	\N	\N
+324	\N	\N	\N	\N
+325	\N	\N	\N	\N
+326	\N	\N	\N	\N
+327	\N	\N	\N	\N
+328	\N	\N	\N	\N
+329	\N	\N	\N	\N
+330	\N	\N	\N	\N
+331	\N	\N	\N	\N
+332	\N	\N	\N	\N
+333	\N	\N	\N	\N
+334	\N	\N	\N	\N
+335	\N	\N	\N	\N
+336	\N	\N	\N	\N
+337	\N	\N	\N	\N
+338	\N	\N	\N	\N
+339	\N	\N	\N	\N
+341	\N	\N	\N	\N
+342	\N	\N	\N	\N
+343	\N	\N	\N	\N
+344	\N	\N	\N	\N
+345	\N	\N	\N	\N
+346	\N	\N	\N	\N
+347	\N	\N	\N	\N
+348	\N	\N	\N	\N
+349	\N	\N	\N	\N
+350	\N	\N	\N	\N
+351	\N	\N	\N	\N
+352	\N	\N	\N	\N
+353	\N	\N	\N	\N
+354	\N	\N	\N	\N
+355	\N	\N	\N	\N
+356	\N	\N	\N	\N
+357	\N	\N	\N	\N
+358	\N	\N	\N	\N
+359	\N	\N	\N	\N
+360	\N	\N	\N	\N
+361	\N	\N	\N	\N
+362	\N	\N	\N	\N
+363	\N	\N	\N	\N
+364	\N	\N	\N	\N
+365	\N	\N	\N	\N
+366	\N	\N	\N	\N
+367	\N	\N	\N	\N
+368	\N	\N	\N	\N
+369	\N	\N	\N	\N
+370	\N	\N	\N	\N
+374	\N	\N	\N	\N
+375	\N	\N	\N	\N
+376	\N	\N	\N	\N
+377	\N	\N	\N	\N
+378	\N	\N	\N	\N
+379	\N	\N	\N	\N
+380	\N	\N	\N	\N
+381	\N	\N	\N	\N
+382	\N	\N	\N	\N
+383	\N	\N	\N	\N
+385	\N	\N	\N	\N
+386	\N	\N	\N	\N
+387	\N	\N	\N	\N
+388	\N	\N	\N	\N
+389	\N	\N	\N	\N
+390	\N	\N	\N	\N
+391	\N	\N	\N	\N
+392	\N	\N	\N	\N
+393	\N	\N	\N	\N
+394	\N	\N	\N	\N
+395	\N	\N	\N	\N
+396	\N	\N	\N	\N
+397	\N	\N	\N	\N
+398	\N	\N	\N	\N
+399	\N	\N	\N	\N
+400	\N	\N	\N	\N
+401	\N	\N	\N	\N
+402	\N	\N	\N	\N
+403	\N	\N	\N	\N
+404	\N	\N	\N	\N
+405	\N	\N	\N	\N
+406	\N	\N	\N	\N
+407	\N	\N	\N	\N
+408	\N	\N	\N	\N
+409	\N	\N	\N	\N
+410	\N	\N	\N	\N
+411	\N	\N	\N	\N
+412	\N	\N	\N	\N
+413	\N	\N	\N	\N
+414	\N	\N	\N	\N
+415	\N	\N	\N	\N
+416	\N	\N	\N	\N
+417	\N	\N	\N	\N
+418	\N	\N	\N	\N
+419	\N	\N	\N	\N
+420	\N	\N	\N	\N
+421	\N	\N	\N	\N
+422	\N	\N	\N	\N
+423	\N	\N	\N	\N
+424	\N	\N	\N	\N
+425	\N	\N	\N	\N
+426	\N	\N	\N	\N
+427	\N	\N	\N	\N
+428	\N	\N	\N	\N
+429	\N	\N	\N	\N
+430	\N	\N	\N	\N
+431	\N	\N	\N	\N
+432	\N	\N	\N	\N
+433	\N	\N	\N	\N
+434	\N	\N	\N	\N
+435	\N	\N	\N	\N
+436	\N	\N	\N	\N
+437	\N	\N	\N	\N
+438	\N	\N	\N	\N
+439	\N	\N	\N	\N
+440	\N	\N	\N	\N
+441	\N	\N	\N	\N
+442	\N	\N	\N	\N
+443	\N	\N	\N	\N
+444	\N	\N	\N	\N
+445	\N	\N	\N	\N
+446	\N	\N	\N	\N
+447	\N	\N	\N	\N
+448	\N	\N	\N	\N
+449	\N	\N	\N	\N
+450	\N	\N	\N	\N
+451	\N	\N	\N	\N
+452	\N	\N	\N	\N
+453	\N	\N	\N	\N
+785	\N	\N	\N	\N
+786	\N	\N	\N	\N
+787	\N	\N	\N	\N
+788	\N	\N	\N	\N
+789	\N	\N	\N	\N
+790	\N	\N	\N	\N
+791	\N	\N	\N	\N
+792	\N	\N	\N	\N
+793	\N	\N	\N	\N
+794	\N	\N	\N	\N
+795	\N	\N	\N	\N
+796	\N	\N	\N	\N
+797	\N	\N	\N	\N
+798	\N	\N	\N	\N
+799	\N	\N	\N	\N
+800	\N	\N	\N	\N
+801	\N	\N	\N	\N
+802	\N	\N	\N	\N
+803	\N	\N	\N	\N
+804	\N	\N	\N	\N
+805	\N	\N	\N	\N
+806	\N	\N	\N	\N
+807	\N	\N	\N	\N
+808	\N	\N	\N	\N
+809	\N	\N	\N	\N
+810	\N	\N	\N	\N
+811	\N	\N	\N	\N
+812	\N	\N	\N	\N
+816	\N	\N	\N	\N
+817	\N	\N	\N	\N
+818	\N	\N	\N	\N
+819	\N	\N	\N	\N
+820	\N	\N	\N	\N
+821	\N	\N	\N	\N
+822	\N	\N	\N	\N
+832	\N	\N	\N	\N
+833	\N	\N	\N	\N
+834	\N	\N	\N	\N
+835	\N	\N	\N	\N
+836	\N	\N	\N	\N
+837	\N	\N	\N	\N
+838	\N	\N	\N	\N
+839	\N	\N	\N	\N
+840	\N	\N	\N	\N
+841	\N	\N	\N	\N
+842	\N	\N	\N	\N
+456	\N	\N	\N	\N
+457	\N	\N	\N	\N
+458	\N	\N	\N	\N
+459	\N	\N	\N	\N
+460	\N	\N	\N	\N
+461	\N	\N	\N	\N
+462	\N	\N	\N	\N
+463	\N	\N	\N	\N
+464	\N	\N	\N	\N
+465	\N	\N	\N	\N
+466	\N	\N	\N	\N
+467	\N	\N	\N	\N
+468	\N	\N	\N	\N
+469	\N	\N	\N	\N
+470	\N	\N	\N	\N
+471	\N	\N	\N	\N
+472	\N	\N	\N	\N
+473	\N	\N	\N	\N
+475	\N	\N	\N	\N
+476	\N	\N	\N	\N
+477	\N	\N	\N	\N
+478	\N	\N	\N	\N
+479	\N	\N	\N	\N
+480	\N	\N	\N	\N
+481	\N	\N	\N	\N
+482	\N	\N	\N	\N
+483	\N	\N	\N	\N
+484	\N	\N	\N	\N
+487	\N	\N	\N	\N
+488	\N	\N	\N	\N
+489	\N	\N	\N	\N
+490	\N	\N	\N	\N
+491	\N	\N	\N	\N
+492	\N	\N	\N	\N
+493	\N	\N	\N	\N
+494	\N	\N	\N	\N
+495	\N	\N	\N	\N
+496	\N	\N	\N	\N
+497	\N	\N	\N	\N
+498	\N	\N	\N	\N
+499	\N	\N	\N	\N
+500	\N	\N	\N	\N
+501	\N	\N	\N	\N
+502	\N	\N	\N	\N
+503	\N	\N	\N	\N
+504	\N	\N	\N	\N
+505	\N	\N	\N	\N
+506	\N	\N	\N	\N
+507	\N	\N	\N	\N
+508	\N	\N	\N	\N
+509	\N	\N	\N	\N
+510	\N	\N	\N	\N
+512	\N	\N	\N	\N
+513	\N	\N	\N	\N
+514	\N	\N	\N	\N
+515	\N	\N	\N	\N
+516	\N	\N	\N	\N
+517	\N	\N	\N	\N
+518	\N	\N	\N	\N
+519	\N	\N	\N	\N
+520	\N	\N	\N	\N
+521	\N	\N	\N	\N
+522	\N	\N	\N	\N
+523	\N	\N	\N	\N
+524	\N	\N	\N	\N
+525	\N	\N	\N	\N
+550	\N	\N	\N	\N
+551	\N	\N	\N	\N
+552	\N	\N	\N	\N
+553	\N	\N	\N	\N
+554	\N	\N	\N	\N
+555	\N	\N	\N	\N
+556	\N	\N	\N	\N
+557	\N	\N	\N	\N
+558	\N	\N	\N	\N
+559	\N	\N	\N	\N
+560	\N	\N	\N	\N
+562	\N	\N	\N	\N
+563	\N	\N	\N	\N
+564	\N	\N	\N	\N
+565	\N	\N	\N	\N
+566	\N	\N	\N	\N
+567	\N	\N	\N	\N
+569	\N	\N	\N	\N
+570	\N	\N	\N	\N
+571	\N	\N	\N	\N
+572	\N	\N	\N	\N
+573	\N	\N	\N	\N
+574	\N	\N	\N	\N
+575	\N	\N	\N	\N
+576	\N	\N	\N	\N
+577	\N	\N	\N	\N
+578	\N	\N	\N	\N
+579	\N	\N	\N	\N
+580	\N	\N	\N	\N
+581	\N	\N	\N	\N
+582	\N	\N	\N	\N
+583	\N	\N	\N	\N
+584	\N	\N	\N	\N
+585	\N	\N	\N	\N
+586	\N	\N	\N	\N
+587	\N	\N	\N	\N
+588	\N	\N	\N	\N
+589	\N	\N	\N	\N
+590	\N	\N	\N	\N
+591	\N	\N	\N	\N
+592	\N	\N	\N	\N
+593	\N	\N	\N	\N
+594	\N	\N	\N	\N
+595	\N	\N	\N	\N
+596	\N	\N	\N	\N
+597	\N	\N	\N	\N
+598	\N	\N	\N	\N
+599	\N	\N	\N	\N
+600	\N	\N	\N	\N
+601	\N	\N	\N	\N
+602	\N	\N	\N	\N
+603	\N	\N	\N	\N
+604	\N	\N	\N	\N
+605	\N	\N	\N	\N
+606	\N	\N	\N	\N
+607	\N	\N	\N	\N
+608	\N	\N	\N	\N
+609	\N	\N	\N	\N
+610	\N	\N	\N	\N
+611	\N	\N	\N	\N
+612	\N	\N	\N	\N
+613	\N	\N	\N	\N
+614	\N	\N	\N	\N
+615	\N	\N	\N	\N
+616	\N	\N	\N	\N
+617	\N	\N	\N	\N
+618	\N	\N	\N	\N
+619	\N	\N	\N	\N
+189	\N	\N	\N	\N
+847	\N	\N	\N	\N
+297	\N	\N	\N	\N
+850	\N	\N	\N	\N
+844	\N	\N	\N	\N
+851	\N	\N	\N	\N
+1758	\N	\N	\N	\N
+203	\N	\N	\N	\N
+201	\N	\N	\N	\N
+843	\N	\N	\N	\N
+511	\N	\N	\N	\N
+371	\N	\N	\N	\N
+372	\N	\N	\N	\N
+373	\N	\N	\N	\N
+455	\N	\N	\N	\N
+813	\N	\N	\N	\N
+814	\N	\N	\N	\N
+815	\N	\N	\N	\N
+526	\N	\N	\N	\N
+825	\N	\N	\N	\N
+826	\N	\N	\N	\N
+2122	\N	\N	\N	\N
+828	\N	\N	\N	\N
+830	\N	\N	\N	\N
+823	\N	\N	\N	\N
+824	\N	\N	\N	\N
+829	\N	\N	\N	\N
+831	\N	\N	\N	\N
+2119	\N	\N	\N	\N
+486	\N	\N	\N	\N
+485	\N	\N	\N	\N
+1771	\N	\N	\N	\N
+\.
+
+
+--
+-- Data for Name: company_3; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY company_3 (pa, cwm_1, cwm_2, hwm_1, hwm_2) FROM stdin;
+1239	\N	\N	\N	\N
+1240	\N	\N	\N	\N
+1241	\N	\N	\N	\N
+1242	\N	\N	\N	\N
+1243	\N	\N	\N	\N
+1244	\N	\N	\N	\N
+1245	\N	\N	\N	\N
+1246	\N	\N	\N	\N
+1247	\N	\N	\N	\N
+1248	\N	\N	\N	\N
+1249	\N	\N	\N	\N
+1250	\N	\N	\N	\N
+1251	\N	\N	\N	\N
+1252	\N	\N	\N	\N
+1253	\N	\N	\N	\N
+1254	\N	\N	\N	\N
+1255	\N	\N	\N	\N
+1256	\N	\N	\N	\N
+1257	\N	\N	\N	\N
+1258	\N	\N	\N	\N
+1259	\N	\N	\N	\N
+1260	\N	\N	\N	\N
+1261	\N	\N	\N	\N
+1262	\N	\N	\N	\N
+1263	\N	\N	\N	\N
+1264	\N	\N	\N	\N
+1265	\N	\N	\N	\N
+1266	\N	\N	\N	\N
+1267	\N	\N	\N	\N
+1268	\N	\N	\N	\N
+1269	\N	\N	\N	\N
+1270	\N	\N	\N	\N
+1271	\N	\N	\N	\N
+1272	\N	\N	\N	\N
+1273	\N	\N	\N	\N
+1274	\N	\N	\N	\N
+1275	\N	\N	\N	\N
+1276	\N	\N	\N	\N
+1277	\N	\N	\N	\N
+1279	\N	\N	\N	\N
+1280	\N	\N	\N	\N
+1281	\N	\N	\N	\N
+1282	\N	\N	\N	\N
+1283	\N	\N	\N	\N
+1284	\N	\N	\N	\N
+1285	\N	\N	\N	\N
+1286	\N	\N	\N	\N
+1287	\N	\N	\N	\N
+1288	\N	\N	\N	\N
+1289	\N	\N	\N	\N
+1290	\N	\N	\N	\N
+1291	\N	\N	\N	\N
+1292	\N	\N	\N	\N
+1293	\N	\N	\N	\N
+1294	\N	\N	\N	\N
+1295	\N	\N	\N	\N
+1296	\N	\N	\N	\N
+1297	\N	\N	\N	\N
+1298	\N	\N	\N	\N
+1299	\N	\N	\N	\N
+1300	\N	\N	\N	\N
+1301	\N	\N	\N	\N
+1302	\N	\N	\N	\N
+1303	\N	\N	\N	\N
+1304	\N	\N	\N	\N
+1305	\N	\N	\N	\N
+1306	\N	\N	\N	\N
+1307	\N	\N	\N	\N
+1308	\N	\N	\N	\N
+1309	\N	\N	\N	\N
+1310	\N	\N	\N	\N
+1311	\N	\N	\N	\N
+1312	\N	\N	\N	\N
+1318	\N	\N	\N	\N
+1319	\N	\N	\N	\N
+1320	\N	\N	\N	\N
+1321	\N	\N	\N	\N
+1322	\N	\N	\N	\N
+1323	\N	\N	\N	\N
+1324	\N	\N	\N	\N
+1325	\N	\N	\N	\N
+1326	\N	\N	\N	\N
+1327	\N	\N	\N	\N
+1328	\N	\N	\N	\N
+1329	\N	\N	\N	\N
+1330	\N	\N	\N	\N
+1331	\N	\N	\N	\N
+1332	\N	\N	\N	\N
+1333	\N	\N	\N	\N
+1334	\N	\N	\N	\N
+1335	\N	\N	\N	\N
+1336	\N	\N	\N	\N
+1337	\N	\N	\N	\N
+1338	\N	\N	\N	\N
+1339	\N	\N	\N	\N
+1340	\N	\N	\N	\N
+1341	\N	\N	\N	\N
+1342	\N	\N	\N	\N
+1363	\N	\N	\N	\N
+1364	\N	\N	\N	\N
+1365	\N	\N	\N	\N
+1366	\N	\N	\N	\N
+1367	\N	\N	\N	\N
+1368	\N	\N	\N	\N
+1369	\N	\N	\N	\N
+1370	\N	\N	\N	\N
+1371	\N	\N	\N	\N
+1372	\N	\N	\N	\N
+1373	\N	\N	\N	\N
+1374	\N	\N	\N	\N
+1375	\N	\N	\N	\N
+1376	\N	\N	\N	\N
+1377	\N	\N	\N	\N
+1378	\N	\N	\N	\N
+1379	\N	\N	\N	\N
+1380	\N	\N	\N	\N
+1381	\N	\N	\N	\N
+1382	\N	\N	\N	\N
+1383	\N	\N	\N	\N
+1384	\N	\N	\N	\N
+1385	\N	\N	\N	\N
+1386	\N	\N	\N	\N
+1387	\N	\N	\N	\N
+1388	\N	\N	\N	\N
+1389	\N	\N	\N	\N
+1390	\N	\N	\N	\N
+1391	\N	\N	\N	\N
+1392	\N	\N	\N	\N
+1393	\N	\N	\N	\N
+1394	\N	\N	\N	\N
+1395	\N	\N	\N	\N
+1396	\N	\N	\N	\N
+1397	\N	\N	\N	\N
+1398	\N	\N	\N	\N
+1399	\N	\N	\N	\N
+1400	\N	\N	\N	\N
+1401	\N	\N	\N	\N
+1402	\N	\N	\N	\N
+1403	\N	\N	\N	\N
+1404	\N	\N	\N	\N
+1405	\N	\N	\N	\N
+1406	\N	\N	\N	\N
+1407	\N	\N	\N	\N
+1408	\N	\N	\N	\N
+1410	\N	\N	\N	\N
+1411	\N	\N	\N	\N
+1412	\N	\N	\N	\N
+1413	\N	\N	\N	\N
+1414	\N	\N	\N	\N
+1415	\N	\N	\N	\N
+1416	\N	\N	\N	\N
+1417	\N	\N	\N	\N
+1418	\N	\N	\N	\N
+1419	\N	\N	\N	\N
+1420	\N	\N	\N	\N
+1421	\N	\N	\N	\N
+1422	\N	\N	\N	\N
+1423	\N	\N	\N	\N
+1425	\N	\N	\N	\N
+1426	\N	\N	\N	\N
+1427	\N	\N	\N	\N
+1428	\N	\N	\N	\N
+1429	\N	\N	\N	\N
+1430	\N	\N	\N	\N
+1431	\N	\N	\N	\N
+1432	\N	\N	\N	\N
+1433	\N	\N	\N	\N
+1434	\N	\N	\N	\N
+1435	\N	\N	\N	\N
+1436	\N	\N	\N	\N
+1437	\N	\N	\N	\N
+1438	\N	\N	\N	\N
+1439	\N	\N	\N	\N
+1440	\N	\N	\N	\N
+1441	\N	\N	\N	\N
+1456	\N	\N	\N	\N
+1457	\N	\N	\N	\N
+1458	\N	\N	\N	\N
+1459	\N	\N	\N	\N
+1460	\N	\N	\N	\N
+1461	\N	\N	\N	\N
+1465	\N	\N	\N	\N
+1466	\N	\N	\N	\N
+1467	\N	\N	\N	\N
+1468	\N	\N	\N	\N
+1469	\N	\N	\N	\N
+1470	\N	\N	\N	\N
+1478	\N	\N	\N	\N
+1278	\N	\N	\N	\N
+1313	\N	\N	\N	\N
+1317	\N	\N	\N	\N
+1315	\N	\N	\N	\N
+1316	\N	\N	\N	\N
+1314	\N	\N	\N	\N
+1409	\N	\N	\N	\N
+1735	\N	\N	\N	\N
+2183	\N	\N	\N	\N
+1454	\N	\N	\N	\N
+1455	\N	\N	\N	\N
+1477	\N	\N	\N	\N
+1463	\N	\N	\N	\N
+1462	\N	\N	\N	\N
+1464	\N	\N	\N	\N
+1472	\N	\N	\N	\N
+1471	\N	\N	\N	\N
+1473	\N	\N	\N	\N
+1475	\N	\N	\N	\N
+1474	\N	\N	\N	\N
+1476	\N	\N	\N	\N
+\.
+
+
+--
+-- Data for Name: django_admin_log; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY django_admin_log (id, action_time, user_id, content_type_id, object_id, object_repr, action_flag, change_message) FROM stdin;
+1	2014-04-07 03:31:26.170982+04	1	10	1	S2  1	1	
+2	2014-04-07 03:31:45.574832+04	1	10	1	S2  1	3	
+3	2014-04-07 03:34:54.773611+04	1	10	2	S2  1	1	
+4	2014-04-07 21:07:48.080601+04	1	10	2	S2  1	3	
+5	2014-04-07 21:20:03.186134+04	1	10	1	S2  2	1	
+6	2014-04-07 21:36:04.967869+04	1	10	1	S2  1	2	Changed house_number.
+7	2014-04-07 21:36:31.693796+04	1	10	2	S2  2	1	
+8	2014-04-10 20:57:48.824901+04	1	11	1		1	
+9	2014-04-10 21:12:12.855161+04	1	11	2		1	
+10	2014-04-10 21:41:10.278869+04	1	11	3		1	
+11	2014-04-10 21:41:14.342025+04	1	11	3		2	No fields changed.
+12	2014-04-10 21:41:34.460238+04	1	11	4		1	
+13	2014-04-10 21:41:50.829252+04	1	11	5		1	
+14	2014-04-10 21:42:34.391798+04	1	11	5		2	No fields changed.
+15	2014-04-10 21:42:57.787156+04	1	11	6		1	
+16	2014-04-10 21:43:14.148334+04	1	11	7		1	
+17	2014-04-10 21:43:44.971175+04	1	11	8		1	
+18	2014-04-10 21:53:55.596613+04	1	11	8		3	
+19	2014-04-10 21:53:55.629486+04	1	11	7		3	
+20	2014-04-10 21:53:55.640459+04	1	11	6		3	
+21	2014-04-10 21:53:55.651616+04	1	11	5		3	
+22	2014-04-10 21:53:55.662684+04	1	11	4		3	
+23	2014-04-10 21:53:55.673796+04	1	11	3		3	
+24	2014-04-10 21:53:55.685017+04	1	11	2		3	
+25	2014-04-10 21:53:55.696059+04	1	11	1		3	
+26	2014-04-10 22:00:40.864374+04	1	11	3	1	1	
+27	2014-04-10 22:13:11.881257+04	1	11	2	NewsModel object	1	
+28	2014-04-10 22:13:30.608754+04	1	11	3	NewsModel object	1	
+29	2014-04-10 22:13:49.894936+04	1	11	4	NewsModel object	1	
+30	2014-04-10 22:22:00.359429+04	1	11	5	NewsModel object	1	
+31	2014-04-10 22:22:25.753438+04	1	11	6	NewsModel object	1	
+32	2014-04-29 20:59:01.985262+04	1	11	6	NewsModel object	3	
+33	2014-04-29 20:59:02.011288+04	1	11	5	NewsModel object	3	
+34	2014-04-29 20:59:02.016364+04	1	11	4	NewsModel object	3	
+35	2014-04-29 20:59:02.019032+04	1	11	3	NewsModel object	3	
+36	2014-04-29 20:59:02.021568+04	1	11	2	NewsModel object	3	
+37	2014-04-29 21:03:39.303647+04	1	11	7	NewsModel object	1	
+38	2014-04-29 21:04:31.352695+04	1	11	7	NewsModel object	2	Изменен brief.
+39	2014-04-29 21:05:26.254473+04	1	11	7	NewsModel object	2	Изменен brief.
+40	2014-04-29 21:54:03.332901+04	1	11	7	NewsModel object	2	Изменен news_text.
+41	2014-04-29 22:13:09.782307+04	1	11	7	NewsModel object	2	Изменен brief.
+\.
+
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('django_admin_log_id_seq', 41, true);
+
+
+--
+-- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY django_content_type (id, name, app_label, model) FROM stdin;
+1	log entry	admin	logentry
+2	permission	auth	permission
+3	group	auth	group
+4	user	auth	user
+5	content type	contenttypes	contenttype
+6	session	sessions	session
+8	captcha store	captcha	captchastore
+10	house	houses	house
+11	news model	news	newsmodel
+12	feedback	feedback	feedback
+\.
+
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('django_content_type_id_seq', 12, true);
+
+
+--
+-- Data for Name: django_session; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY django_session (session_key, session_data, expire_date) FROM stdin;
+1i9b2kix05i4j2vhqu65rkks2pbv7a9l	MDkwOGMzNTkwNjI4MzBlMDJlMGZiNDc5MWM4NjMxYzExNmE4NTY1Mzp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=	2014-04-27 20:47:41.147671+04
+8c32v95bwhppeutw17skhtdcvrnsflw7	N2Y3YWI5NTliYmU1MGNkMTc4MjE0ZDcxYTRkNDdjMzBkNzk3ZTAyMjp7fQ==	2014-05-13 22:13:13.849163+04
+\.
+
+
+--
+-- Data for Name: feedback_feedback; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY feedback_feedback (id, email, subject, message, date) FROM stdin;
+1	fromlnkv@gmail.com	Yo	YOYOY	2014-04-11 01:43:40.444133+04
+2	fromlnkv@yandex.ru	Yo	YOYOY	2014-04-11 01:45:12.238708+04
+3	fromlnkv@yandex.ru	Yo	YOYOY	2014-04-11 01:48:01.960105+04
+4	fromlnkv@yandex.ru	Yo	YOYOY	2014-04-11 01:52:44.388465+04
+5	fromlnkv@yandex.ru	Yo	YOYOY	2014-04-11 01:53:18.101525+04
+6	fromlnkv@yandex.ru	Yo	YOYOY	2014-04-11 01:56:25.146412+04
+7	fromlnkv@yandex.ru	Yo	YOYOY	2014-04-11 01:59:44.236504+04
+8	fromlnkv@gmail.com	Тема	Сообщение	2014-04-13 14:18:20.107202+04
+9	fromlnkv@gmail.com	Тема	Yo nigga	2014-04-13 14:22:23.221225+04
+10	fromlnkv@gmail.com	Тема	Yo nigga	2014-04-13 14:25:16.352744+04
+11	fromlnkv@gmail.com	Тема	Yo nigga	2014-04-13 14:25:48.410399+04
+12	erasedme@gmail.com	Тема	Yo nigga	2014-04-13 14:28:20.65259+04
+13	erasedme@gmail.com	Тема	Yo nigga	2014-04-13 14:29:25.811981+04
+14	fromlnkv@gmail.com	Тема	Yo nigga	2014-04-13 14:35:31.666819+04
+15	fromlnkv@yandex.ru	Тема	Yo nigga	2014-04-13 14:46:58.351966+04
+16	fromlnkv@yandex.ru	Тема	Yo nigga	2014-04-13 14:48:08.467455+04
+17	fromlnkv@gmail.com	Тема	Привет, мир.	2014-04-13 14:50:53.110589+04
+18	tana0204@mail.ru	Тема	Привет, мир.	2014-04-13 14:51:36.513185+04
+19	tana0204@mail.ru	Тема	Привет, мир.	2014-04-13 14:52:43.094991+04
+20	tana0204@mail.ru	Тема	Привет, мир.	2014-04-13 14:53:34.154138+04
+21	tana0204@mail.ru	Тема	Привет, мир.	2014-04-13 14:54:04.834198+04
+22	tana0204@mail.ru	Тема	Привет, мир.	2014-04-13 14:54:17.03433+04
+23	tana0204@mail.ru	Тема	Привет, мир.	2014-04-13 14:54:34.524279+04
+24	tana0204@mail.ru	#BEACH	Привет, мир.	2014-04-13 14:57:59.814328+04
+25	tana0204@mail.ru	#BEACH	Привет, мир.	2014-04-13 15:04:17.481923+04
+26	tana0204@mail.ru	#BEACH	Привет, мир.	2014-04-13 15:12:58.635684+04
+27	tana0204@mail.ru	#BEACH	Привет, мир.	2014-04-13 15:13:41.938484+04
+28	tana0204@mail.ru	#BEACH	Привет, мир.	2014-04-13 15:14:38.55295+04
+29	tana0204@mail.ru	#BEACH	Привет, мир.	2014-04-13 15:15:37.156498+04
+30	tana0204@mail.ru	#BEACH	Привет, мир.	2014-04-13 15:15:48.201619+04
+31	tana0204@mail.ru	#BEACH	Привет, мир.	2014-04-13 15:16:05.502725+04
+32	tana0204@mail.ru	#BEACH	Привет, мир.	2014-04-13 15:17:38.864035+04
+33	tana0204@mail.ru	#BEACH	Привет, мир.	2014-04-13 15:18:24.077884+04
+34	tana0204@mail.ru	#BEACH	Привет, мир.	2014-04-13 15:18:43.834618+04
+35	tana0204@mail.ru	#BEACH	Привет, мир.	2014-04-13 15:19:13.40331+04
+36	tana0204@mail.ru	#BEACH	Привет, мир.	2014-04-13 15:19:36.953151+04
+37	tana0204@mail.ru	#BEACH	Привет, мир.	2014-04-13 15:20:06.750928+04
+38	tana0204@mail.ru	#BEACH	Привет, мир.	2014-04-13 15:20:44.164129+04
+39	tana0204@mail.ru	#BEACH	Привет, мир.	2014-04-13 15:46:28.257072+04
+40	tana0204@mail.ru	#BEACH	Привет, мир.	2014-04-13 15:51:23.553137+04
+41	tana0204@mail.ru	Йоу	Йоуу Йоуу	2014-04-13 16:05:39.139098+04
+42	tana0204@mail.ru	Йоу	Йоуу Йоуу	2014-04-13 16:05:56.462684+04
+43	tana0204@mail.ru	Йоу	Йоуу Йоуу	2014-04-13 16:06:16.197376+04
+44	tana0204@mail.ru	Йоу	Йоуу Йоуу	2014-04-13 16:08:23.441126+04
+45	golbastoo@gmail.com	Тема тема	Сообщение сообщение	2014-04-13 19:50:06.422018+04
+46	tana0204@mail.ru	Тема	Йоу Йоу йоу	2014-04-13 20:31:43.643524+04
+47	tana0204@mail.ru	Тема	Йоу Йоу йоу	2014-04-13 20:34:14.031099+04
+48	tana0204@mail.ru	Тема	Йоу Йоу йоу	2014-04-13 20:35:10.179129+04
+49	tana0204@mail.ru	Тема	Йоу Йоу йоу	2014-04-13 20:36:05.871186+04
+50	tana0204@mail.ru	Тема	Йоу Йоу йоу	2014-04-13 20:36:40.572906+04
+51	tana0204@mail.ru	Тема	Йоу Йоу йоу	2014-04-13 20:41:09.234522+04
+52	tana0204@mail.ru	Тема	Йоу Йоу йоу	2014-04-13 20:42:49.263015+04
+53	tana0204@mail.ru	Тема	Йоу Йоу йоу	2014-04-13 20:43:14.986778+04
+54	tana0204@mail.ru	Тема	Йоу Йоу йоу	2014-04-13 20:43:33.676763+04
+55	tana0204@mail.ru	Тема	Йоу Йоу йоу	2014-04-13 20:44:11.034542+04
+56	golbastoo@gmail.com	Tgtgtg	tgtgtg	2014-04-13 21:47:19.24423+04
+57	golbastoo@gmail.com	Tgtgtg	tgtgtg	2014-04-13 21:47:36.956251+04
+58	golbastoo@gmail.com	Tgtgtg	tgtgtg	2014-04-13 21:48:31.781848+04
+59	golbastoo@gmail.com	Tgtgtg	tgtgtg	2014-04-13 21:50:05.076265+04
+60	golbastoo@gmail.com	Tgtgtg	tgtgtg	2014-04-13 21:51:44.738011+04
+61	golbastoo@gmail.com	Tgtgtg	tgtgtg	2014-04-13 21:52:02.794964+04
+62	golbastoo@gmail.com	Tgtgtg	tgtgtg	2014-04-13 21:54:07.891434+04
+63	golbastoo@gmail.com	Tgtgtg	tgtgtg	2014-04-13 21:56:17.999317+04
+64	golbastoo@gmail.com	Tgtgtg	tgtgtg	2014-04-13 21:57:26.459036+04
+65	tana0204@mail.ru	ntvf	dfdfdf	2014-04-13 22:05:37.000434+04
+66	tana0204@mail.ru	ntvf	dfdfdf	2014-04-13 22:07:02.00529+04
+67	tana0204@mail.ru	ntvf	dfdfdf	2014-04-13 22:08:25.043646+04
+68	tana0204@mail.ru	ntvf	dfdfdf	2014-04-13 22:10:24.873171+04
+69	tana0204@mail.ru	ntvf	dfdfdf	2014-04-13 22:10:34.740469+04
+70	tana0204@mail.ru	ntvf	dfdfdf	2014-04-13 22:12:48.704265+04
+71	tana0204@mail.ru	ntvf	dfdfdf	2014-04-13 22:14:13.176784+04
+72	erasedme@gmail.com	ntgtg	rgtgtgtg	2014-04-13 22:49:40.670619+04
+73	er@mail.ru	erere	ererer	2014-04-14 01:56:46.182036+04
+\.
+
+
+--
+-- Name: feedback_feedback_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('feedback_feedback_id_seq', 73, true);
+
+
+--
+-- Data for Name: houses; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY houses (house_id, settlement_id, street_id, house_num, house_corp, house_litera, note) FROM stdin;
+1	6	1	1	\N	\N	\N
+2	6	1	3	\N	\N	\N
+3	6	1	5	\N	\N	\N
+4	6	1	6	\N	\N	\N
+5	6	1	7	\N	\N	\N
+6	6	1	8	\N	\N	\N
+7	6	1	9	\N	\N	\N
+8	6	1	10	\N	а	\N
+9	6	1	11	\N	\N	\N
+10	6	1	13	\N	\N	\N
+11	6	1	17	\N	\N	\N
+12	6	2	4	\N	\N	\N
+13	6	2	6	\N	\N	\N
+14	6	2	8	\N	\N	\N
+15	6	2	12	\N	\N	\N
+16	6	2	12	\N	а	\N
+17	6	2	14	\N	\N	\N
+18	6	2	14	\N	а	\N
+19	6	2	16	\N	\N	\N
+20	6	2	18	\N	а	\N
+21	6	2	20	\N	\N	\N
+22	6	2	24	\N	\N	\N
+23	6	3	2	\N	\N	\N
+24	6	3	4	\N	\N	\N
+25	6	3	4	\N	б	\N
+26	6	3	6	\N	\N	\N
+27	6	3	8	\N	\N	\N
+28	6	3	10	\N	\N	\N
+29	6	3	12	\N	\N	\N
+30	6	3	14	\N	а	\N
+31	6	3	16	\N	\N	\N
+32	6	3	20	\N	\N	\N
+33	6	4	4	\N	\N	\N
+34	6	4	8	\N	а	\N
+35	6	4	9	\N	\N	\N
+36	6	5	2	\N	а	\N
+37	6	5	3	\N	\N	\N
+38	6	5	4	\N	\N	\N
+39	6	5	6	\N	\N	\N
+40	6	5	8	\N	\N	\N
+41	6	5	9	\N	\N	\N
+42	6	5	10	\N	\N	\N
+43	6	5	12	\N	\N	\N
+44	6	5	13	\N	\N	\N
+45	6	5	13	\N	а	\N
+46	9	6	1	\N	\N	\N
+47	9	6	1	\N	а	\N
+48	9	6	1	\N	б	\N
+49	9	6	2	\N	\N	\N
+50	9	6	2	\N	а	\N
+51	9	6	2	\N	б	\N
+52	9	6	3	\N	\N	\N
+53	9	6	3	\N	a	\N
+54	9	6	3	\N	б	\N
+55	9	6	4	\N	\N	\N
+56	9	6	4	\N	а	\N
+57	9	6	4	\N	б	\N
+58	9	6	4	\N	в	\N
+59	9	6	4	\N	г	\N
+60	9	6	5	\N	\N	\N
+61	9	6	5	\N	а	\N
+62	9	6	5	\N	б	\N
+63	9	6	6	\N	\N	\N
+64	9	6	7	\N	а	\N
+65	9	6	7	\N	б	\N
+66	9	6	8	\N	\N	\N
+67	9	6	9	\N	а	\N
+68	9	6	10	\N	\N	\N
+69	9	6	11	\N	\N	\N
+70	9	6	12	\N	\N	\N
+71	9	6	13	\N	\N	\N
+72	9	6	14	\N	\N	\N
+73	9	6	15	\N	\N	\N
+74	9	7	3	\N	\N	\N
+75	9	7	10	\N	\N	\N
+76	9	7	23	\N	\N	\N
+77	9	7	25	\N	\N	\N
+78	9	7	27	\N	\N	\N
+79	9	8	1	\N	\N	\N
+80	9	8	2	\N	\N	\N
+81	9	8	3	\N	\N	\N
+82	9	8	4	\N	\N	\N
+83	9	8	5	\N	\N	\N
+84	9	8	6	\N	\N	\N
+85	9	8	7	\N	\N	\N
+86	9	8	7	\N	а	\N
+87	9	8	8	\N	\N	\N
+88	9	8	8	\N	а	\N
+89	9	8	9	\N	\N	\N
+90	3	\N	1	\N	\N	\N
+91	3	\N	3	\N	\N	\N
+92	3	\N	4	\N	\N	\N
+93	3	\N	5	\N	\N	\N
+94	3	\N	6	\N	\N	\N
+95	3	\N	7	\N	\N	\N
+96	3	\N	8	\N	\N	\N
+97	3	\N	9	\N	\N	\N
+98	3	\N	10	\N	\N	\N
+99	3	\N	12	\N	\N	\N
+100	3	\N	13	\N	\N	\N
+101	3	\N	15	\N	\N	\N
+102	5	\N	8	\N	\N	\N
+103	5	\N	13	\N	\N	\N
+104	5	\N	24	\N	\N	\N
+105	5	\N	26	\N	\N	\N
+106	8	\N	2	\N	\N	\N
+107	8	\N	3	\N	\N	\N
+108	8	\N	5	\N	\N	\N
+109	8	\N	6	\N	\N	\N
+110	8	\N	7	\N	\N	\N
+111	8	\N	9	\N	\N	\N
+112	8	\N	11	\N	\N	\N
+113	8	\N	14	\N	\N	\N
+114	8	\N	16	\N	\N	\N
+115	7	\N	4	\N	\N	\N
+116	7	\N	5	\N	\N	\N
+117	7	\N	16	\N	\N	\N
+119	3	\N	1	\N	\N	Общежитие Аэропорта
+120	3	\N	2	\N	\N	Общежитие Аэропорта
+121	9	\N	2	\N	\N	Новостройки
+122	9	\N	6	\N	\N	Новостройки
+123	9	\N	7	\N	\N	Новостройки
+124	9	\N	13	\N	\N	Новостройки
+125	9	\N	14	\N	\N	Новостройки
+126	9	\N	15	\N	\N	Новостройки
+127	9	\N	16	\N	\N	Новостройки
+128	9	\N	17	\N	\N	Новостройки
+129	9	\N	18	\N	\N	Новостройки
+130	9	\N	19	\N	\N	Новостройки
+131	9	\N	21	\N	\N	Новостройки
+132	9	\N	23	\N	\N	Новостройки
+133	9	\N	30	\N	\N	Новостройки
+134	9	\N	31	\N	\N	Новостройки
+135	9	\N	32	\N	\N	Новостройки
+136	9	\N	33	\N	\N	Новостройки
+137	9	\N	34	\N	\N	Новостройки
+138	9	\N	36	\N	\N	Новостройки
+139	9	\N	40	\N	\N	Новостройки
+140	9	\N	41	\N	\N	Новостройки
+141	9	\N	42	\N	\N	Новостройки
+142	9	\N	61	\N	\N	Новостройки
+143	9	\N	63	\N	\N	Новостройки
+144	9	\N	66	\N	\N	Новостройки
+145	4	9	1	\N	а	ТСЖ "Дубровское"
+146	4	9	1	\N	б	ТСЖ "Дубровское"
+147	4	9	2	\N	\N	ТСЖ "Дубровское"
+148	4	9	3	\N	\N	ТСЖ "Дубровское"
+149	4	9	3	\N	а	ТСЖ "Дубровское"
+150	4	9	3	\N	б	ТСЖ "Дубровское"
+151	4	9	4	\N	\N	ТСЖ "Дубровское"
+152	4	10	2	\N	\N	ТСЖ "Дубровское"
+153	4	10	4	\N	\N	ТСЖ "Дубровское"
+154	9	10	6	\N	\N	ТСЖ "Дубровское"
+155	9	10	8	\N	\N	ТСЖ "Дубровское"
+156	4	10	10	\N	\N	ТСЖ "Дубровское"
+157	4	10	12	\N	\N	ТСЖ "Дубровское"
+158	10	\N	1	\N	\N	ТСЖ "Фетинино"
+159	10	\N	2	\N	\N	ТСЖ "Фетинино"
+160	10	\N	3	\N	\N	ТСЖ "Фетинино"
+161	10	\N	5	\N	\N	ТСЖ "Фетинино"
+162	10	\N	6	\N	\N	ТСЖ "Фетинино"
+163	10	\N	10	\N	а	ТСЖ "Фетинино"
+164	10	\N	13	\N	\N	ТСЖ "Фетинино"
+165	10	\N	14	\N	\N	ТСЖ "Фетинино"
+166	10	\N	15	\N	\N	ТСЖ "Фетинино"
+167	10	\N	16	\N	\N	ТСЖ "Фетинино"
+168	10	\N	22	\N	\N	ТСЖ "Фетинино"
+169	10	\N	23	\N	\N	ТСЖ "Фетинино"
+170	10	\N	12	\N	\N	\N
+171	10	\N	21	\N	\N	\N
+172	10	\N	28	\N	\N	\N
+173	9	6	7	\N	a	Общежитие
+118	1	\N	1	\N	в	\N
+\.
+
+
+--
+-- Data for Name: houses_house; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY houses_house (house_id, settlement, street_name, house_number, house_litera, house_corp, house_area, house_year, house_status, house_population, contract, comment) FROM stdin;
+1	S2		1			548.4	1964	OK	32	t	
+2	S2		2			543.6	1964	OK	27	t	
+\.
+
+
+--
+-- Name: houses_house_house_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('houses_house_house_id_seq', 2, true);
+
+
+--
+-- Name: houses_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('houses_id_seq', 173, true);
+
+
+--
+-- Data for Name: houses_settlement; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY houses_settlement (id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: news_newsmodel; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY news_newsmodel (id, brief, news_date, news_text) FROM stdin;
+7	Добро пожаловать на наш новый сайт.	2014-04-29 21:00:07+04	С мая 2014ого года вы можете передать показания счетчиков горячей и холодной воды, задать вопрос нашим специалистам и узнать актуальную информацию по вашему дому на нашем сайте.
+\.
+
+
+--
+-- Name: news_newsmodel_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('news_newsmodel_id_seq', 7, true);
+
+
+--
+-- Data for Name: personal_accounts_dub; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY personal_accounts_dub (pa, house_id, apartment, apartment_litera, room, room_litera, note) FROM stdin;
+298	147	4	\N	\N	\N	\N
+299	147	5	\N	\N	\N	\N
+300	147	6	\N	\N	\N	\N
+301	147	7	\N	\N	\N	\N
+302	147	8	\N	\N	\N	\N
+303	147	9	\N	\N	\N	\N
+304	147	10	\N	\N	\N	\N
+305	147	11	\N	\N	\N	\N
+306	147	12	\N	\N	\N	\N
+193	151	3	\N	\N	\N	\N
+194	151	4	\N	\N	\N	\N
+195	151	5	\N	\N	\N	\N
+196	151	6	\N	\N	\N	\N
+197	151	7	\N	\N	\N	\N
+198	151	8	\N	\N	\N	\N
+199	151	9	\N	\N	\N	\N
+200	151	10	\N	\N	\N	\N
+307	152	1	\N	\N	\N	\N
+308	152	2	\N	\N	\N	\N
+309	152	3	\N	\N	\N	\N
+310	152	4	\N	\N	\N	\N
+311	152	5	\N	\N	\N	\N
+312	152	6	\N	\N	\N	\N
+313	152	7	\N	\N	\N	\N
+314	152	8	\N	\N	\N	\N
+315	152	9	\N	\N	\N	\N
+316	152	10	\N	\N	\N	\N
+317	152	11	\N	\N	\N	\N
+318	152	12	\N	\N	\N	\N
+319	152	13	\N	\N	\N	\N
+320	152	14	\N	\N	\N	\N
+321	152	15	\N	\N	\N	\N
+322	152	16	\N	\N	\N	\N
+323	152	17	\N	\N	\N	\N
+324	152	18	\N	\N	\N	\N
+325	152	19	\N	\N	\N	\N
+326	152	20	\N	\N	\N	\N
+327	152	21	\N	\N	\N	\N
+328	152	22	\N	\N	\N	\N
+329	152	23	\N	\N	\N	\N
+330	152	24	\N	\N	\N	\N
+331	152	25	\N	\N	\N	\N
+332	152	26	\N	\N	\N	\N
+333	152	27	\N	\N	\N	\N
+334	152	28	\N	\N	\N	\N
+335	152	29	\N	\N	\N	\N
+336	152	30	\N	\N	\N	\N
+337	152	31	\N	\N	\N	\N
+338	152	32	\N	\N	\N	\N
+339	152	33	\N	\N	\N	\N
+341	153	1	\N	\N	\N	\N
+342	153	2	\N	\N	\N	\N
+343	153	3	\N	\N	\N	\N
+344	153	4	\N	\N	\N	\N
+345	153	5	\N	\N	\N	\N
+346	153	6	\N	\N	\N	\N
+347	153	7	\N	\N	\N	\N
+348	153	8	\N	\N	\N	\N
+349	153	9	\N	\N	\N	\N
+350	153	10	\N	\N	\N	\N
+351	153	11	\N	\N	\N	\N
+352	153	12	\N	\N	\N	\N
+353	153	13	\N	\N	\N	\N
+354	153	14	\N	\N	\N	\N
+355	153	15	\N	\N	\N	\N
+356	153	16	\N	\N	\N	\N
+357	153	17	\N	\N	\N	\N
+358	153	18	\N	\N	\N	\N
+359	153	19	\N	\N	\N	\N
+360	153	20	\N	\N	\N	\N
+361	153	21	\N	\N	\N	\N
+362	153	22	\N	\N	\N	\N
+363	153	23	\N	\N	\N	\N
+364	153	24	\N	\N	\N	\N
+365	153	25	\N	\N	\N	\N
+366	153	26	\N	\N	\N	\N
+367	153	27	\N	\N	\N	\N
+368	153	28	\N	\N	\N	\N
+369	153	29	\N	\N	\N	\N
+370	153	30	\N	\N	\N	\N
+374	154	1	\N	\N	\N	\N
+375	154	2	\N	\N	\N	\N
+376	154	3	\N	\N	\N	\N
+377	154	4	\N	\N	\N	\N
+378	154	5	\N	\N	\N	\N
+379	154	6	\N	\N	\N	\N
+380	154	7	\N	\N	\N	\N
+381	154	8	\N	\N	\N	\N
+382	154	9	\N	\N	\N	\N
+383	154	10	\N	\N	\N	\N
+385	154	12	\N	\N	\N	\N
+386	154	13	\N	\N	\N	\N
+387	154	14	\N	\N	\N	\N
+388	154	15	\N	\N	\N	\N
+389	154	16	\N	\N	\N	\N
+390	154	17	\N	\N	\N	\N
+391	154	18	\N	\N	\N	\N
+392	154	19	\N	\N	\N	\N
+393	154	20	\N	\N	\N	\N
+394	154	21	\N	\N	\N	\N
+395	154	22	\N	\N	\N	\N
+396	154	23	\N	\N	\N	\N
+397	154	24	\N	\N	\N	\N
+398	154	25	\N	\N	\N	\N
+399	154	26	\N	\N	\N	\N
+400	154	27	\N	\N	\N	\N
+401	154	28	\N	\N	\N	\N
+402	154	29	\N	\N	\N	\N
+403	154	30	\N	\N	\N	\N
+404	154	31	\N	\N	\N	\N
+405	154	32	\N	\N	\N	\N
+406	154	33	\N	\N	\N	\N
+407	154	34	\N	\N	\N	\N
+408	154	35	\N	\N	\N	\N
+409	154	36	\N	\N	\N	\N
+410	154	37	\N	\N	\N	\N
+411	154	38	\N	\N	\N	\N
+412	154	39	\N	\N	\N	\N
+413	154	40	\N	\N	\N	\N
+414	154	41	\N	\N	\N	\N
+415	154	42	\N	\N	\N	\N
+416	154	43	\N	\N	\N	\N
+417	154	44	\N	\N	\N	\N
+418	154	45	\N	\N	\N	\N
+419	154	46	\N	\N	\N	\N
+420	154	47	\N	\N	\N	\N
+421	154	48	\N	\N	\N	\N
+422	154	49	\N	\N	\N	\N
+423	154	50	\N	\N	\N	\N
+424	154	51	\N	\N	\N	\N
+425	154	52	\N	\N	\N	\N
+426	154	53	\N	\N	\N	\N
+427	154	54	\N	\N	\N	\N
+428	154	55	\N	\N	\N	\N
+429	154	56	\N	\N	\N	\N
+430	154	57	\N	\N	\N	\N
+431	154	58	\N	\N	\N	\N
+432	154	59	\N	\N	\N	\N
+433	154	60	\N	\N	\N	\N
+434	154	61	\N	\N	\N	\N
+435	154	62	\N	\N	\N	\N
+436	154	63	\N	\N	\N	\N
+437	154	64	\N	\N	\N	\N
+438	154	65	\N	\N	\N	\N
+439	154	66	\N	\N	\N	\N
+440	154	67	\N	\N	\N	\N
+441	154	68	\N	\N	\N	\N
+442	154	69	\N	\N	\N	\N
+443	154	70	\N	\N	\N	\N
+444	155	1	\N	\N	\N	\N
+445	155	2	\N	\N	\N	\N
+446	155	3	\N	\N	\N	\N
+447	155	4	\N	\N	\N	\N
+448	155	5	\N	\N	\N	\N
+449	155	6	\N	\N	\N	\N
+450	155	7	\N	\N	\N	\N
+451	155	8	\N	\N	\N	\N
+452	155	9	\N	\N	\N	\N
+453	155	10	\N	\N	\N	\N
+785	155	13	\N	\N	\N	\N
+786	155	14	\N	\N	\N	\N
+787	155	15	\N	\N	\N	\N
+788	155	16	\N	\N	\N	\N
+789	155	17	\N	\N	\N	\N
+790	155	18	\N	\N	\N	\N
+791	155	19	\N	\N	\N	\N
+792	155	20	\N	\N	\N	\N
+793	155	21	\N	\N	\N	\N
+794	155	25	\N	\N	\N	\N
+795	155	26	\N	\N	\N	\N
+796	155	27	\N	\N	\N	\N
+797	155	28	\N	\N	\N	\N
+798	155	29	\N	\N	\N	\N
+799	155	30	\N	\N	\N	\N
+800	155	31	\N	\N	\N	\N
+801	155	32	\N	\N	\N	\N
+802	155	33	\N	\N	\N	\N
+803	155	34	\N	\N	\N	\N
+804	155	35	\N	\N	\N	\N
+805	155	36	\N	\N	\N	\N
+806	155	37	\N	\N	\N	\N
+807	155	38	\N	\N	\N	\N
+808	155	39	\N	\N	\N	\N
+809	155	40	\N	\N	\N	\N
+810	155	41	\N	\N	\N	\N
+811	155	42	\N	\N	\N	\N
+812	155	43	\N	\N	\N	\N
+816	155	44	\N	\N	\N	\N
+817	155	45	\N	\N	\N	\N
+818	155	46	\N	\N	\N	\N
+819	155	47	\N	\N	\N	\N
+820	155	48	\N	\N	\N	\N
+821	155	49	\N	\N	\N	\N
+822	155	50	\N	\N	\N	\N
+832	155	60	\N	\N	\N	\N
+833	155	61	\N	\N	\N	\N
+834	155	62	\N	\N	\N	\N
+835	155	63	\N	\N	\N	\N
+836	155	64	\N	\N	\N	\N
+837	155	65	\N	\N	\N	\N
+838	155	66	\N	\N	\N	\N
+839	155	67	\N	\N	\N	\N
+840	155	68	\N	\N	\N	\N
+841	155	69	\N	\N	\N	\N
+842	155	70	\N	\N	\N	\N
+456	156	1	\N	\N	\N	\N
+457	156	2	\N	\N	\N	\N
+458	156	3	\N	\N	\N	\N
+459	156	4	\N	\N	\N	\N
+460	156	5	\N	\N	\N	\N
+461	156	6	\N	\N	\N	\N
+462	156	7	\N	\N	\N	\N
+463	156	8	\N	\N	\N	\N
+464	156	9	\N	\N	\N	\N
+465	156	10	\N	\N	\N	\N
+466	156	11	\N	\N	\N	\N
+467	156	12	\N	\N	\N	\N
+468	156	13	\N	\N	\N	\N
+469	156	14	\N	\N	\N	\N
+470	156	15	\N	\N	\N	\N
+471	156	16	\N	\N	\N	\N
+472	156	17	\N	\N	\N	\N
+473	156	18	\N	\N	\N	\N
+475	156	20	\N	\N	\N	\N
+476	156	21	\N	\N	\N	\N
+477	156	22	\N	\N	\N	\N
+478	156	23	\N	\N	\N	\N
+479	156	24	\N	\N	\N	\N
+480	156	25	\N	\N	\N	\N
+481	156	26	\N	\N	\N	\N
+482	156	27	\N	\N	\N	\N
+483	156	28	\N	\N	\N	\N
+484	156	29	\N	\N	\N	\N
+487	156	32	\N	\N	\N	\N
+488	156	33	\N	\N	\N	\N
+489	156	34	\N	\N	\N	\N
+490	156	35	\N	\N	\N	\N
+491	156	36	\N	\N	\N	\N
+492	156	37	\N	\N	\N	\N
+493	156	38	\N	\N	\N	\N
+494	156	39	\N	\N	\N	\N
+495	156	40	\N	\N	\N	\N
+496	156	41	\N	\N	\N	\N
+497	156	42	\N	\N	\N	\N
+498	156	43	\N	\N	\N	\N
+499	156	44	\N	\N	\N	\N
+500	156	45	\N	\N	\N	\N
+501	156	46	\N	\N	\N	\N
+502	156	47	\N	\N	\N	\N
+503	156	48	\N	\N	\N	\N
+504	156	49	\N	\N	\N	\N
+505	156	50	\N	\N	\N	\N
+506	156	51	\N	\N	\N	\N
+507	156	52	\N	\N	\N	\N
+508	156	53	\N	\N	\N	\N
+509	156	54	\N	\N	\N	\N
+510	156	55	\N	\N	\N	\N
+512	156	57	\N	\N	\N	\N
+513	156	58	\N	\N	\N	\N
+514	156	59	\N	\N	\N	\N
+515	156	60	\N	\N	\N	\N
+516	156	61	\N	\N	\N	\N
+517	156	62	\N	\N	\N	\N
+518	156	63	\N	\N	\N	\N
+519	156	64	\N	\N	\N	\N
+520	156	65	\N	\N	\N	\N
+521	156	66	\N	\N	\N	\N
+522	156	67	\N	\N	\N	\N
+523	156	68	\N	\N	\N	\N
+524	156	69	\N	\N	\N	\N
+525	156	70	\N	\N	\N	\N
+550	157	1	\N	\N	\N	\N
+551	157	2	\N	\N	\N	\N
+552	157	3	\N	\N	\N	\N
+553	157	4	\N	\N	\N	\N
+554	157	5	\N	\N	\N	\N
+555	157	6	\N	\N	\N	\N
+556	157	7	\N	\N	\N	\N
+557	157	8	\N	\N	\N	\N
+558	157	9	\N	\N	\N	\N
+559	157	10	\N	\N	\N	\N
+560	157	11	\N	\N	\N	\N
+562	157	13	\N	\N	\N	\N
+563	157	14	\N	\N	\N	\N
+564	157	15	\N	\N	\N	\N
+565	157	16	\N	\N	\N	\N
+566	157	17	\N	\N	\N	\N
+567	157	18	\N	\N	\N	\N
+569	157	20	\N	\N	\N	\N
+570	157	21	\N	\N	\N	\N
+571	157	22	\N	\N	\N	\N
+572	157	23	\N	\N	\N	\N
+573	157	24	\N	\N	\N	\N
+574	157	25	\N	\N	\N	\N
+575	157	26	\N	\N	\N	\N
+576	157	27	\N	\N	\N	\N
+577	157	28	\N	\N	\N	\N
+578	157	29	\N	\N	\N	\N
+579	157	30	\N	\N	\N	\N
+580	157	31	\N	\N	\N	\N
+581	157	32	\N	\N	\N	\N
+582	157	33	\N	\N	\N	\N
+583	157	34	\N	\N	\N	\N
+584	157	35	\N	\N	\N	\N
+585	157	36	\N	\N	\N	\N
+586	157	37	\N	\N	\N	\N
+587	157	38	\N	\N	\N	\N
+588	157	39	\N	\N	\N	\N
+589	157	40	\N	\N	\N	\N
+590	157	41	\N	\N	\N	\N
+591	157	42	\N	\N	\N	\N
+592	157	43	\N	\N	\N	\N
+593	157	44	\N	\N	\N	\N
+594	157	45	\N	\N	\N	\N
+595	157	46	\N	\N	\N	\N
+596	157	47	\N	\N	\N	\N
+597	157	48	\N	\N	\N	\N
+598	157	49	\N	\N	\N	\N
+599	157	50	\N	\N	\N	\N
+600	157	51	\N	\N	\N	\N
+601	157	52	\N	\N	\N	\N
+602	157	53	\N	\N	\N	\N
+603	157	54	\N	\N	\N	\N
+604	157	55	\N	\N	\N	\N
+605	157	56	\N	\N	\N	\N
+606	157	57	\N	\N	\N	\N
+607	157	58	\N	\N	\N	\N
+608	157	59	\N	\N	\N	\N
+609	157	60	\N	\N	\N	\N
+610	157	61	\N	\N	\N	\N
+611	157	62	\N	\N	\N	\N
+612	157	63	\N	\N	\N	\N
+613	157	64	\N	\N	\N	\N
+614	157	65	\N	\N	\N	\N
+615	157	66	\N	\N	\N	\N
+616	157	67	\N	\N	\N	\N
+617	157	68	\N	\N	\N	\N
+618	157	69	\N	\N	\N	\N
+619	157	70	\N	\N	\N	\N
+189	145	\N	\N	\N	\N	\N
+847	146	\N	\N	\N	\N	\N
+297	147	2	\N	\N	\N	\N
+850	148	1	\N	\N	\N	\N
+844	149	\N	\N	\N	\N	\N
+851	150	\N	\N	\N	\N	\N
+1758	151	1	\N	\N	\N	\N
+203	151	11	\N	\N	\N	\N
+201	151	12	\N	\N	\N	\N
+843	125	5	\N	\N	\N	\N
+511	153	30	\N	\N	\N	\N
+371	153	31	\N	\N	\N	\N
+372	153	32	\N	\N	\N	\N
+373	153	33	\N	\N	\N	\N
+455	155	12	\N	\N	\N	\N
+813	155	22	\N	\N	\N	\N
+814	155	23	\N	\N	\N	\N
+815	155	24	\N	\N	\N	\N
+526	155	34	\N	\N	\N	\N
+825	155	51	\N	\N	\N	\N
+826	155	52	\N	\N	\N	\N
+2122	155	53	\N	\N	\N	\N
+828	155	54	\N	\N	\N	\N
+830	155	55	\N	\N	\N	\N
+823	155	56	\N	\N	\N	\N
+824	155	57	\N	\N	\N	\N
+829	155	58	\N	\N	\N	\N
+831	155	59	\N	\N	\N	\N
+2119	156	19	\N	\N	\N	\N
+486	156	30	\N	\N	\N	\N
+485	156	31	\N	\N	\N	\N
+1771	156	56	\N	\N	\N	\N
+\.
+
+
+--
+-- Data for Name: personal_accounts_fet; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY personal_accounts_fet (pa, house_id, apartment, apartment_litera, room, room_litera, note) FROM stdin;
+1239	158	1	\N	\N	\N	\N
+1240	158	2	\N	\N	\N	\N
+1241	158	3	\N	\N	\N	\N
+1242	158	4	\N	\N	\N	\N
+1243	158	5	\N	\N	\N	\N
+1244	158	6	\N	\N	\N	\N
+1245	158	7	\N	\N	\N	\N
+1246	158	8	\N	\N	\N	\N
+1247	158	9	\N	\N	\N	\N
+1248	158	10	\N	\N	\N	\N
+1249	158	11	\N	\N	\N	\N
+1250	158	12	\N	\N	\N	\N
+1251	158	13	\N	\N	\N	\N
+1252	158	14	\N	\N	\N	\N
+1253	158	15	\N	\N	\N	\N
+1254	158	16	\N	\N	\N	\N
+1255	158	17	\N	\N	\N	\N
+1256	158	18	\N	\N	\N	\N
+1257	159	1	\N	\N	\N	\N
+1258	159	2	\N	\N	\N	\N
+1259	159	3	\N	\N	\N	\N
+1260	159	4	\N	\N	\N	\N
+1261	159	5	\N	\N	\N	\N
+1262	159	6	\N	\N	\N	\N
+1263	159	7	\N	\N	\N	\N
+1264	159	8	\N	\N	\N	\N
+1265	159	9	\N	\N	\N	\N
+1266	159	10	\N	\N	\N	\N
+1267	159	11	\N	\N	\N	\N
+1268	159	12	\N	\N	\N	\N
+1269	159	13	\N	\N	\N	\N
+1270	159	14	\N	\N	\N	\N
+1271	159	15	\N	\N	\N	\N
+1272	159	16	\N	\N	\N	\N
+1273	159	17	\N	\N	\N	\N
+1274	159	18	\N	\N	\N	\N
+1275	159	19	\N	\N	\N	\N
+1276	159	20	\N	\N	\N	\N
+1277	159	21	\N	\N	\N	\N
+1279	160	3	\N	\N	\N	\N
+1280	160	4	\N	\N	\N	\N
+1281	160	5	\N	\N	\N	\N
+1282	160	6	\N	\N	\N	\N
+1283	160	7	\N	\N	\N	\N
+1284	160	8	\N	\N	\N	\N
+1285	160	9	\N	\N	\N	\N
+1286	160	10	\N	\N	\N	\N
+1287	160	11	\N	\N	\N	\N
+1288	160	12	\N	\N	\N	\N
+1289	160	13	\N	\N	\N	\N
+1290	160	14	\N	\N	\N	\N
+1291	160	15	\N	\N	\N	\N
+1292	160	16	\N	\N	\N	\N
+1293	160	17	\N	\N	\N	\N
+1294	160	18	\N	\N	\N	\N
+1295	161	1	\N	\N	\N	\N
+1296	161	2	\N	\N	\N	\N
+1297	161	3	\N	\N	\N	\N
+1298	161	4	\N	\N	\N	\N
+1299	161	5	\N	\N	\N	\N
+1300	161	6	\N	\N	\N	\N
+1301	161	7	\N	\N	\N	\N
+1302	161	8	\N	\N	\N	\N
+1303	161	9	\N	\N	\N	\N
+1304	161	10	\N	\N	\N	\N
+1305	161	11	\N	\N	\N	\N
+1306	161	12	\N	\N	\N	\N
+1307	161	13	\N	\N	\N	\N
+1308	161	14	\N	\N	\N	\N
+1309	161	15	\N	\N	\N	\N
+1310	161	16	\N	\N	\N	\N
+1311	161	17	\N	\N	\N	\N
+1312	161	18	\N	\N	\N	\N
+1318	162	6	\N	\N	\N	\N
+1319	162	7	\N	\N	\N	\N
+1320	162	8	\N	\N	\N	\N
+1321	162	9	\N	\N	\N	\N
+1322	162	10	\N	\N	\N	\N
+1323	162	11	\N	\N	\N	\N
+1324	162	12	\N	\N	\N	\N
+1325	163	1	\N	\N	\N	\N
+1326	163	2	\N	\N	\N	\N
+1327	163	3	\N	\N	\N	\N
+1328	163	4	\N	\N	\N	\N
+1329	163	5	\N	\N	\N	\N
+1330	163	6	\N	\N	\N	\N
+1331	163	7	\N	\N	\N	\N
+1332	163	8	\N	\N	\N	\N
+1333	163	9	\N	\N	\N	\N
+1334	163	10	\N	\N	\N	\N
+1335	163	11	\N	\N	\N	\N
+1336	163	12	\N	\N	\N	\N
+1337	163	13	\N	\N	\N	\N
+1338	163	14	\N	\N	\N	\N
+1339	163	15	\N	\N	\N	\N
+1340	163	16	\N	\N	\N	\N
+1341	163	17	\N	\N	\N	\N
+1342	163	18	\N	\N	\N	\N
+1363	164	1	\N	\N	\N	\N
+1364	164	2	\N	\N	\N	\N
+1365	164	3	\N	\N	\N	\N
+1366	164	4	\N	\N	\N	\N
+1367	164	5	\N	\N	\N	\N
+1368	164	6	\N	\N	\N	\N
+1369	164	7	\N	\N	\N	\N
+1370	164	8	\N	\N	\N	\N
+1371	164	9	\N	\N	\N	\N
+1372	164	10	\N	\N	\N	\N
+1373	164	11	\N	\N	\N	\N
+1374	164	12	\N	\N	\N	\N
+1375	164	13	\N	\N	\N	\N
+1376	164	14	\N	\N	\N	\N
+1377	164	15	\N	\N	\N	\N
+1378	164	16	\N	\N	\N	\N
+1379	164	17	\N	\N	\N	\N
+1380	164	18	\N	\N	\N	\N
+1381	164	19	\N	\N	\N	\N
+1382	164	20	\N	\N	\N	\N
+1383	164	21	\N	\N	\N	\N
+1384	164	22	\N	\N	\N	\N
+1385	165	1	\N	\N	\N	\N
+1386	165	2	\N	\N	\N	\N
+1387	165	3	\N	\N	\N	\N
+1388	165	4	\N	\N	\N	\N
+1389	165	5	\N	\N	\N	\N
+1390	165	6	\N	\N	\N	\N
+1391	165	7	\N	\N	\N	\N
+1392	165	8	\N	\N	\N	\N
+1393	165	9	\N	\N	\N	\N
+1394	165	10	\N	\N	\N	\N
+1395	165	11	\N	\N	\N	\N
+1396	165	12	\N	\N	\N	\N
+1397	166	1	\N	\N	\N	\N
+1398	166	2	\N	\N	\N	\N
+1399	166	3	\N	\N	\N	\N
+1400	166	4	\N	\N	\N	\N
+1401	166	5	\N	\N	\N	\N
+1402	166	6	\N	\N	\N	\N
+1403	166	7	\N	\N	\N	\N
+1404	166	8	\N	\N	\N	\N
+1405	166	9	\N	\N	\N	\N
+1406	166	10	\N	\N	\N	\N
+1407	166	11	\N	\N	\N	\N
+1408	166	12	\N	\N	\N	\N
+1410	167	2	\N	\N	\N	\N
+1411	167	3	\N	\N	\N	\N
+1412	167	4	\N	\N	\N	\N
+1413	167	5	\N	\N	\N	\N
+1414	167	6	\N	\N	\N	\N
+1415	167	7	\N	\N	\N	\N
+1416	167	8	\N	\N	\N	\N
+1417	167	9	\N	\N	\N	\N
+1418	167	10	\N	\N	\N	\N
+1419	167	11	\N	\N	\N	\N
+1420	167	12	\N	\N	\N	\N
+1421	167	13	\N	\N	\N	\N
+1422	167	14	\N	\N	\N	\N
+1423	167	15	\N	\N	\N	\N
+1425	167	17	\N	\N	\N	\N
+1426	167	18	\N	\N	\N	\N
+1427	167	19	\N	\N	\N	\N
+1428	167	20	\N	\N	\N	\N
+1429	167	21	\N	\N	\N	\N
+1430	167	22	\N	\N	\N	\N
+1431	167	23	\N	\N	\N	\N
+1432	167	24	\N	\N	\N	\N
+1433	167	25	\N	\N	\N	\N
+1434	167	26	\N	\N	\N	\N
+1435	167	27	\N	\N	\N	\N
+1436	167	28	\N	\N	\N	\N
+1437	167	29	\N	\N	\N	\N
+1438	167	30	\N	\N	\N	\N
+1439	167	31	\N	\N	\N	\N
+1440	167	32	\N	\N	\N	\N
+1441	167	33	\N	\N	\N	\N
+1456	168	4	\N	\N	\N	\N
+1457	168	5	\N	\N	\N	\N
+1458	168	6	\N	\N	\N	\N
+1459	168	7	\N	\N	\N	\N
+1460	168	8	\N	\N	\N	\N
+1461	168	9	\N	\N	\N	\N
+1465	169	1	\N	\N	\N	\N
+1466	169	2	\N	\N	\N	\N
+1467	169	3	\N	\N	\N	\N
+1468	169	4	\N	\N	\N	\N
+1469	169	5	\N	\N	\N	\N
+1470	169	6	\N	\N	\N	\N
+1478	159	9	а	\N	\N	\N
+1278	160	1	\N	\N	\N	\N
+1313	162	1	\N	\N	\N	\N
+1317	162	2	\N	\N	\N	\N
+1315	162	3	\N	\N	\N	\N
+1316	162	4	\N	\N	\N	\N
+1314	162	5	\N	\N	\N	\N
+1409	167	1	\N	\N	\N	\N
+1735	167	1	\N	\N	\N	\N
+2183	167	16	\N	\N	\N	\N
+1454	168	1	\N	\N	\N	\N
+1455	168	2	\N	\N	\N	\N
+1477	168	3	\N	\N	\N	Вологодская ЦРБ
+1463	168	10	\N	\N	\N	\N
+1462	168	11	\N	\N	\N	\N
+1464	168	12	\N	\N	\N	\N
+1472	169	7	\N	\N	\N	\N
+1471	169	8	\N	\N	\N	\N
+1473	169	9	\N	\N	\N	\N
+1475	169	10	\N	\N	\N	\N
+1474	169	11	\N	\N	\N	\N
+1476	169	12	\N	\N	\N	\N
+\.
+
+
+--
+-- Data for Name: personal_accounts_uk; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY personal_accounts_uk (pa, house_id, apartment, apartment_litera, room, room_litera, note) FROM stdin;
+1477	90	1	\N	\N	\N	\N
+1478	90	2	\N	\N	\N	\N
+1479	90	3	\N	\N	\N	\N
+1480	90	4	\N	\N	\N	\N
+1481	90	5	\N	\N	\N	\N
+1482	90	6	\N	\N	\N	\N
+1483	90	7	\N	\N	\N	\N
+1484	90	8	\N	\N	\N	\N
+1485	90	9	\N	\N	\N	\N
+1486	90	10	\N	\N	\N	\N
+1487	90	11	\N	\N	\N	\N
+1488	90	12	\N	\N	\N	\N
+1489	91	1	\N	\N	\N	\N
+1490	91	2	\N	\N	\N	\N
+1491	91	3	\N	\N	\N	\N
+1492	91	4	\N	\N	\N	\N
+1493	91	5	\N	\N	\N	\N
+1494	91	6	\N	\N	\N	\N
+1495	91	7	\N	\N	\N	\N
+1496	91	8	\N	\N	\N	\N
+1497	91	9	\N	\N	\N	\N
+1498	91	10	\N	\N	\N	\N
+1499	91	11	\N	\N	\N	\N
+1500	91	12	\N	\N	\N	\N
+1501	91	13	\N	\N	\N	\N
+1502	91	13	\N	\N	\N	\N
+1503	91	14	\N	\N	\N	\N
+1504	91	15	\N	\N	\N	\N
+1505	91	16	\N	\N	\N	\N
+1506	91	17	\N	\N	\N	\N
+1507	91	18	\N	\N	\N	\N
+1508	91	19	\N	\N	\N	\N
+1509	91	21	\N	\N	\N	\N
+1510	91	22	\N	\N	\N	\N
+1511	92	1	\N	\N	\N	\N
+1512	92	2	\N	\N	\N	\N
+1513	92	3	\N	\N	\N	\N
+1514	92	4	\N	\N	\N	\N
+1515	92	5	\N	\N	\N	\N
+1516	92	6	\N	\N	\N	\N
+1517	92	7	\N	\N	\N	\N
+1518	92	8	\N	\N	\N	\N
+1519	92	9	\N	\N	\N	\N
+1520	92	10	\N	\N	\N	\N
+1521	92	11	\N	\N	\N	\N
+1522	92	12	\N	\N	\N	\N
+1523	92	13	\N	\N	\N	\N
+1524	92	14	\N	\N	\N	\N
+1525	92	15	\N	\N	\N	\N
+1526	92	16	\N	\N	\N	\N
+1527	92	17	\N	\N	\N	\N
+1528	92	18	\N	\N	\N	\N
+1529	93	1	\N	\N	\N	\N
+1530	93	2	\N	\N	\N	\N
+1531	93	3	\N	\N	\N	\N
+1532	93	4	\N	\N	\N	\N
+1533	93	5	\N	\N	\N	\N
+1534	93	6	\N	\N	\N	\N
+1535	93	7	\N	\N	\N	\N
+1536	93	8	\N	\N	\N	\N
+1537	93	9	\N	\N	\N	\N
+1538	93	19	\N	\N	\N	\N
+1539	93	11	\N	\N	\N	\N
+1615	97	14	\N	\N	\N	\N
+1540	93	12	\N	\N	\N	\N
+1541	93	13	\N	\N	\N	\N
+1614	97	15	\N	\N	\N	\N
+1542	93	14	\N	\N	\N	\N
+1616	97	16	\N	\N	\N	\N
+1543	93	15	\N	\N	\N	\N
+1617	97	17	\N	\N	\N	\N
+1544	93	16	\N	\N	\N	\N
+1618	97	18	\N	\N	\N	\N
+1545	93	17	\N	\N	\N	\N
+1546	93	18	\N	\N	\N	\N
+1547	94	1	\N	\N	\N	\N
+1548	94	2	\N	\N	\N	\N
+1549	94	3	\N	\N	\N	\N
+1550	94	4	\N	\N	\N	\N
+1551	94	5	\N	\N	\N	\N
+1552	94	6	\N	\N	\N	\N
+1553	94	7	\N	\N	\N	\N
+1554	94	8	\N	\N	\N	\N
+1555	94	9	\N	\N	\N	\N
+1556	94	10	\N	\N	\N	\N
+1557	94	11	\N	\N	\N	\N
+1558	94	12	\N	\N	\N	\N
+1559	94	13	\N	\N	\N	\N
+1560	94	14	\N	\N	\N	\N
+1561	94	15	\N	\N	\N	\N
+1562	94	16	\N	\N	\N	\N
+1563	94	17	\N	\N	\N	\N
+1564	94	18	\N	\N	\N	\N
+2124	95	1	\N	\N	\N	\N
+1566	95	2	\N	\N	\N	\N
+1567	95	3	\N	\N	\N	\N
+1568	95	4	\N	\N	\N	\N
+1569	95	5	\N	\N	\N	\N
+1570	95	6	\N	\N	\N	\N
+1571	95	7	\N	\N	\N	\N
+1572	95	8	\N	\N	\N	\N
+1573	95	9	\N	\N	\N	\N
+1574	95	10	\N	\N	\N	\N
+1575	95	11	\N	\N	\N	\N
+1576	95	12	\N	\N	\N	\N
+1577	95	13	\N	\N	\N	\N
+1578	95	14	\N	\N	\N	\N
+1579	95	15	\N	\N	\N	\N
+1580	95	16	\N	\N	\N	\N
+1581	95	17	\N	\N	\N	\N
+1582	95	18	\N	\N	\N	\N
+1583	95	19	\N	\N	\N	\N
+1584	95	20	\N	\N	\N	\N
+1585	95	21	\N	\N	\N	\N
+1586	95	22	\N	\N	\N	\N
+1587	96	1	\N	\N	\N	\N
+1588	96	2	\N	\N	\N	\N
+1589	96	3	\N	\N	\N	\N
+1590	96	4	\N	\N	\N	\N
+1592	96	5	\N	\N	\N	\N
+1593	96	6	\N	\N	\N	\N
+1594	96	7	\N	\N	\N	\N
+1595	96	8	\N	\N	\N	\N
+1596	96	9	\N	\N	\N	\N
+1597	96	10	\N	\N	\N	\N
+1598	96	11	\N	\N	\N	\N
+1599	96	12	\N	\N	\N	\N
+1600	97	1	\N	\N	\N	\N
+1601	97	2	\N	\N	\N	\N
+1602	97	3	\N	\N	\N	\N
+1603	97	4	\N	\N	\N	\N
+1604	97	5	\N	\N	\N	\N
+1605	97	6	\N	\N	\N	\N
+1606	97	7	\N	\N	\N	\N
+1607	97	8	\N	\N	\N	\N
+1608	97	9	\N	\N	\N	\N
+1609	97	10	\N	\N	\N	\N
+1610	97	11	\N	\N	\N	\N
+1611	97	12	\N	\N	\N	\N
+1612	97	13	\N	\N	\N	\N
+1613	97	14	\N	\N	\N	\N
+1619	98	1	\N	\N	\N	\N
+1620	98	2	\N	\N	\N	\N
+1621	98	3	\N	\N	\N	\N
+1622	98	4	\N	\N	\N	\N
+1623	98	5	\N	\N	\N	\N
+1624	98	6	\N	\N	\N	\N
+1625	98	7	\N	\N	\N	\N
+1626	98	8	\N	\N	\N	\N
+1627	99	1	\N	\N	\N	\N
+1628	99	2	\N	\N	\N	\N
+1756	99	3	\N	\N	\N	\N
+1629	99	4	\N	\N	\N	\N
+1630	99	5	\N	\N	\N	\N
+1631	99	6	\N	\N	\N	\N
+1632	99	7	\N	\N	\N	\N
+1633	99	8	\N	\N	\N	\N
+1714	100	1	\N	\N	\N	\N
+1752	100	2	\N	\N	\N	\N
+1715	100	3	\N	\N	\N	\N
+2257	101	\N	\N	\N	\N	\N
+1782	119	2	\N	\N	\N	\N
+1800	119	3	\N	\N	\N	\N
+1792	119	5	\N	\N	\N	\N
+1793	119	6	\N	\N	\N	\N
+1785	119	10	\N	\N	\N	\N
+1796	119	12	\N	\N	\N	\N
+2311	119	12	\N	4	\N	\N
+1795	119	13	\N	\N	\N	\N
+1780	119	16	\N	\N	\N	\N
+1794	119	17	\N	\N	\N	\N
+1799	119	18	\N	\N	\N	\N
+1787	119	21	\N	\N	\N	\N
+1789	119	30	\N	\N	\N	\N
+1781	119	31	\N	\N	\N	\N
+1783	119	33	\N	\N	\N	\N
+2286	119	34	\N	\N	\N	\N
+1786	119	35	\N	\N	\N	\N
+1798	119	37	\N	\N	\N	\N
+2313	119	\N	\N	\N	\N	41 и 42 комнаты летного экипажа
+1790	119	43	\N	\N	\N	\N
+1834	119	44	\N	\N	\N	\N
+1801	119	45	\N	\N	\N	\N
+1791	119	46	\N	\N	\N	\N
+1802	119	47	\N	\N	\N	\N
+1778	119	50	\N	\N	\N	\N
+2146	119	51	\N	\N	\N	\N
+1784	119	53	\N	\N	\N	\N
+1797	119	56	\N	\N	\N	\N
+1788	119	57	\N	\N	\N	\N
+1779	119	59	\N	\N	\N	\N
+2122	119	60	\N	\N	\N	\N
+1816	120	1	\N	\N	\N	\N
+1817	120	2	\N	\N	\N	\N
+1805	120	3	\N	\N	\N	\N
+1821	120	4	\N	\N	\N	\N
+1818	120	5	\N	\N	\N	\N
+1830	120	6	\N	\N	\N	\N
+2119	120	6	a	\N	\N	\N
+1812	120	7	\N	\N	\N	\N
+1811	120	8	\N	2	\N	\N
+1823	120	8	\N	1	\N	\N
+1829	120	9	\N	\N	\N	\N
+1833	120	10	\N	\N	\N	\N
+1831	120	11	\N	\N	\N	\N
+1803	120	12	\N	\N	\N	\N
+1822	120	13	\N	\N	\N	\N
+1832	120	14	\N	\N	\N	\N
+1824	120	15	\N	\N	\N	\N
+1813	120	16	\N	\N	\N	\N
+1825	120	17	\N	\N	\N	\N
+1826	120	18	\N	\N	\N	\N
+1804	120	19	\N	\N	\N	\N
+1827	120	20	\N	\N	\N	\N
+1806	120	21	\N	\N	\N	\N
+1807	120	22	\N	\N	\N	\N
+1828	120	23	\N	\N	\N	Помещения 5, 6, 7, 8
+1815	120	24	\N	\N	\N	\N
+1814	120	25	\N	\N	\N	\N
+1820	120	26	\N	\N	\N	\N
+1819	120	27	\N	\N	\N	\N
+1810	120	28	\N	\N	\N	\N
+1809	120	29	\N	\N	\N	\N
+1808	120	30	\N	\N	\N	\N
+2149	120	31	\N	\N	\N	\N
+2150	120	32	\N	\N	\N	\N
+2255	120	33	\N	\N	\N	\N
+1994	120	34	\N	\N	\N	\N
+1961	120	35	\N	\N	\N	\N
+2319	120	36	\N	\N	\N	\N
+2299	120	37	\N	\N	\N	\N
+2309	120	38	\N	\N	\N	\N
+2101	1	1	\N	\N	\N	\N
+2006	2	1	\N	\N	\N	\N
+2007	2	2	\N	\N	\N	\N
+2008	2	3	\N	\N	\N	\N
+2009	2	4	\N	\N	\N	\N
+2010	2	5	\N	\N	\N	\N
+2080	2	6	\N	\N	\N	\N
+2011	2	7	\N	\N	\N	\N
+2012	2	8	\N	\N	\N	\N
+2013	3	1	\N	\N	\N	\N
+2014	3	2	\N	\N	\N	\N
+2015	3	3	\N	\N	\N	\N
+2016	3	4	\N	\N	\N	\N
+2017	3	5	\N	\N	\N	\N
+2018	3	6	\N	\N	\N	\N
+2019	3	7	\N	\N	\N	\N
+2020	3	8	\N	\N	\N	\N
+2021	5	1	\N	\N	\N	\N
+2022	5	2	\N	\N	\N	\N
+2023	5	3	\N	\N	\N	\N
+2024	5	4	\N	\N	\N	\N
+2025	5	5	\N	\N	\N	\N
+2026	5	6	\N	\N	\N	\N
+2027	5	7	\N	\N	\N	\N
+2028	5	8	\N	\N	\N	\N
+2062	10	1	\N	\N	\N	\N
+2063	10	2	\N	\N	\N	\N
+2064	10	3	\N	\N	\N	\N
+2065	10	4	\N	\N	\N	\N
+2066	10	5	\N	\N	\N	\N
+2067	10	6	\N	\N	\N	\N
+2068	10	7	\N	\N	\N	\N
+2069	10	8	\N	\N	\N	\N
+2070	10	9	\N	\N	\N	\N
+2071	10	10	\N	\N	\N	\N
+2072	10	11	\N	\N	\N	\N
+2073	10	12	\N	\N	\N	\N
+1835	12	5	\N	\N	\N	\N
+1836	12	6	\N	\N	\N	\N
+1837	12	7	\N	\N	\N	\N
+1838	12	8	\N	\N	\N	\N
+1839	12	9	\N	\N	\N	\N
+1840	12	10	\N	\N	\N	\N
+1841	12	11	\N	\N	\N	\N
+2142	11	1	\N	\N	\N	\N
+2125	11	2	\N	\N	\N	\N
+2135	11	3	\N	\N	\N	\N
+2138	11	4	\N	\N	\N	\N
+2143	11	5	\N	\N	\N	\N
+2128	11	6	\N	\N	\N	\N
+2145	11	7	\N	\N	\N	\N
+2131	11	8	\N	\N	\N	\N
+2130	11	9	\N	\N	\N	\N
+2139	11	10	\N	\N	\N	\N
+2141	11	11	\N	\N	\N	\N
+2147	11	12	\N	\N	\N	\N
+2127	11	13	\N	\N	\N	\N
+2136	11	14	\N	\N	\N	\N
+2137	11	15	\N	\N	\N	\N
+2133	11	16	\N	\N	\N	\N
+2134	11	17	\N	\N	\N	\N
+2132	11	18	\N	\N	\N	\N
+779	12	1	\N	\N	\N	\N
+781	12	2	\N	\N	\N	\N
+1761	12	3	\N	\N	\N	\N
+1762	12	4	\N	\N	\N	\N
+1842	13	1	\N	\N	\N	\N
+1843	13	2	\N	\N	\N	\N
+1844	13	3	\N	\N	\N	\N
+1845	13	4	\N	\N	\N	\N
+1846	13	5	\N	\N	\N	\N
+1847	13	6	\N	\N	\N	\N
+1848	13	7	\N	\N	\N	\N
+1849	13	7	\N	\N	\N	\N
+1850	13	8	\N	\N	\N	\N
+1851	14	1	\N	\N	\N	\N
+1852	14	2	\N	\N	\N	\N
+1853	14	3	\N	\N	\N	\N
+1854	14	4	\N	\N	\N	\N
+1855	14	5	\N	\N	\N	\N
+1856	14	6	\N	\N	\N	\N
+1857	14	7	\N	\N	\N	\N
+1858	14	8	\N	\N	\N	\N
+1859	14	9	\N	\N	\N	\N
+1860	14	10	\N	\N	\N	\N
+1861	14	11	\N	\N	\N	\N
+1862	14	12	\N	\N	\N	\N
+1863	14	13	\N	\N	\N	\N
+1864	14	14	\N	\N	\N	\N
+1865	14	15	\N	\N	\N	\N
+1866	14	16	\N	\N	\N	\N
+2148	14	16	\N	\N	\N	\N
+1867	15	1	\N	\N	\N	\N
+1868	15	2	\N	\N	\N	\N
+1869	15	3	\N	\N	\N	\N
+1870	15	4	\N	\N	\N	\N
+1871	15	5	\N	\N	\N	\N
+1872	15	6	\N	\N	\N	\N
+1873	15	7	\N	\N	\N	\N
+1874	15	8	\N	\N	\N	\N
+1875	15	9	\N	\N	\N	\N
+1876	15	10	\N	\N	\N	\N
+1877	15	11	\N	\N	\N	\N
+1878	15	12	\N	\N	\N	\N
+1879	15	13	\N	\N	\N	\N
+1880	15	14	\N	\N	\N	\N
+1881	15	15	\N	\N	\N	\N
+1882	15	16	\N	\N	\N	\N
+1883	15	17	\N	\N	\N	\N
+1884	15	18	\N	\N	\N	\N
+1885	15	19	\N	\N	\N	\N
+1886	15	20	\N	\N	\N	\N
+1887	15	21	\N	\N	\N	\N
+1888	15	22	\N	\N	\N	\N
+1889	15	23	\N	\N	\N	\N
+1890	15	24	\N	\N	\N	\N
+1891	15	25	\N	\N	\N	\N
+1892	15	26	\N	\N	\N	\N
+1893	15	27	\N	\N	\N	\N
+1894	15	28	\N	\N	\N	\N
+1895	15	29	\N	\N	\N	\N
+1896	15	30	\N	\N	\N	\N
+1897	15	31	\N	\N	\N	\N
+1898	15	32	\N	\N	\N	\N
+1899	15	33	\N	\N	\N	\N
+1900	15	34	\N	\N	\N	\N
+1901	15	35	\N	\N	\N	\N
+1902	15	36	\N	\N	\N	\N
+1903	15	37	\N	\N	\N	\N
+1904	15	38	\N	\N	\N	\N
+1905	15	39	\N	\N	\N	\N
+1906	15	40	\N	\N	\N	\N
+1929	17	1	\N	\N	\N	\N
+1930	17	2	\N	\N	\N	\N
+1931	17	3	\N	\N	\N	\N
+1932	17	4	\N	\N	\N	\N
+1933	17	5	\N	\N	\N	\N
+1934	17	6	\N	\N	\N	\N
+1936	17	7	\N	\N	\N	\N
+1937	17	8	\N	\N	\N	\N
+1938	17	9	\N	\N	\N	\N
+1939	17	10	\N	\N	\N	\N
+1940	17	11	\N	\N	\N	\N
+1941	17	12	\N	\N	\N	\N
+1942	17	13	\N	\N	\N	\N
+1943	17	14	\N	\N	\N	\N
+1944	17	15	\N	\N	\N	\N
+1945	17	16	\N	\N	\N	\N
+1946	17	17	\N	\N	\N	\N
+1947	17	18	\N	\N	\N	\N
+1948	17	19	\N	\N	\N	\N
+1949	17	20	\N	\N	\N	\N
+1950	17	21	\N	\N	\N	\N
+1951	17	22	\N	\N	\N	\N
+1952	17	23	\N	\N	\N	\N
+1953	17	24	\N	\N	\N	\N
+1954	17	25	\N	\N	\N	\N
+1955	17	26	\N	\N	\N	\N
+1956	17	27	\N	\N	\N	\N
+1957	17	28	\N	\N	\N	\N
+1958	17	29	\N	\N	\N	\N
+1959	17	30	\N	\N	\N	\N
+1960	17	31	\N	\N	\N	\N
+2316	15	41	\N	\N	\N	ООО Технология вкуса
+2317	15	42	\N	\N	\N	МУЗ Вологодская ЦРБ
+2318	15	43	\N	\N	\N	МУП "Аптека на Дворянской"
+1907	16	1	\N	\N	\N	\N
+1908	16	2	\N	\N	\N	\N
+1909	16	3	\N	\N	\N	\N
+2123	17	32	\N	\N	\N	\N
+1962	17	33	\N	\N	\N	\N
+1963	17	34	\N	\N	\N	\N
+1964	17	35	\N	\N	\N	\N
+1965	17	36	\N	\N	\N	\N
+1966	17	37	\N	\N	\N	\N
+1967	17	38	\N	\N	\N	\N
+1968	17	39	\N	\N	\N	\N
+1969	17	40	\N	\N	\N	\N
+1970	17	41	\N	\N	\N	\N
+1971	17	42	\N	\N	\N	\N
+1972	17	43	\N	\N	\N	\N
+1973	17	44	\N	\N	\N	\N
+1974	17	45	\N	\N	\N	\N
+1975	17	46	\N	\N	\N	\N
+1976	17	47	\N	\N	\N	\N
+1977	17	48	\N	\N	\N	\N
+1978	17	49	\N	\N	\N	\N
+1979	17	50	\N	\N	\N	\N
+1980	17	51	\N	\N	\N	\N
+1981	17	52	\N	\N	\N	\N
+1982	17	53	\N	\N	\N	\N
+1983	17	54	\N	\N	\N	\N
+1984	17	55	\N	\N	\N	\N
+1985	17	56	\N	\N	\N	\N
+1986	17	57	\N	\N	\N	\N
+1987	17	58	\N	\N	\N	\N
+1988	17	59	\N	\N	\N	\N
+1989	17	60	\N	\N	\N	\N
+1990	17	61	\N	\N	\N	\N
+1991	17	62	\N	\N	\N	\N
+1992	17	63	\N	\N	\N	\N
+1993	17	64	\N	\N	\N	\N
+2120	17	65	\N	\N	\N	\N
+1995	17	66	\N	\N	\N	\N
+1996	17	67	\N	\N	\N	\N
+1997	17	68	\N	\N	\N	\N
+1998	17	69	\N	\N	\N	\N
+1999	17	70	\N	\N	\N	\N
+2000	18	1	\N	\N	\N	\N
+2001	18	2	\N	\N	\N	\N
+2002	18	3	\N	\N	\N	\N
+2093	18	4	\N	\N	\N	\N
+2094	18	5	\N	\N	\N	\N
+2095	18	6	\N	\N	\N	\N
+2096	18	7	\N	\N	\N	\N
+2097	18	8	\N	\N	\N	\N
+2039	19	1	\N	\N	\N	\N
+2040	19	2	\N	\N	\N	\N
+2041	19	3	\N	\N	\N	\N
+2042	19	4	\N	\N	\N	\N
+2043	19	5	\N	\N	\N	\N
+2044	19	6	\N	\N	\N	\N
+2045	19	7	\N	\N	\N	\N
+2046	19	8	\N	\N	\N	\N
+2047	19	9	\N	\N	\N	\N
+2048	19	10	\N	\N	\N	\N
+2049	19	11	\N	\N	\N	\N
+2050	19	12	\N	\N	\N	\N
+2051	19	13	\N	\N	\N	\N
+2052	19	14	\N	\N	\N	\N
+2053	19	15	\N	\N	\N	\N
+2081	20	1	\N	\N	\N	\N
+2082	20	2	\N	\N	\N	\N
+2084	20	5	\N	\N	\N	\N
+2085	20	6	\N	\N	\N	\N
+2086	20	7	\N	\N	\N	\N
+2087	20	9	\N	\N	\N	\N
+2088	20	10	\N	\N	\N	\N
+2089	21	1	\N	\N	\N	\N
+2090	21	2	\N	\N	\N	\N
+2092	21	4	\N	\N	\N	\N
+2054	22	1	\N	\N	\N	\N
+2055	22	2	\N	\N	\N	\N
+2056	22	3	\N	\N	\N	\N
+2057	22	4	\N	\N	\N	\N
+2058	22	5	\N	\N	\N	\N
+2059	22	6	\N	\N	\N	\N
+2060	22	7	\N	\N	\N	\N
+2061	22	8	\N	\N	\N	\N
+1910	23	1	\N	\N	\N	\N
+1911	23	2	\N	\N	\N	\N
+1912	23	3	\N	\N	\N	\N
+1913	23	4	\N	\N	\N	\N
+2250	24	1	\N	\N	\N	\N
+2140	25	\N	\N	\N	\N	\N
+745	26	1	\N	\N	\N	\N
+773	26	2	\N	\N	\N	\N
+774	26	3	\N	\N	\N	\N
+775	26	4	\N	\N	\N	\N
+1914	27	1	\N	\N	\N	\N
+1915	27	2	\N	\N	\N	\N
+1916	27	3	\N	\N	\N	\N
+1919	28	1	\N	\N	\N	\N
+1920	28	2	\N	\N	\N	\N
+2306	28	3	\N	\N	\N	\N
+2126	29	1	\N	\N	\N	\N
+2106	30	1	\N	\N	\N	\N
+2107	30	2	\N	\N	\N	\N
+2108	30	3	\N	\N	\N	\N
+1921	31	1	\N	\N	\N	\N
+2074	32	1	\N	\N	\N	\N
+2075	32	2	\N	\N	\N	\N
+1922	33	1	\N	\N	\N	\N
+1923	33	2	\N	\N	\N	\N
+1924	33	3	\N	\N	\N	\N
+1925	33	4	\N	\N	\N	\N
+1918	34	1	\N	\N	\N	\N
+1926	35	1	\N	\N	\N	\N
+1927	36	1	\N	\N	\N	\N
+1928	36	2	\N	\N	\N	\N
+2261	37	\N	\N	\N	\N	\N
+2076	38	1	\N	\N	\N	\N
+2077	38	2	\N	\N	\N	\N
+2078	38	3	\N	\N	\N	\N
+2079	38	4	\N	\N	\N	\N
+1917	39	\N	\N	\N	\N	\N
+2003	40	1	\N	\N	\N	\N
+2004	40	2	\N	\N	\N	\N
+2109	41	1	\N	\N	\N	\N
+2110	41	2	\N	\N	\N	\N
+2111	42	1	\N	\N	\N	\N
+2112	42	2	\N	\N	\N	\N
+2292	42	3	\N	\N	\N	\N
+2005	43	\N	\N	\N	\N	\N
+2267	44	\N	\N	\N	\N	\N
+302	45	1	\N	\N	\N	\N
+644	63	2	\N	\N	\N	\N
+645	63	3	\N	\N	\N	\N
+646	63	4	\N	\N	\N	\N
+647	63	5	\N	\N	\N	\N
+648	63	6	\N	\N	\N	\N
+649	63	7	\N	\N	\N	\N
+650	63	8	\N	\N	\N	\N
+708	64	1	\N	\N	\N	\N
+709	64	2	\N	\N	\N	\N
+710	64	3	\N	\N	\N	\N
+711	64	4	\N	\N	\N	\N
+712	64	5	\N	\N	\N	\N
+713	64	6	\N	\N	\N	\N
+714	64	7	\N	\N	\N	\N
+715	64	8	\N	\N	\N	\N
+716	64	9	\N	\N	\N	\N
+717	64	10	\N	\N	\N	\N
+718	64	11	\N	\N	\N	\N
+719	64	12	\N	\N	\N	\N
+720	64	13	\N	\N	\N	\N
+661	65	6	\N	\N	\N	\N
+662	65	7	\N	\N	\N	\N
+663	65	8	\N	\N	\N	\N
+664	65	9	\N	\N	\N	\N
+665	65	10	\N	\N	\N	\N
+670	65	15	\N	\N	\N	\N
+671	65	16	\N	\N	\N	\N
+672	65	17	\N	\N	\N	\N
+673	65	18	\N	\N	\N	\N
+674	65	19	\N	\N	\N	\N
+675	65	20	\N	\N	\N	\N
+676	65	21	\N	\N	\N	\N
+677	65	22	\N	\N	\N	\N
+678	65	23	\N	\N	\N	\N
+679	65	24	\N	\N	\N	\N
+74	66	1	\N	\N	\N	\N
+75	66	2	\N	\N	\N	\N
+76	66	3	\N	\N	\N	\N
+77	66	4	\N	\N	\N	\N
+78	66	5	\N	\N	\N	\N
+311	67	1	\N	\N	\N	\N
+312	67	2	\N	\N	\N	\N
+313	67	3	\N	\N	\N	\N
+314	67	4	\N	\N	\N	\N
+315	67	5	\N	\N	\N	\N
+316	67	6	\N	\N	\N	\N
+317	67	7	\N	\N	\N	\N
+318	67	8	\N	\N	\N	\N
+319	67	9	\N	\N	\N	\N
+320	67	10	\N	\N	\N	\N
+321	67	11	\N	\N	\N	\N
+322	67	12	\N	\N	\N	\N
+323	67	13	\N	\N	\N	\N
+324	67	14	\N	\N	\N	\N
+325	67	15	\N	\N	\N	\N
+326	67	16	\N	\N	\N	\N
+327	67	17	\N	\N	\N	\N
+328	67	18	\N	\N	\N	\N
+329	67	19	\N	\N	\N	\N
+330	67	20	\N	\N	\N	\N
+331	67	21	\N	\N	\N	\N
+332	67	22	\N	\N	\N	\N
+333	67	23	\N	\N	\N	\N
+334	67	24	\N	\N	\N	\N
+335	67	25	\N	\N	\N	\N
+336	67	26	\N	\N	\N	\N
+337	67	27	\N	\N	\N	\N
+338	67	28	\N	\N	\N	\N
+339	67	29	\N	\N	\N	\N
+340	67	30	\N	\N	\N	\N
+25	68	1	\N	\N	\N	\N
+26	68	2	\N	\N	\N	\N
+27	68	3	\N	\N	\N	\N
+28	68	4	\N	\N	\N	\N
+29	68	5	\N	\N	\N	\N
+30	68	6	\N	\N	\N	\N
+31	68	7	\N	\N	\N	\N
+32	68	8	\N	\N	\N	\N
+33	68	9	\N	\N	\N	\N
+60	69	1	\N	\N	\N	\N
+61	69	2	\N	\N	\N	\N
+62	69	3	\N	\N	\N	\N
+63	69	4	\N	\N	\N	\N
+64	69	5	\N	\N	\N	\N
+65	69	7	\N	\N	\N	\N
+66	69	8	\N	\N	\N	\N
+67	69	9	\N	\N	\N	\N
+68	69	10	\N	\N	\N	\N
+69	69	11	\N	\N	\N	\N
+70	69	12	\N	\N	\N	\N
+13	70	1	\N	\N	\N	\N
+14	70	2	\N	\N	\N	\N
+15	70	3	\N	\N	\N	\N
+16	70	4	\N	\N	\N	\N
+17	70	5	\N	\N	\N	\N
+18	70	6	\N	\N	\N	\N
+19	70	7	\N	\N	\N	\N
+20	70	8	\N	\N	\N	\N
+21	70	9	\N	\N	\N	\N
+22	70	10	\N	\N	\N	\N
+23	70	11	\N	\N	\N	\N
+24	70	12	\N	\N	\N	\N
+49	71	2	\N	\N	\N	\N
+50	71	3	\N	\N	\N	\N
+51	71	4	\N	\N	\N	\N
+52	71	5	\N	\N	\N	\N
+53	71	6	\N	\N	\N	\N
+54	71	7	\N	\N	\N	\N
+55	71	8	\N	\N	\N	\N
+56	71	9	\N	\N	\N	\N
+57	71	10	\N	\N	\N	\N
+58	71	11	\N	\N	\N	\N
+59	71	12	\N	\N	\N	\N
+1	72	1	\N	\N	\N	\N
+2	72	2	\N	\N	\N	\N
+3	72	3	\N	\N	\N	\N
+4	72	4	\N	\N	\N	\N
+5	72	5	\N	\N	\N	\N
+6	72	6	\N	\N	\N	\N
+7	72	7	\N	\N	\N	\N
+8	72	8	\N	\N	\N	\N
+9	72	9	\N	\N	\N	\N
+10	72	10	\N	\N	\N	\N
+11	72	11	\N	\N	\N	\N
+12	72	12	\N	\N	\N	\N
+37	73	1	\N	\N	\N	\N
+38	73	2	\N	\N	\N	\N
+39	73	3	\N	\N	\N	\N
+40	73	4	\N	\N	\N	\N
+41	73	5	\N	\N	\N	\N
+42	73	6	\N	\N	\N	\N
+43	73	7	\N	\N	\N	\N
+44	73	8	\N	\N	\N	\N
+45	73	9	\N	\N	\N	\N
+46	73	10	\N	\N	\N	\N
+47	73	11	\N	\N	\N	\N
+48	73	12	\N	\N	\N	\N
+104	79	1	\N	\N	\N	\N
+105	79	2	\N	\N	\N	\N
+106	79	3	\N	\N	\N	\N
+107	79	4	\N	\N	\N	\N
+108	79	5	\N	\N	\N	\N
+109	79	6	\N	\N	\N	\N
+110	79	7	\N	\N	\N	\N
+111	79	8	\N	\N	\N	\N
+112	79	9	\N	\N	\N	\N
+113	79	10	\N	\N	\N	\N
+114	79	11	\N	\N	\N	\N
+115	79	12	\N	\N	\N	\N
+116	79	13	\N	\N	\N	\N
+117	79	14	\N	\N	\N	\N
+118	79	15	\N	\N	\N	\N
+119	79	16	\N	\N	\N	\N
+120	79	17	\N	\N	\N	\N
+121	79	18	\N	\N	\N	\N
+122	79	19	\N	\N	\N	\N
+123	79	20	\N	\N	\N	\N
+124	79	21	\N	\N	\N	\N
+125	79	22	\N	\N	\N	\N
+126	79	23	\N	\N	\N	\N
+127	79	24	\N	\N	\N	\N
+128	79	25	\N	\N	\N	\N
+129	79	26	\N	\N	\N	\N
+130	79	27	\N	\N	\N	\N
+159	80	1	\N	\N	\N	\N
+160	80	2	\N	\N	\N	\N
+161	80	3	\N	\N	\N	\N
+162	80	4	\N	\N	\N	\N
+163	80	5	\N	\N	\N	\N
+164	80	6	\N	\N	\N	\N
+165	80	7	\N	\N	\N	\N
+166	80	8	\N	\N	\N	\N
+167	80	9	\N	\N	\N	\N
+168	80	10	\N	\N	\N	\N
+169	80	11	\N	\N	\N	\N
+170	80	12	\N	\N	\N	\N
+171	80	13	\N	\N	\N	\N
+172	80	14	\N	\N	\N	\N
+173	80	15	\N	\N	\N	\N
+174	80	16	\N	\N	\N	\N
+175	80	17	\N	\N	\N	\N
+176	80	18	\N	\N	\N	\N
+177	80	19	\N	\N	\N	\N
+178	80	20	\N	\N	\N	\N
+179	80	21	\N	\N	\N	\N
+180	80	22	\N	\N	\N	\N
+181	80	23	\N	\N	\N	\N
+182	80	24	\N	\N	\N	\N
+183	80	25	\N	\N	\N	\N
+184	80	26	\N	\N	\N	\N
+185	80	27	\N	\N	\N	\N
+84	81	8	\N	\N	\N	\N
+85	81	9	\N	\N	\N	\N
+86	81	10	\N	\N	\N	\N
+87	81	11	\N	\N	\N	\N
+88	81	12	\N	\N	\N	\N
+89	81	13	\N	\N	\N	\N
+90	81	14	\N	\N	\N	\N
+91	81	15	\N	\N	\N	\N
+92	81	16	\N	\N	\N	\N
+93	81	17	\N	\N	\N	\N
+94	81	18	\N	\N	\N	\N
+95	81	19	\N	\N	\N	\N
+96	81	20	\N	\N	\N	\N
+97	81	21	\N	\N	\N	\N
+98	81	22	\N	\N	\N	\N
+99	81	23	\N	\N	\N	\N
+100	81	24	\N	\N	\N	\N
+101	81	25	\N	\N	\N	\N
+102	81	26	\N	\N	\N	\N
+103	81	27	\N	\N	\N	\N
+132	82	1	\N	\N	\N	\N
+133	82	2	\N	\N	\N	\N
+134	82	3	\N	\N	\N	\N
+135	82	4	\N	\N	\N	\N
+136	82	5	\N	\N	\N	\N
+137	82	6	\N	\N	\N	\N
+138	82	7	\N	\N	\N	\N
+139	82	8	\N	\N	\N	\N
+140	82	9	\N	\N	\N	\N
+141	82	10	\N	\N	\N	\N
+142	82	11	\N	\N	\N	\N
+143	82	12	\N	\N	\N	\N
+144	82	13	\N	\N	\N	\N
+145	82	14	\N	\N	\N	\N
+146	82	15	\N	\N	\N	\N
+147	82	16	\N	\N	\N	\N
+148	82	17	\N	\N	\N	\N
+150	82	19	\N	\N	\N	\N
+151	82	20	\N	\N	\N	\N
+152	82	21	\N	\N	\N	\N
+153	82	22	\N	\N	\N	\N
+154	82	23	\N	\N	\N	\N
+155	82	24	\N	\N	\N	\N
+156	82	25	\N	\N	\N	\N
+157	82	26	\N	\N	\N	\N
+158	82	27	\N	\N	\N	\N
+149	82	18	\N	\N	\N	Преображен. 9-3
+680	83	1	\N	\N	\N	\N
+681	83	2	\N	\N	\N	\N
+682	83	3	\N	\N	\N	\N
+683	83	4	\N	\N	\N	\N
+684	84	1	\N	\N	\N	\N
+685	84	2	\N	\N	\N	\N
+686	84	3	\N	\N	\N	\N
+687	84	4	\N	\N	\N	\N
+261	85	1	\N	\N	\N	\N
+262	85	2	\N	\N	\N	\N
+263	85	3	\N	\N	\N	\N
+264	85	4	\N	\N	\N	\N
+265	85	5	\N	\N	\N	\N
+266	85	6	\N	\N	\N	\N
+267	85	7	\N	\N	\N	\N
+268	85	8	\N	\N	\N	\N
+269	85	9	\N	\N	\N	\N
+270	85	10	\N	\N	\N	\N
+271	85	11	\N	\N	\N	\N
+272	85	12	\N	\N	\N	\N
+273	85	13	\N	\N	\N	\N
+276	85	15	\N	\N	\N	\N
+277	85	16	\N	\N	\N	\N
+278	85	17	\N	\N	\N	\N
+279	85	18	\N	\N	\N	\N
+280	85	19	\N	\N	\N	\N
+281	85	20	\N	\N	\N	\N
+282	85	21	\N	\N	\N	\N
+283	85	22	\N	\N	\N	\N
+284	85	23	\N	\N	\N	\N
+285	85	24	\N	\N	\N	\N
+286	85	25	\N	\N	\N	\N
+288	85	27	\N	\N	\N	\N
+289	85	28	\N	\N	\N	\N
+290	85	29	\N	\N	\N	\N
+291	85	30	\N	\N	\N	\N
+292	85	31	\N	\N	\N	\N
+294	85	32	\N	\N	\N	\N
+295	85	33	\N	\N	\N	\N
+206	86	3	\N	\N	\N	\N
+207	86	4	\N	\N	\N	\N
+208	86	5	\N	\N	\N	\N
+209	86	6	\N	\N	\N	\N
+210	86	7	\N	\N	\N	\N
+211	86	8	\N	\N	\N	\N
+212	86	9	\N	\N	\N	\N
+213	86	10	\N	\N	\N	\N
+214	86	11	\N	\N	\N	\N
+215	86	12	\N	\N	\N	\N
+216	86	13	\N	\N	\N	\N
+217	86	14	\N	\N	\N	\N
+218	86	15	\N	\N	\N	\N
+219	86	16	\N	\N	\N	\N
+220	86	17	\N	\N	\N	\N
+221	86	18	\N	\N	\N	\N
+222	86	19	\N	\N	\N	\N
+223	86	20	\N	\N	\N	\N
+224	86	21	\N	\N	\N	\N
+225	86	22	\N	\N	\N	\N
+226	86	23	\N	\N	\N	\N
+227	86	24	\N	\N	\N	\N
+526	87	1	\N	\N	\N	\N
+527	87	2	\N	\N	\N	\N
+528	87	3	\N	\N	\N	\N
+529	87	4	\N	\N	\N	\N
+530	87	5	\N	\N	\N	\N
+531	87	6	\N	\N	\N	\N
+532	87	7	\N	\N	\N	\N
+533	87	8	\N	\N	\N	\N
+534	87	9	\N	\N	\N	\N
+535	87	10	\N	\N	\N	\N
+536	87	11	\N	\N	\N	\N
+537	87	12	\N	\N	\N	\N
+538	87	13	\N	\N	\N	\N
+539	87	14	\N	\N	\N	\N
+540	87	15	\N	\N	\N	\N
+541	87	16	\N	\N	\N	\N
+542	87	17	\N	\N	\N	\N
+543	87	18	\N	\N	\N	\N
+544	87	19	\N	\N	\N	\N
+545	87	20	\N	\N	\N	\N
+546	87	21	\N	\N	\N	\N
+547	87	22	\N	\N	\N	\N
+548	87	23	\N	\N	\N	\N
+549	87	24	\N	\N	\N	\N
+228	88	1	\N	\N	\N	\N
+229	88	2	\N	\N	\N	\N
+230	88	3	\N	\N	\N	\N
+231	88	4	\N	\N	\N	\N
+232	88	5	\N	\N	\N	\N
+233	88	6	\N	\N	\N	\N
+234	88	7	\N	\N	\N	\N
+235	88	8	\N	\N	\N	\N
+236	88	9	\N	\N	\N	\N
+237	88	10	\N	\N	\N	\N
+238	88	11	\N	\N	\N	\N
+239	88	12	\N	\N	\N	\N
+240	88	13	\N	\N	\N	\N
+241	88	14	\N	\N	\N	\N
+242	88	15	\N	\N	\N	\N
+243	88	16	\N	\N	\N	\N
+244	88	17	\N	\N	\N	\N
+245	88	18	\N	\N	\N	\N
+246	88	19	\N	\N	\N	\N
+247	88	20	\N	\N	\N	\N
+248	88	21	\N	\N	\N	\N
+249	88	22	\N	\N	\N	\N
+250	88	23	\N	\N	\N	\N
+251	88	24	\N	\N	\N	\N
+620	89	2	\N	\N	\N	\N
+621	89	3	\N	\N	\N	\N
+622	89	4	\N	\N	\N	\N
+623	89	5	\N	\N	\N	\N
+624	89	6	\N	\N	\N	\N
+625	89	7	\N	\N	\N	\N
+626	89	8	\N	\N	\N	\N
+627	89	9	\N	\N	\N	\N
+628	89	10	\N	\N	\N	\N
+629	89	11	\N	\N	\N	\N
+630	89	12	\N	\N	\N	\N
+631	89	13	\N	\N	\N	\N
+632	89	14	\N	\N	\N	\N
+633	89	15	\N	\N	\N	\N
+634	89	16	\N	\N	\N	\N
+635	89	17	\N	\N	\N	\N
+636	89	18	\N	\N	\N	\N
+637	89	19	\N	\N	\N	\N
+638	89	20	\N	\N	\N	\N
+639	89	21	\N	\N	\N	\N
+640	89	22	\N	\N	\N	\N
+641	89	23	\N	\N	\N	\N
+642	89	24	\N	\N	\N	\N
+198	121	\N	\N	\N	\N	\N
+252	122	1	\N	\N	\N	\N
+1757	123	1	\N	\N	\N	\N
+297	124	1	\N	\N	\N	\N
+298	124	2	\N	\N	\N	\N
+200	125	\N	\N	\N	\N	\N
+2285	126	\N	\N	\N	\N	\N
+342	127	\N	\N	\N	\N	\N
+196	128	1	\N	\N	\N	\N
+2291	129	1	\N	\N	\N	\N
+203	130	\N	\N	\N	\N	\N
+2269	131	1	\N	\N	\N	\N
+197	132	\N	\N	\N	\N	\N
+254	133	\N	\N	\N	\N	\N
+2284	134	1	\N	\N	\N	\N
+343	135	\N	\N	\N	\N	\N
+2151	136	1	\N	\N	\N	\N
+187	137	\N	\N	\N	\N	\N
+199	138	\N	\N	\N	\N	\N
+255	139	\N	\N	\N	\N	\N
+2283	140	\N	\N	\N	\N	\N
+2263	141	1	\N	\N	\N	\N
+341	142	\N	\N	\N	\N	\N
+346	143	\N	\N	\N	\N	\N
+347	144	\N	\N	\N	\N	\N
+689	46	1	\N	\N	\N	\N
+688	46	2	\N	\N	\N	\N
+303	47	1	\N	\N	\N	\N
+701	48	1	\N	\N	\N	\N
+702	48	2	\N	\N	\N	\N
+652	49	1	\N	\N	\N	\N
+653	49	2	\N	\N	\N	\N
+700	50	1	\N	\N	\N	\N
+344	51	1	\N	\N	\N	\N
+296	52	1	\N	\N	\N	\N
+692	53	1	\N	\N	\N	\N
+693	53	2	\N	\N	\N	\N
+699	54	1	\N	\N	\N	\N
+698	54	2	\N	\N	\N	\N
+703	55	1	\N	\N	\N	\N
+704	56	\N	\N	\N	\N	\N
+706	57	\N	\N	\N	\N	\N
+705	58	1	\N	\N	\N	\N
+1763	58	1	\N	\N	\N	\N
+707	59	\N	\N	\N	\N	\N
+690	61	1	\N	\N	\N	\N
+691	61	2	\N	\N	\N	\N
+696	62	1	\N	\N	\N	\N
+643	63	1	\N	\N	\N	\N
+191	173	1	\N	\N	\N	\N
+188	173	2	\N	\N	\N	\N
+192	173	3	\N	\N	\N	\N
+193	173	4	\N	\N	\N	\N
+194	173	5	\N	\N	\N	\N
+195	173	6	\N	\N	\N	\N
+189	173	7	\N	\N	\N	\N
+651	65	1	\N	\N	\N	\N
+657	65	2	\N	\N	\N	\N
+658	65	3	\N	\N	\N	\N
+569	65	4	\N	\N	\N	\N
+923	65	5	\N	\N	\N	\N
+669	65	11	\N	\N	\N	\N
+666	65	12	\N	\N	\N	\N
+667	65	13	\N	\N	\N	\N
+668	65	14	\N	\N	\N	\N
+654	66	6	\N	\N	\N	\N
+655	66	7	\N	\N	\N	\N
+656	66	8	\N	\N	\N	\N
+35	68	10	\N	\N	\N	\N
+34	68	11	\N	\N	\N	\N
+36	68	12	\N	\N	\N	\N
+71	69	6	\N	\N	\N	\N
+1238	71	1	\N	\N	\N	\N
+2290	74	\N	\N	\N	\N	\N
+253	75	\N	\N	\N	\N	\N
+287	76	\N	\N	\N	\N	\N
+293	77	\N	\N	\N	\N	\N
+2115	78	1	\N	\N	\N	\N
+186	80	14	\N	\N	\N	\N
+72	81	1	\N	\N	\N	\N
+73	81	2	\N	\N	\N	\N
+79	81	3	\N	\N	\N	\N
+80	81	4	\N	\N	\N	\N
+81	81	5	\N	\N	\N	\N
+82	81	6	\N	\N	\N	\N
+83	81	7	\N	\N	\N	\N
+301	81	7	\N	\N	\N	\N
+275	85	14	\N	\N	\N	\N
+1755	85	26	\N	\N	\N	\N
+204	86	1	\N	\N	\N	\N
+2121	86	2	\N	\N	\N	\N
+274	89	1	\N	\N	\N	\N
+730	102	1	\N	\N	\N	\N
+731	102	2	\N	\N	\N	\N
+733	103	2	\N	\N	\N	\N
+735	104	1	\N	\N	\N	\N
+734	104	2	\N	\N	\N	\N
+737	105	1	\N	\N	\N	\N
+736	105	2	\N	\N	\N	\N
+309	106	1	\N	\N	\N	\N
+769	107	1	\N	\N	\N	\N
+768	107	2	\N	\N	\N	\N
+766	108	1	\N	\N	\N	\N
+765	108	2	\N	\N	\N	\N
+308	109	1	\N	\N	\N	\N
+764	110	1	\N	\N	\N	\N
+767	110	2	\N	\N	\N	\N
+307	111	1	\N	\N	\N	\N
+304	112	1	\N	\N	\N	\N
+305	113	1	\N	\N	\N	\N
+306	114	1	\N	\N	\N	\N
+760	115	1	\N	\N	\N	\N
+762	115	3	\N	\N	\N	\N
+759	116	2	\N	\N	\N	\N
+750	117	2	\N	\N	\N	\N
+345	118	\N	\N	\N	\N	\N
+1343	170	1	\N	\N	\N	\N
+1344	170	2	\N	\N	\N	\N
+1345	170	3	\N	\N	\N	\N
+1346	170	4	\N	\N	\N	\N
+1347	170	5	\N	\N	\N	\N
+1348	170	6	\N	\N	\N	\N
+1349	170	7	\N	\N	\N	\N
+1350	170	8	\N	\N	\N	\N
+1351	170	9	\N	\N	\N	\N
+1352	170	10	\N	\N	\N	\N
+1353	170	11	\N	\N	\N	\N
+1354	170	12	\N	\N	\N	\N
+1355	170	13	\N	\N	\N	\N
+1356	170	14	\N	\N	\N	\N
+1357	170	15	\N	\N	\N	\N
+1358	170	16	\N	\N	\N	\N
+1359	170	17	\N	\N	\N	\N
+1442	171	1	\N	\N	\N	\N
+1443	171	2	\N	\N	\N	\N
+1444	171	3	\N	\N	\N	\N
+1445	171	4	\N	\N	\N	\N
+1446	171	5	\N	\N	\N	\N
+1447	171	6	\N	\N	\N	\N
+1448	171	7	\N	\N	\N	\N
+1449	171	8	\N	\N	\N	\N
+1450	171	9	\N	\N	\N	\N
+1451	171	10	\N	\N	\N	\N
+1452	171	11	\N	\N	\N	\N
+1453	171	12	\N	\N	\N	\N
+1424	170	17	\N	\N	\N	\N
+1719	170	17	\N	\N	\N	\N
+1360	170	18	\N	\N	\N	\N
+1361	170	19	\N	\N	\N	\N
+1362	170	20	\N	\N	\N	\N
+1767	172	1	\N	\N	\N	\N
+\.
+
+
+--
+-- Data for Name: settlements; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY settlements (settlement_id, settlement_name) FROM stdin;
+1	Барачево
+2	Вологда
+3	Дорожный
+4	Дубровское
+5	Красново
+6	Кувшиново
+7	Марьинское
+8	Никитино
+9	Семенково
+10	Фетинино
+\.
+
+
+--
+-- Name: settlements_settlement_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('settlements_settlement_id_seq', 10, true);
+
+
+--
+-- Data for Name: streets; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY streets (street_id, street_name) FROM stdin;
+1	Сосновая
+2	Майская
+3	Дачная
+4	Лесная
+5	пер Лесной
+6	Первомайская
+7	Октябрьская
+8	пер Майский
+9	Центральная
+10	Школьная
+11	Общежитие Аэропорта
+12	Новостройки
+\.
+
+
+--
+-- Name: streets_street_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('streets_street_id_seq', 12, true);
+
+
+--
+-- Name: auth_group_name_key; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group
+    ADD CONSTRAINT auth_group_name_key UNIQUE (name);
+
+
+--
+-- Name: auth_group_permissions_group_id_permission_id_key; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_permission_id_key UNIQUE (group_id, permission_id);
+
+
+--
+-- Name: auth_group_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group_pkey; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group
+    ADD CONSTRAINT auth_group_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_permission_content_type_id_codename_key; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_codename_key UNIQUE (content_type_id, codename);
+
+
+--
+-- Name: auth_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_permission_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_groups_user_id_group_id_key; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_user_id_group_id_key UNIQUE (user_id, group_id);
+
+
+--
+-- Name: auth_user_pkey; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user
+    ADD CONSTRAINT auth_user_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_user_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_user_permissions_user_id_permission_id_key; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_user_id_permission_id_key UNIQUE (user_id, permission_id);
+
+
+--
+-- Name: auth_user_username_key; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user
+    ADD CONSTRAINT auth_user_username_key UNIQUE (username);
+
+
+--
+-- Name: captcha_captchastore_hashkey_key; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY captcha_captchastore
+    ADD CONSTRAINT captcha_captchastore_hashkey_key UNIQUE (hashkey);
+
+
+--
+-- Name: captcha_captchastore_pkey; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY captcha_captchastore
+    ADD CONSTRAINT captcha_captchastore_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: company_1_pkey; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY company_1
+    ADD CONSTRAINT company_1_pkey PRIMARY KEY (pa);
+
+
+--
+-- Name: company_2_pkey; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY company_2
+    ADD CONSTRAINT company_2_pkey PRIMARY KEY (pa);
+
+
+--
+-- Name: company_3_pkey; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY company_3
+    ADD CONSTRAINT company_3_pkey PRIMARY KEY (pa);
+
+
+--
+-- Name: django_admin_log_pkey; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT django_admin_log_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_content_type_app_label_model_key; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY django_content_type
+    ADD CONSTRAINT django_content_type_app_label_model_key UNIQUE (app_label, model);
+
+
+--
+-- Name: django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY django_content_type
+    ADD CONSTRAINT django_content_type_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_session_pkey; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY django_session
+    ADD CONSTRAINT django_session_pkey PRIMARY KEY (session_key);
+
+
+--
+-- Name: feedback_feedback_pkey; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY feedback_feedback
+    ADD CONSTRAINT feedback_feedback_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: houses_house_pkey; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY houses_house
+    ADD CONSTRAINT houses_house_pkey PRIMARY KEY (house_id);
+
+
+--
+-- Name: houses_pkey1; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY houses
+    ADD CONSTRAINT houses_pkey1 PRIMARY KEY (house_id);
+
+
+--
+-- Name: houses_settlement_pkey; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY houses_settlement
+    ADD CONSTRAINT houses_settlement_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: news_newsmodel_pkey; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY news_newsmodel
+    ADD CONSTRAINT news_newsmodel_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: personal_accounts_dub_pkey; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY personal_accounts_dub
+    ADD CONSTRAINT personal_accounts_dub_pkey PRIMARY KEY (pa);
+
+
+--
+-- Name: personal_accounts_fet_pkey; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY personal_accounts_fet
+    ADD CONSTRAINT personal_accounts_fet_pkey PRIMARY KEY (pa);
+
+
+--
+-- Name: personal_accounts_pkey; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY personal_accounts_uk
+    ADD CONSTRAINT personal_accounts_pkey PRIMARY KEY (pa);
+
+
+--
+-- Name: settlements_pkey; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY settlements
+    ADD CONSTRAINT settlements_pkey PRIMARY KEY (settlement_id);
+
+
+--
+-- Name: streets_pkey; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY streets
+    ADD CONSTRAINT streets_pkey PRIMARY KEY (street_id);
+
+
+--
+-- Name: auth_group_name_like; Type: INDEX; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE INDEX auth_group_name_like ON auth_group USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: auth_group_permissions_group_id; Type: INDEX; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE INDEX auth_group_permissions_group_id ON auth_group_permissions USING btree (group_id);
+
+
+--
+-- Name: auth_group_permissions_permission_id; Type: INDEX; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE INDEX auth_group_permissions_permission_id ON auth_group_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_permission_content_type_id; Type: INDEX; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE INDEX auth_permission_content_type_id ON auth_permission USING btree (content_type_id);
+
+
+--
+-- Name: auth_user_groups_group_id; Type: INDEX; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE INDEX auth_user_groups_group_id ON auth_user_groups USING btree (group_id);
+
+
+--
+-- Name: auth_user_groups_user_id; Type: INDEX; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE INDEX auth_user_groups_user_id ON auth_user_groups USING btree (user_id);
+
+
+--
+-- Name: auth_user_user_permissions_permission_id; Type: INDEX; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE INDEX auth_user_user_permissions_permission_id ON auth_user_user_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_user_user_permissions_user_id; Type: INDEX; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE INDEX auth_user_user_permissions_user_id ON auth_user_user_permissions USING btree (user_id);
+
+
+--
+-- Name: auth_user_username_like; Type: INDEX; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE INDEX auth_user_username_like ON auth_user USING btree (username varchar_pattern_ops);
+
+
+--
+-- Name: captcha_captchastore_hashkey_like; Type: INDEX; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE INDEX captcha_captchastore_hashkey_like ON captcha_captchastore USING btree (hashkey varchar_pattern_ops);
+
+
+--
+-- Name: django_admin_log_content_type_id; Type: INDEX; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE INDEX django_admin_log_content_type_id ON django_admin_log USING btree (content_type_id);
+
+
+--
+-- Name: django_admin_log_user_id; Type: INDEX; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE INDEX django_admin_log_user_id ON django_admin_log USING btree (user_id);
+
+
+--
+-- Name: django_session_expire_date; Type: INDEX; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE INDEX django_session_expire_date ON django_session USING btree (expire_date);
+
+
+--
+-- Name: django_session_session_key_like; Type: INDEX; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE INDEX django_session_session_key_like ON django_session USING btree (session_key varchar_pattern_ops);
+
+
+--
+-- Name: auth_group_permissions_permission_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_permission_id_fkey FOREIGN KEY (permission_id) REFERENCES auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_groups_group_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_group_id_fkey FOREIGN KEY (group_id) REFERENCES auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_user_permissions_permission_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_permission_id_fkey FOREIGN KEY (permission_id) REFERENCES auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: content_type_id_refs_id_93d2d1f8; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT content_type_id_refs_id_93d2d1f8 FOREIGN KEY (content_type_id) REFERENCES django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: content_type_id_refs_id_d043b34a; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT content_type_id_refs_id_d043b34a FOREIGN KEY (content_type_id) REFERENCES django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: group_id_refs_id_f4b32aac; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT group_id_refs_id_f4b32aac FOREIGN KEY (group_id) REFERENCES auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: personal_accounts_dub_house_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY personal_accounts_dub
+    ADD CONSTRAINT personal_accounts_dub_house_id_fkey FOREIGN KEY (house_id) REFERENCES houses(house_id);
+
+
+--
+-- Name: personal_accounts_fet_house_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY personal_accounts_fet
+    ADD CONSTRAINT personal_accounts_fet_house_id_fkey FOREIGN KEY (house_id) REFERENCES houses(house_id);
+
+
+--
+-- Name: personal_accounts_house_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY personal_accounts_uk
+    ADD CONSTRAINT personal_accounts_house_id_fkey FOREIGN KEY (house_id) REFERENCES houses(house_id);
+
+
+--
+-- Name: settlement_fk; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY houses
+    ADD CONSTRAINT settlement_fk FOREIGN KEY (settlement_id) REFERENCES settlements(settlement_id) MATCH FULL;
+
+
+--
+-- Name: street_fk; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY houses
+    ADD CONSTRAINT street_fk FOREIGN KEY (street_id) REFERENCES streets(street_id) MATCH FULL;
+
+
+--
+-- Name: user_id_refs_id_40c41112; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT user_id_refs_id_40c41112 FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: user_id_refs_id_4dc23c39; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT user_id_refs_id_4dc23c39 FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: user_id_refs_id_c0d12874; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT user_id_refs_id_c0d12874 FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
