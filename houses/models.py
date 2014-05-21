@@ -30,6 +30,3 @@ class House(models.Model):
     house_population = models.CharField('Жильцов', max_length=5)
     contract = models.BooleanField('Договор действующий?', default=True)
     comment = models.CharField('Комментарий', max_length=300, blank=True)
-
-    def __str__(self):
-        return self.settlement+" "+self.street_name+" "+self.house_number
