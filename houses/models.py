@@ -30,3 +30,10 @@ class House(models.Model):
     house_population = models.CharField('Жильцов', max_length=5)
     contract = models.BooleanField('Договор действующий?', default=True)
     comment = models.CharField('Комментарий', max_length=300, blank=True)
+
+    def __unicode__(self):
+        if self.house_corp:
+            slash = '/'
+        else:
+            slash = ''
+        return self.get_settlement_display() + ' ' + self.street_name + ' ' + str(self.house_number) + slash + str(self.house_corp) + self.house_litera

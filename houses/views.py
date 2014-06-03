@@ -3,7 +3,7 @@ from houses.models import House
 
 
 def index(request):
-    houses = House.objects.all().order_by('settlement')
+    houses = House.objects.all().order_by('-settlement', 'house_number')
     return render(request, 'houses/index.html', {'houses': houses })
 
 
