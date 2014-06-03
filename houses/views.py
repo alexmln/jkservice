@@ -8,4 +8,5 @@ def index(request):
 
 
 def detail(request, house_id):
-    return render(request, 'houses/detail.html')
+    house = House.objects.get(pk=house_id)
+    return render(request, 'houses/detail.html', {'house': house })

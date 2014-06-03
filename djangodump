@@ -522,6 +522,42 @@ ALTER SEQUENCE houses_house_house_id_seq OWNED BY houses_house.house_id;
 
 
 --
+-- Name: houses_link; Type: TABLE; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE TABLE houses_link (
+    id integer NOT NULL,
+    house_id integer NOT NULL,
+    category character varying(2) NOT NULL,
+    upload_file character varying(100) NOT NULL,
+    filename character varying(100)
+);
+
+
+ALTER TABLE public.houses_link OWNER TO django;
+
+--
+-- Name: houses_link_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE houses_link_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.houses_link_id_seq OWNER TO django;
+
+--
+-- Name: houses_link_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE houses_link_id_seq OWNED BY houses_link.id;
+
+
+--
 -- Name: houses_settlement; Type: TABLE; Schema: public; Owner: django; Tablespace: 
 --
 
@@ -765,6 +801,13 @@ ALTER TABLE ONLY houses_house ALTER COLUMN house_id SET DEFAULT nextval('houses_
 -- Name: id; Type: DEFAULT; Schema: public; Owner: django
 --
 
+ALTER TABLE ONLY houses_link ALTER COLUMN id SET DEFAULT nextval('houses_link_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: django
+--
+
 ALTER TABLE ONLY news_newsmodel ALTER COLUMN id SET DEFAULT nextval('news_newsmodel_id_seq'::regclass);
 
 
@@ -847,6 +890,9 @@ COPY auth_permission (id, name, content_type_id, codename) FROM stdin;
 34	Can add feedback	12	add_feedback
 35	Can change feedback	12	change_feedback
 36	Can delete feedback	12	delete_feedback
+37	Can add link	13	add_link
+38	Can change link	13	change_link
+39	Can delete link	13	delete_link
 \.
 
 
@@ -854,7 +900,7 @@ COPY auth_permission (id, name, content_type_id, codename) FROM stdin;
 -- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
 --
 
-SELECT pg_catalog.setval('auth_permission_id_seq', 36, true);
+SELECT pg_catalog.setval('auth_permission_id_seq', 39, true);
 
 
 --
@@ -956,6 +1002,12 @@ COPY captcha_captchastore (id, challenge, response, hashkey, expiration) FROM st
 1347	MOAXMVN	moaxmvn	0188f6aae2d0a16b025c1b4bc67ef8c8a6e80b95	2014-05-19 12:35:14.665538+04
 1301	FMONKOV	fmonkov	dbddef31432eafbebfe3fc754d731456716046db	2014-04-29 11:42:44.097725+04
 1348	UJJASAW	ujjasaw	56a4bcadd15857848c1edc82d550ed232bc14021	2014-06-02 21:47:17.703653+04
+1349	ZTHKETA	zthketa	259bf6a0a743b572e6ec265c71f350e8c5304d6f	2014-06-03 10:58:43.785488+04
+1350	TVWUZXG	tvwuzxg	e190ca20b5e7d91b67c706d318f92dd10030bcef	2014-06-03 11:14:04.361988+04
+1351	QESPQUN	qespqun	df4fe3e5a77ef15da067a0bedd74f074657c058d	2014-06-03 11:15:21.821069+04
+1352	DMXBGLM	dmxbglm	69399885c313ecd9a27434b47be56ed461cc48b1	2014-06-03 11:16:27.087793+04
+1353	BOYNIGD	boynigd	d011432e29dd99fc227f59049a9b662887223ef0	2014-06-03 11:25:01.562936+04
+1354	NQYPJDN	nqypjdn	14820ad39bc48d3da45efc81fd84e2f4ee6052c9	2014-06-03 11:25:01.949375+04
 \.
 
 
@@ -963,7 +1015,7 @@ COPY captcha_captchastore (id, challenge, response, hashkey, expiration) FROM st
 -- Name: captcha_captchastore_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
 --
 
-SELECT pg_catalog.setval('captcha_captchastore_id_seq', 1348, true);
+SELECT pg_catalog.setval('captcha_captchastore_id_seq', 1354, true);
 
 
 --
@@ -2709,6 +2761,10 @@ COPY django_admin_log (id, action_time, user_id, content_type_id, object_id, obj
 83	2014-06-03 01:12:25.8156+04	1	10	44	Дубровское Школьная 10	1	
 84	2014-06-03 01:12:59.532141+04	1	10	45	Дубровское Школьная 12	1	
 85	2014-06-03 01:14:11.599033+04	1	10	46	Кувшиново Майская 4	1	
+86	2014-06-03 10:16:52.775832+04	1	10	46	Кувшиново Майская 4	2	Изменен upload_file_1.
+87	2014-06-03 10:41:19.597306+04	1	10	37	Дорожный  12	2	Изменен upload_file_1.
+88	2014-06-03 12:01:11.396485+04	1	10	37	Дорожный  12	2	Добавлен link "/var/jkservice/media/37/1.doc".
+89	2014-06-03 12:21:19.791364+04	1	10	37	Дорожный  12	2	Добавлен link "/var/jkservice/media/37/otchet_2.xlsx". Добавлен link "/var/jkservice/media/37/perechen-rabot_2.xls". Изменены filename для link "/var/jkservice/media/37/1.doc".
 \.
 
 
@@ -2716,7 +2772,7 @@ COPY django_admin_log (id, action_time, user_id, content_type_id, object_id, obj
 -- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
 --
 
-SELECT pg_catalog.setval('django_admin_log_id_seq', 85, true);
+SELECT pg_catalog.setval('django_admin_log_id_seq', 89, true);
 
 
 --
@@ -2734,6 +2790,7 @@ COPY django_content_type (id, name, app_label, model) FROM stdin;
 10	house	houses	house
 11	news model	news	newsmodel
 12	feedback	feedback	feedback
+13	link	houses	link
 \.
 
 
@@ -2741,7 +2798,7 @@ COPY django_content_type (id, name, app_label, model) FROM stdin;
 -- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
 --
 
-SELECT pg_catalog.setval('django_content_type_id_seq', 12, true);
+SELECT pg_catalog.setval('django_content_type_id_seq', 13, true);
 
 
 --
@@ -3065,7 +3122,6 @@ COPY houses_house (house_id, settlement, street_name, house_number, house_litera
 34	DO		8			570	1981	OK	24	t	
 35	DO		9			931	1994	OK	56	t	
 36	DO		10			0	0	OK	17	t	
-37	DO		12			309	1965	OK	17	t	
 38	DU	Центральная	2			440	1967	OK	30	t	
 39	DU	Центральная	4			515	1968	OK	30	t	
 40	DU	Школьная	2			1362.6	1972	OK	58	t	
@@ -3075,6 +3131,7 @@ COPY houses_house (house_id, settlement, street_name, house_number, house_litera
 44	DU	Школьная	10			3369	1983	OK	215	t	
 45	DU	Школьная	12			0	1982	OK	194	t	
 46	CU	Майская	4			686.8	1920	OK	20	t	
+37	DO		12			309	1965	OK	17	t	
 \.
 
 
@@ -3090,6 +3147,24 @@ SELECT pg_catalog.setval('houses_house_house_id_seq', 46, true);
 --
 
 SELECT pg_catalog.setval('houses_id_seq', 173, true);
+
+
+--
+-- Data for Name: houses_link; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY houses_link (id, house_id, category, upload_file, filename) FROM stdin;
+1	37	VR	37/1.doc	Сведения о выполняемых работах
+4	37	VO	37/otchet_2.xlsx	Отчет об использовании денежных средств за 2013
+5	37	SU	37/perechen-rabot_2.xls	Перечент работ
+\.
+
+
+--
+-- Name: houses_link_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('houses_link_id_seq', 5, true);
 
 
 --
@@ -5006,6 +5081,14 @@ ALTER TABLE ONLY houses_house
 
 
 --
+-- Name: houses_link_pkey; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY houses_link
+    ADD CONSTRAINT houses_link_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: houses_pkey1; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
 --
 
@@ -5168,6 +5251,13 @@ CREATE INDEX django_session_session_key_like ON django_session USING btree (sess
 
 
 --
+-- Name: houses_link_house_id; Type: INDEX; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE INDEX houses_link_house_id ON houses_link USING btree (house_id);
+
+
+--
 -- Name: auth_group_permissions_permission_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: django
 --
 
@@ -5213,6 +5303,14 @@ ALTER TABLE ONLY auth_permission
 
 ALTER TABLE ONLY auth_group_permissions
     ADD CONSTRAINT group_id_refs_id_f4b32aac FOREIGN KEY (group_id) REFERENCES auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: houses_link_house_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY houses_link
+    ADD CONSTRAINT houses_link_house_id_fkey FOREIGN KEY (house_id) REFERENCES houses_house(house_id) DEFERRABLE INITIALLY DEFERRED;
 
 
 --

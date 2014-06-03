@@ -11,4 +11,22 @@
     <link rel="stylesheet" href="{% static 'jkservice/css/watermet.css' %}">
 {% endblock %}
 {% block content %}
+    {% for link in house.link_set.all %}
+        {% if link.category = 'DU' %}
+            <h4>Договор управления</h4>
+            <a href="{{ link.upload_file.url }}">{{ link.filename }}</a>
+        {% elif link.category = 'VR'%}
+            <h4>Выполняемые работы</h4>
+            <a href="{{ link.upload_file.url }}">{{ link.filename }}</a>
+        {% elif link.category = 'VO' %}
+            <h4>Выполенение обязательств</h4>
+            <a href="{{ link.upload_file.url }}">{{ link.filename }}</a>
+        {% elif link.category = 'SU' %}
+            <h4>Стоимость услуг</h4>
+            <a href="{{ link.upload_file.url }}">{{ link.filename }}</a>
+        {% else %}
+            <h4>Прочие документы</h4>
+            <a href="{{ link.upload_file.url }}">{{ link.filename }}</a>
+        {% endif %}
+    {% endfor %}
 {% endblock %}

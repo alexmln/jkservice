@@ -3,6 +3,7 @@ from django.db import models
 
 
 class House(models.Model):
+
     SETTLEMENT_CHOICES = (
         ('SE', 'Семенково'),
         ('S2', 'Семенково - 2'),
@@ -37,3 +38,24 @@ class House(models.Model):
         else:
             slash = ''
         return self.get_settlement_display() + ' ' + self.street_name + ' ' + str(self.house_number) + slash + str(self.house_corp) + self.house_litera
+
+
+class Link(models.Model):
+
+    def file(self, filename):
+        url = '%s/%s' % (self.house.house_id, filename)
+        return url
+
+    CATEGORY_CHOICES = (
+        ('DU', 'Договор управления'),
+        ('VR', 'Выполняемые работы'),
+        ('VO', 'Выполнение обязательств'),
+        ('SU', 'Стоиомсть услуг'),
+    )
+    house = models.ForeignKey(House)
+    category = models.CharField('Категория', max_length=2, choices=CATEGORY_CHOICES)
+    filename = models.CharField('Имя файла', max_length=100, blank=False)
+    upload_file = models.FileField('Файл', upload_to=file)
+
+    def __unicode__(self):
+        return self.upload_file.path
