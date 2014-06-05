@@ -908,7 +908,7 @@ SELECT pg_catalog.setval('auth_permission_id_seq', 39, true);
 --
 
 COPY auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
-1	pbkdf2_sha256$12000$5c1D9SMQWkWL$gBQUay1abSyfwVFU4RUjp4SKiuc3Id9iq6eppFBdIVg=	2014-06-02 21:43:04.229951+04	t	alexmln			fromlnkv@gmail.com	t	t	2014-03-04 22:32:49.436+04
+1	pbkdf2_sha256$12000$5c1D9SMQWkWL$gBQUay1abSyfwVFU4RUjp4SKiuc3Id9iq6eppFBdIVg=	2014-06-03 13:24:57.023737+04	t	alexmln			fromlnkv@gmail.com	t	t	2014-03-04 22:32:49.436+04
 \.
 
 
@@ -1008,6 +1008,16 @@ COPY captcha_captchastore (id, challenge, response, hashkey, expiration) FROM st
 1352	DMXBGLM	dmxbglm	69399885c313ecd9a27434b47be56ed461cc48b1	2014-06-03 11:16:27.087793+04
 1353	BOYNIGD	boynigd	d011432e29dd99fc227f59049a9b662887223ef0	2014-06-03 11:25:01.562936+04
 1354	NQYPJDN	nqypjdn	14820ad39bc48d3da45efc81fd84e2f4ee6052c9	2014-06-03 11:25:01.949375+04
+1355	PHXKELI	phxkeli	3dcb646a03c04b91ed515d4d3e6358cecad78352	2014-06-03 13:28:24.522491+04
+1356	LIIWVJL	liiwvjl	1e082a8f6a3d419dc9fa1454d19100955358afc1	2014-06-03 13:28:26.978396+04
+1357	BCDYCQJ	bcdycqj	21b47a9f93fcb17b077467425fc7b445169c5654	2014-06-03 13:28:31.949738+04
+1358	LZLKOTX	lzlkotx	1fbaf4060e7115ecf9a63f339caf28a354b6ae73	2014-06-04 13:52:27.894174+04
+1359	ODEVKVW	odevkvw	3360d877fde0fecd31bb7ce708c97d6213a1ebf2	2014-06-04 14:06:40.369388+04
+1360	UCTNHOZ	uctnhoz	d5acc331603cf2df492e92120a42affc1ae98fe3	2014-06-05 03:12:52.878792+04
+1361	PZTLGCO	pztlgco	cfa96a33be9519761eb6f63ddff31a71dac3fb09	2014-06-05 03:12:55.130738+04
+1362	UAPXBWS	uapxbws	cdf0552ed0a33f95e8adedc84c5a2f8efbff642f	2014-06-05 11:08:31.880812+04
+1363	QCRTUYS	qcrtuys	be4f3c658dd46faf87cb03b41dfe4ee2bd006729	2014-06-05 11:15:39.009535+04
+1364	ONKDTXN	onkdtxn	e16f8ada5a401e456c27ca8da0479b5670a435b0	2014-06-05 19:16:51.345436+04
 \.
 
 
@@ -1015,7 +1025,7 @@ COPY captcha_captchastore (id, challenge, response, hashkey, expiration) FROM st
 -- Name: captcha_captchastore_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
 --
 
-SELECT pg_catalog.setval('captcha_captchastore_id_seq', 1354, true);
+SELECT pg_catalog.setval('captcha_captchastore_id_seq', 1364, true);
 
 
 --
@@ -2765,6 +2775,47 @@ COPY django_admin_log (id, action_time, user_id, content_type_id, object_id, obj
 87	2014-06-03 10:41:19.597306+04	1	10	37	Дорожный  12	2	Изменен upload_file_1.
 88	2014-06-03 12:01:11.396485+04	1	10	37	Дорожный  12	2	Добавлен link "/var/jkservice/media/37/1.doc".
 89	2014-06-03 12:21:19.791364+04	1	10	37	Дорожный  12	2	Добавлен link "/var/jkservice/media/37/otchet_2.xlsx". Добавлен link "/var/jkservice/media/37/perechen-rabot_2.xls". Изменены filename для link "/var/jkservice/media/37/1.doc".
+90	2014-06-03 13:48:15.072618+04	1	10	1	Семенково - 2  1	2	Добавлен link "/var/jkservice/media/1/vr.doc".
+91	2014-06-03 13:54:38.29549+04	1	10	1	Семенково - 2  1	2	Добавлен link "/var/jkservice/media/1/otchet.xlsx". Добавлен link "/var/jkservice/media/1/perechen.xls". Изменены filename для link "/var/jkservice/media/1/vr.doc".
+92	2014-06-03 13:58:58.396142+04	1	10	2	Семенково - 2  2	2	Добавлен link "/var/jkservice/media/2/vypolnyaemye_raboty.doc". Добавлен link "/var/jkservice/media/2/otchet_2013.xlsx". Добавлен link "/var/jkservice/media/2/perechen-rabot.xls".
+93	2014-06-03 14:01:50.452418+04	1	10	3	Семенково - 2  3	2	Добавлен link "/var/jkservice/media/3/vypolnyaemye_raboty.doc". Добавлен link "/var/jkservice/media/3/otchet_2013.xlsx". Добавлен link "/var/jkservice/media/3/perechen_rabot.xls".
+94	2014-06-03 14:03:38.484535+04	1	10	4	Семенково - 2  4	2	Добавлен link "/var/jkservice/media/4/vypolnyaemye_raboty.doc". Добавлен link "/var/jkservice/media/4/otchet_2013.xlsx". Добавлен link "/var/jkservice/media/4/perechen_rabot.xls".
+95	2014-06-03 14:05:21.15748+04	1	10	5	Семенково - 2  5	2	Добавлен link "/var/jkservice/media/5/vypolnyaemye_raboty.doc". Добавлен link "/var/jkservice/media/5/otchet_2013.xlsx". Добавлен link "/var/jkservice/media/5/perechen_rabot.xls".
+96	2014-06-03 14:07:31.911295+04	1	10	6	Семенково - 2  6	2	Добавлен link "/var/jkservice/media/6/vypolnyaemye_raboty.doc". Добавлен link "/var/jkservice/media/6/otchet_2013.xlsx". Добавлен link "/var/jkservice/media/6/perechen_rabot.xls".
+97	2014-06-03 14:09:04.075812+04	1	10	7	Семенково - 2  9	2	Добавлен link "/var/jkservice/media/7/vypolnyaemye_raboty.doc". Добавлен link "/var/jkservice/media/7/otchet_2013.xlsx". Добавлен link "/var/jkservice/media/7/perechen_rabot.xls".
+98	2014-06-03 14:11:04.700884+04	1	10	8	Семенково - 2  10	2	Добавлен link "/var/jkservice/media/8/vypolnyaemye_raboty.doc". Добавлен link "/var/jkservice/media/8/otchet_2013.xlsx". Добавлен link "/var/jkservice/media/8/perechen_rabot.xls".
+99	2014-06-03 14:17:09.492245+04	1	10	9	Семенково - 2  11	2	Добавлен link "/var/jkservice/media/9/vypolnyaemye_raboty.doc". Добавлен link "/var/jkservice/media/9/otchet_2013.xlsx". Добавлен link "/var/jkservice/media/9/perechen_rabot.xls".
+100	2014-06-03 14:18:24.494194+04	1	10	10	Семенково - 2  13	2	Добавлен link "/var/jkservice/media/10/vypolnyaemye_raboty.doc". Добавлен link "/var/jkservice/media/10/perechen_rabot.xls".
+101	2014-06-03 14:20:10.966519+04	1	10	11	Фофанцево  1	2	Добавлен link "/var/jkservice/media/11/vypolnyaemye_raboty.doc". Добавлен link "/var/jkservice/media/11/otchet_2013.xlsx". Добавлен link "/var/jkservice/media/11/perechen_rabot.xls".
+102	2014-06-03 14:21:45.67802+04	1	10	12	Фофанцево  2	2	Добавлен link "/var/jkservice/media/12/vypolnyaemye_raboty.doc". Добавлен link "/var/jkservice/media/12/otchet_2013.xlsx". Добавлен link "/var/jkservice/media/12/perechen_rabot.xls".
+103	2014-06-03 14:22:53.81539+04	1	10	13	Фофанцево  3	2	Добавлен link "/var/jkservice/media/13/vypolnyaemye_raboty.doc". Добавлен link "/var/jkservice/media/13/perechen_rabot.xls".
+104	2014-06-03 14:24:12.745934+04	1	10	14	Фофанцево  4	2	Добавлен link "/var/jkservice/media/14/vypolnyaemye_raboty.doc". Добавлен link "/var/jkservice/media/14/otchet_2013.xlsx". Добавлен link "/var/jkservice/media/14/perechen_rabot.xls".
+105	2014-06-03 14:25:38.231717+04	1	10	15	Фофанцево  5	2	Добавлен link "/var/jkservice/media/15/vypolnyaemye_raboty.doc". Добавлен link "/var/jkservice/media/15/otchet_2013.xlsx". Добавлен link "/var/jkservice/media/15/perechen_rabot.xls".
+106	2014-06-03 14:27:37.804606+04	1	10	16	Фофанцево  6	2	Добавлен link "/var/jkservice/media/16/vypolnyaemye_raboty.doc". Добавлен link "/var/jkservice/media/16/otchet_2013.xlsx". Добавлен link "/var/jkservice/media/16/otchet_2013_1.xlsx".
+107	2014-06-03 14:29:22.512836+04	1	10	17	Фофанцево  7	2	Добавлен link "/var/jkservice/media/17/vypolnyaemye_raboty.doc". Добавлен link "/var/jkservice/media/17/otchet_2013.xlsx". Добавлен link "/var/jkservice/media/17/perechen_rabot.xls".
+108	2014-06-03 14:31:01.964027+04	1	10	18	Фофанцево  8	2	Добавлен link "/var/jkservice/media/18/vypolnyaemye_raboty.doc". Добавлен link "/var/jkservice/media/18/otchet_2013.xlsx". Добавлен link "/var/jkservice/media/18/perechen_rabot.xls".
+109	2014-06-03 14:32:43.971782+04	1	10	19	Фофанцево  9	2	Добавлен link "/var/jkservice/media/19/vypolnyaemye_raboty.doc". Добавлен link "/var/jkservice/media/19/otchet_2013.xlsx". Добавлен link "/var/jkservice/media/19/perechen_rabot.xls".
+110	2014-06-03 14:34:09.504305+04	1	10	20	Фофанцево  10	2	Добавлен link "/var/jkservice/media/20/vypolnyaemye_raboty.doc". Добавлен link "/var/jkservice/media/20/otchet_2013.xlsx". Добавлен link "/var/jkservice/media/20/perechen_rabot.xls".
+111	2014-06-03 14:35:58.654371+04	1	10	21	Фофанцево  11	2	Добавлен link "/var/jkservice/media/21/vypolnyaemye_raboty.doc". Добавлен link "/var/jkservice/media/21/otchet_2013.xlsx". Добавлен link "/var/jkservice/media/21/perechen_rabot.xls".
+112	2014-06-03 14:37:17.11987+04	1	10	22	Фофанцево  12	2	Добавлен link "/var/jkservice/media/22/vypolnyaemye_raboty.doc". Добавлен link "/var/jkservice/media/22/otchet_2013.xlsx". Добавлен link "/var/jkservice/media/22/perechen_rabot.xls".
+113	2014-06-03 14:39:11.56145+04	1	10	23	Фофанцево  13	2	Добавлен link "/var/jkservice/media/23/vypolnyaemye_raboty.doc". Добавлен link "/var/jkservice/media/23/otchet_2013.xlsx". Добавлен link "/var/jkservice/media/23/perechen_rabot.xls".
+114	2014-06-03 14:42:02.006019+04	1	10	24	Фофанцево  14	2	Добавлен link "/var/jkservice/media/24/vypolnyaemye_raboty.doc". Добавлен link "/var/jkservice/media/24/otchet_2013.xlsx". Добавлен link "/var/jkservice/media/24/perechen_rabot.xls".
+115	2014-06-03 14:43:29.22987+04	1	10	25	Фофанцево  15	2	Добавлен link "/var/jkservice/media/25/vypolnyaemye_raboty.doc". Добавлен link "/var/jkservice/media/25/otchet_2013.xlsx". Добавлен link "/var/jkservice/media/25/perechen_rabot.xls".
+116	2014-06-03 14:45:25.938307+04	1	10	26	Дорожный  3	2	Добавлен link "/var/jkservice/media/26/vypolnyaemye_raboty.doc". Добавлен link "/var/jkservice/media/26/perechen_rabot.xls".
+117	2014-06-03 14:47:33.471443+04	1	10	27	Дорожный  1	2	Добавлен link "/var/jkservice/media/27/vypolnyaemye_raboty.doc". Добавлен link "/var/jkservice/media/27/perechen_rabot.xls".
+118	2014-06-03 14:49:00.427383+04	1	10	28	Дорожный  2	2	Добавлен link "/var/jkservice/media/28/otchet_2013.xlsx". Добавлен link "/var/jkservice/media/28/perechen_rabot.xls".
+119	2014-06-03 14:50:33.242968+04	1	10	29	Дорожный  1	2	Добавлен link "/var/jkservice/media/29/vypolnyaemye_raboty.doc". Добавлен link "/var/jkservice/media/29/otchet_2013.xlsx". Добавлен link "/var/jkservice/media/29/perechen_rabot.xls".
+120	2014-06-03 14:52:03.566381+04	1	10	30	Дорожный  4	2	Добавлен link "/var/jkservice/media/30/vypolnyaemye_raboty.doc". Добавлен link "/var/jkservice/media/30/otchet_2013.xlsx". Добавлен link "/var/jkservice/media/30/perechen_rabot.xls".
+121	2014-06-03 14:52:46.074784+04	1	10	31	Дорожный  5	2	Добавлен link "/var/jkservice/media/31/vypolnyaemye_raboty.doc". Добавлен link "/var/jkservice/media/31/otchet_2013.xlsx". Добавлен link "/var/jkservice/media/31/perechen_rabot.xls".
+122	2014-06-03 14:53:54.739169+04	1	10	31	Дорожный  5	2	Изменены upload_file для link "/var/jkservice/media/31/perechen_rabot_1.xls". Удален link "/var/jkservice/media/31/otchet_2013.xlsx".
+123	2014-06-03 14:55:18.754757+04	1	10	32	Дорожный  6	2	Добавлен link "/var/jkservice/media/32/vypolnyaemye_raboty.doc". Добавлен link "/var/jkservice/media/32/otchet_2013.xlsx". Добавлен link "/var/jkservice/media/32/perechen_rabot.xls".
+124	2014-06-03 14:56:44.543983+04	1	10	33	Дорожный  7	2	Добавлен link "/var/jkservice/media/33/vypolnyaemye_raboty.doc". Добавлен link "/var/jkservice/media/33/otchet_2013.xlsx". Добавлен link "/var/jkservice/media/33/perechen_rabot.xls".
+125	2014-06-03 14:58:12.999014+04	1	10	34	Дорожный  8	2	Добавлен link "/var/jkservice/media/34/vypolnyaemye_raboty.doc". Добавлен link "/var/jkservice/media/34/otchet_2013.xlsx". Добавлен link "/var/jkservice/media/34/perechen_rabot.xls".
+126	2014-06-03 14:59:39.583557+04	1	10	35	Дорожный  9	2	Добавлен link "/var/jkservice/media/35/vypolnyaemye_raboty.doc". Добавлен link "/var/jkservice/media/35/otchet_2013.xlsx". Добавлен link "/var/jkservice/media/35/perechen_rabot.xls".
+127	2014-06-03 15:01:03.221831+04	1	10	36	Дорожный  10	2	Добавлен link "/var/jkservice/media/36/vypolnyaemye_raboty.doc". Добавлен link "/var/jkservice/media/36/otchet_2013.xlsx". Добавлен link "/var/jkservice/media/36/perechen_rabot.xls".
+128	2014-06-03 15:03:15.655502+04	1	10	37	Дорожный  12	2	Изменены upload_file для link "/var/jkservice/media/37/otchet_2013.xlsx". Изменены upload_file для link "/var/jkservice/media/37/perechen_rabot.xls".
+129	2014-06-03 15:06:12.580877+04	1	10	35	Дорожный  9	2	Изменены upload_file для link "/var/jkservice/media/35/otchet-_2013.xlsx". Изменены upload_file для link "/var/jkservice/media/35/perechen_rabot_1.xls".
+130	2014-06-03 15:06:28.273581+04	1	10	36	Дорожный  10	2	Изменены upload_file для link "/var/jkservice/media/36/otchet_2013_1.xlsx". Изменены upload_file для link "/var/jkservice/media/36/perechen_rabot_1.xls".
 \.
 
 
@@ -2772,7 +2823,7 @@ COPY django_admin_log (id, action_time, user_id, content_type_id, object_id, obj
 -- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
 --
 
-SELECT pg_catalog.setval('django_admin_log_id_seq', 89, true);
+SELECT pg_catalog.setval('django_admin_log_id_seq', 130, true);
 
 
 --
@@ -2809,6 +2860,7 @@ COPY django_session (session_key, session_data, expire_date) FROM stdin;
 1i9b2kix05i4j2vhqu65rkks2pbv7a9l	MDkwOGMzNTkwNjI4MzBlMDJlMGZiNDc5MWM4NjMxYzExNmE4NTY1Mzp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=	2014-04-27 20:47:41.147671+04
 8c32v95bwhppeutw17skhtdcvrnsflw7	N2Y3YWI5NTliYmU1MGNkMTc4MjE0ZDcxYTRkNDdjMzBkNzk3ZTAyMjp7fQ==	2014-05-13 22:13:13.849163+04
 ygfqc693p2tvoeow82rf7ua1lnst8r2w	MDkwOGMzNTkwNjI4MzBlMDJlMGZiNDc5MWM4NjMxYzExNmE4NTY1Mzp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=	2014-06-16 21:43:04.241386+04
+8pk0vvfmzhe4nf71wg0g4v4h85p2uf5f	MDkwOGMzNTkwNjI4MzBlMDJlMGZiNDc5MWM4NjMxYzExNmE4NTY1Mzp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=	2014-06-17 13:24:57.027399+04
 \.
 
 
@@ -3086,6 +3138,15 @@ COPY houses (house_id, settlement_id, street_id, house_num, house_corp, house_li
 --
 
 COPY houses_house (house_id, settlement, street_name, house_number, house_litera, house_corp, house_area, house_year, house_status, house_population, contract, comment) FROM stdin;
+38	DU	Центральная	2			440	1967	OK	30	t	
+39	DU	Центральная	4			515	1968	OK	30	t	
+40	DU	Школьная	2			1362.6	1972	OK	58	t	
+41	DU	Школьная	4			1368.5	1972	OK	81	t	
+42	DU	Школьная	6			3385.3	1973	OK	193	t	
+43	DU	Школьная	8			3371	1974	OK	171	t	
+44	DU	Школьная	10			3369	1983	OK	215	t	
+45	DU	Школьная	12			0	1982	OK	194	t	
+46	CU	Майская	4			686.8	1920	OK	20	t	
 1	S2		1			548.4	1964	OK	32	t	
 2	S2		2			543.6	1964	OK	27	t	
 3	S2		3			761.4	1977	OK	32	t	
@@ -3120,18 +3181,9 @@ COPY houses_house (house_id, settlement, street_name, house_number, house_litera
 32	DO		6			866	1978	OK	59	t	
 33	DO		7			973	1985	OK	52	t	
 34	DO		8			570	1981	OK	24	t	
+37	DO		12			309	1965	OK	17	t	
 35	DO		9			931	1994	OK	56	t	
 36	DO		10			0	0	OK	17	t	
-38	DU	Центральная	2			440	1967	OK	30	t	
-39	DU	Центральная	4			515	1968	OK	30	t	
-40	DU	Школьная	2			1362.6	1972	OK	58	t	
-41	DU	Школьная	4			1368.5	1972	OK	81	t	
-42	DU	Школьная	6			3385.3	1973	OK	193	t	
-43	DU	Школьная	8			3371	1974	OK	171	t	
-44	DU	Школьная	10			3369	1983	OK	215	t	
-45	DU	Школьная	12			0	1982	OK	194	t	
-46	CU	Майская	4			686.8	1920	OK	20	t	
-37	DO		12			309	1965	OK	17	t	
 \.
 
 
@@ -3155,8 +3207,110 @@ SELECT pg_catalog.setval('houses_id_seq', 173, true);
 
 COPY houses_link (id, house_id, category, upload_file, filename) FROM stdin;
 1	37	VR	37/1.doc	Сведения о выполняемых работах
-4	37	VO	37/otchet_2.xlsx	Отчет об использовании денежных средств за 2013
-5	37	SU	37/perechen-rabot_2.xls	Перечент работ
+6	1	VR	1/vr.doc	Услуги, оказываемые в отношении общего имущества
+7	1	VO	1/otchet.xlsx	Отчет об использовании денежных средств за 2013
+8	1	SU	1/perechen.xls	Перечень работ
+9	2	VR	2/vypolnyaemye_raboty.doc	Услуги, оказываемые в отношении общего имущества
+10	2	VO	2/otchet_2013.xlsx	Отчет об использовании денежных средств за 2013
+11	2	VO	2/perechen-rabot.xls	Перечень работ
+12	3	VR	3/vypolnyaemye_raboty.doc	Услуги, оказываемые в отношении общего имущества
+13	3	VO	3/otchet_2013.xlsx	Отчет об использовании денежных средств за 2013
+14	3	SU	3/perechen_rabot.xls	Перечень работ
+15	4	VR	4/vypolnyaemye_raboty.doc	Сведения о выполняемых работах
+16	4	VO	4/otchet_2013.xlsx	Отчет об использовании денежных средств за 2013
+17	4	SU	4/perechen_rabot.xls	Перечень работ
+18	5	VR	5/vypolnyaemye_raboty.doc	Сведения о выполняемых работах
+19	5	VO	5/otchet_2013.xlsx	Отчет об использовании денежных средств за 2013
+20	5	SU	5/perechen_rabot.xls	Отчет об использовании денежных средств за 2013
+21	6	VR	6/vypolnyaemye_raboty.doc	Сведения о выполняемых работах
+22	6	VO	6/otchet_2013.xlsx	Отчет об использовании денежных средств за 2013
+23	6	SU	6/perechen_rabot.xls	Перечень работ
+24	7	VR	7/vypolnyaemye_raboty.doc	Сведения о выполняемых работах
+25	7	VO	7/otchet_2013.xlsx	Отчет об использовании денежных средств за 2013
+26	7	SU	7/perechen_rabot.xls	Перечень работ
+27	8	VR	8/vypolnyaemye_raboty.doc	Сведения о выполняемых работах
+28	8	VO	8/otchet_2013.xlsx	Отчет об использовании денежных средств за 2013
+29	8	SU	8/perechen_rabot.xls	Перечень работ
+30	9	VR	9/vypolnyaemye_raboty.doc	Сведения о выполняемых работах
+31	9	VO	9/otchet_2013.xlsx	Отчет об использовании денежных средств за 2013
+32	9	SU	9/perechen_rabot.xls	Перечень работ
+33	10	VR	10/vypolnyaemye_raboty.doc	Сведения о выполняемых работах
+34	10	SU	10/perechen_rabot.xls	Перечень работ
+35	11	VR	11/vypolnyaemye_raboty.doc	Сведения о выполняемых работах
+36	11	VO	11/otchet_2013.xlsx	Отчет об использовании денежных средств за 2013
+37	11	SU	11/perechen_rabot.xls	Перечень работ
+38	12	VR	12/vypolnyaemye_raboty.doc	Сведения о выполняемых работах
+39	12	VO	12/otchet_2013.xlsx	Отчет об использовании денежных средств за 2013
+40	12	VO	12/perechen_rabot.xls	Перечень работ
+41	13	VR	13/vypolnyaemye_raboty.doc	Сведения о выполняемых работах
+42	13	SU	13/perechen_rabot.xls	Перечень работ
+43	14	VR	14/vypolnyaemye_raboty.doc	Сведения о выполняемых работах
+44	14	VO	14/otchet_2013.xlsx	Отчет об использовании денежных средств за 2013
+45	14	SU	14/perechen_rabot.xls	Перечень работ
+46	15	VR	15/vypolnyaemye_raboty.doc	Сведения о выполняемых работах
+47	15	VO	15/otchet_2013.xlsx	Отчет об использовании денежных средств за 2013
+48	15	SU	15/perechen_rabot.xls	Перечень работ
+49	16	VR	16/vypolnyaemye_raboty.doc	Сведения о выполняемых работах
+50	16	VO	16/otchet_2013.xlsx	Отчет об использовании денежных средств за 2013
+51	16	SU	16/otchet_2013_1.xlsx	Перечень работ
+52	17	VR	17/vypolnyaemye_raboty.doc	Сведения о выполняемых работах
+53	17	VO	17/otchet_2013.xlsx	Отчет об использовании денежных средств за 2013
+54	17	SU	17/perechen_rabot.xls	Перечень работ
+55	18	VR	18/vypolnyaemye_raboty.doc	Сведения о выполняемых работах
+56	18	VO	18/otchet_2013.xlsx	Отчет об использовании денежных средств за 2013
+57	18	SU	18/perechen_rabot.xls	Перечень работ
+58	19	VR	19/vypolnyaemye_raboty.doc	Сведения о выполняемых работах
+59	19	VO	19/otchet_2013.xlsx	Отчет об использовании денежных средств за 2013
+60	19	SU	19/perechen_rabot.xls	Перечень работ
+61	20	VR	20/vypolnyaemye_raboty.doc	Сведения о выполняемых работах
+62	20	VO	20/otchet_2013.xlsx	Отчет об использовании денежных средств за 2013
+63	20	SU	20/perechen_rabot.xls	Перечень работ
+64	21	VR	21/vypolnyaemye_raboty.doc	Сведения о выполняемых работах
+65	21	VO	21/otchet_2013.xlsx	Отчет об использовании денежных средств за 2013
+66	21	SU	21/perechen_rabot.xls	Перечень работ
+67	22	VR	22/vypolnyaemye_raboty.doc	Сведения о выполняемых работах
+68	22	VO	22/otchet_2013.xlsx	Отчет об использовании денежных средств за 2013
+69	22	SU	22/perechen_rabot.xls	Перечень работ
+70	23	VR	23/vypolnyaemye_raboty.doc	Сведения о выполняемых работах
+71	23	VO	23/otchet_2013.xlsx	Отчет об использовании денежных средств за 2013
+72	23	SU	23/perechen_rabot.xls	Перечень работ
+73	24	VR	24/vypolnyaemye_raboty.doc	Сведения о выполняемых работах
+74	24	VO	24/otchet_2013.xlsx	Отчет об использовании денежных средств за 2013
+75	24	SU	24/perechen_rabot.xls	Перечень работ
+76	25	VR	25/vypolnyaemye_raboty.doc	Сведения о выполняемых работах
+77	25	VO	25/otchet_2013.xlsx	Отчет об использовании денежных средств за 2013
+78	25	SU	25/perechen_rabot.xls	Перечень работ
+79	26	VR	26/vypolnyaemye_raboty.doc	Сведения о выполняемых работах
+80	26	SU	26/perechen_rabot.xls	Перечень работ
+81	27	VO	27/vypolnyaemye_raboty.doc	Сведения о выполняемых работах
+82	27	SU	27/perechen_rabot.xls	Перечень работ
+83	28	VO	28/otchet_2013.xlsx	Отчет об использовании денежных средств за 2013
+84	28	SU	28/perechen_rabot.xls	Перечень работ
+85	29	VR	29/vypolnyaemye_raboty.doc	Сведения о выполняемых работах
+86	29	VO	29/otchet_2013.xlsx	Отчет об использовании денежных средств за 2013
+87	29	SU	29/perechen_rabot.xls	Перечень работ
+88	30	VR	30/vypolnyaemye_raboty.doc	Сведения о выполняемых работах
+89	30	VO	30/otchet_2013.xlsx	Отчет об использовании денежных средств за 2013
+90	30	SU	30/perechen_rabot.xls	Перечень работ
+91	31	VR	31/vypolnyaemye_raboty.doc	Сведения о выполняемых работах
+93	31	SU	31/perechen_rabot_1.xls	Перечень услуг и работ по содержанию и текущему ремонту общего имущества
+94	32	VR	32/vypolnyaemye_raboty.doc	Сведения о выполняемых работах
+95	32	VO	32/otchet_2013.xlsx	Отчет об использовании денежных средств за 2013
+96	32	SU	32/perechen_rabot.xls	Перечень работ
+97	33	VR	33/vypolnyaemye_raboty.doc	Сведения о выполняемых работах
+98	33	VO	33/otchet_2013.xlsx	Отчет об использовании денежных средств за 2013
+99	33	SU	33/perechen_rabot.xls	Перечень работ
+100	34	VR	34/vypolnyaemye_raboty.doc	Сведения о выполняемых работах
+101	34	VO	34/otchet_2013.xlsx	Отчет об использовании денежных средств за 2013
+102	34	SU	34/perechen_rabot.xls	Перечень работ
+103	35	VR	35/vypolnyaemye_raboty.doc	Сведения о выполняемых работах
+106	36	VR	36/vypolnyaemye_raboty.doc	Сведения о выполняемых работах
+4	37	VO	37/otchet_2013.xlsx	Отчет об использовании денежных средств за 2013
+5	37	SU	37/perechen_rabot.xls	Перечент работ
+104	35	VO	35/otchet-_2013.xlsx	Отчет об использовании денежных средств за 2013
+105	35	SU	35/perechen_rabot_1.xls	Перечень работ
+107	36	VO	36/otchet_2013_1.xlsx	Отчет об использовании денежных средств за 2013
+108	36	SU	36/perechen_rabot_1.xls	Перечень работ
 \.
 
 
@@ -3164,7 +3318,7 @@ COPY houses_link (id, house_id, category, upload_file, filename) FROM stdin;
 -- Name: houses_link_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
 --
 
-SELECT pg_catalog.setval('houses_link_id_seq', 5, true);
+SELECT pg_catalog.setval('houses_link_id_seq', 108, true);
 
 
 --
