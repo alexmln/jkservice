@@ -59,3 +59,29 @@ class Link(models.Model):
 
     def __unicode__(self):
         return self.upload_file.path
+
+
+class Damage(models.Model):
+
+    house = models.ForeignKey(House)
+    general_damage = models.CharField('Общая степень износа', max_length=3, blank=True)
+    foundation_damage = models.CharField('Износ фундамента', max_length=3, blank=True)
+    walls_damage = models.CharField('Износ несущих стен', max_length=3, blank=True)
+    overlap_damage = models.CharField('Износ перекрытий', max_length=3, blank=True)
+
+
+class Rso(models.Model):
+
+    house = models.ForeignKey(House)
+    heating = models.CharField('Поставщик отопления', max_length=20, blank=True)
+    heating_uo = models.BooleanField('поставляется через уо', default=False)
+    electric = models.CharField('Поставщик электроэнергии', max_length=20, blank=True)
+    electric_uo = models.BooleanField('поставляется через уо', default=False)
+    gas = models.CharField('Поставщик газа', max_length=20, blank=True)
+    gas_uo = models.BooleanField('поставляется через уо', default=False)
+    hot_water = models.CharField('Поставщик горячей воды', max_length=20, blank=True)
+    hot_water_uo = models.BooleanField('поставляется через уо', default=False)
+    cold_water = models.CharField('Поставщик холодной воды', max_length=20, blank=True)
+    cold_water_uo = models.BooleanField('поставляется через уо', default=False)
+    wastewater = models.CharField('Поставщик водоотведения', max_length=20, blank=True)
+    wastewater_uo = models.BooleanField('поставляется через уо', default=False)

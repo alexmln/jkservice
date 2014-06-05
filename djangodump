@@ -479,6 +479,43 @@ CREATE TABLE houses (
 ALTER TABLE public.houses OWNER TO django;
 
 --
+-- Name: houses_damage; Type: TABLE; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE TABLE houses_damage (
+    id integer NOT NULL,
+    house_id integer NOT NULL,
+    general_damage character varying(3) NOT NULL,
+    foundation_damage character varying(3) NOT NULL,
+    walls_damage character varying(3) NOT NULL,
+    overlap_damage character varying(3) NOT NULL
+);
+
+
+ALTER TABLE public.houses_damage OWNER TO django;
+
+--
+-- Name: houses_damage_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE houses_damage_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.houses_damage_id_seq OWNER TO django;
+
+--
+-- Name: houses_damage_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE houses_damage_id_seq OWNED BY houses_damage.id;
+
+
+--
 -- Name: houses_house; Type: TABLE; Schema: public; Owner: django; Tablespace: 
 --
 
@@ -555,6 +592,51 @@ ALTER TABLE public.houses_link_id_seq OWNER TO django;
 --
 
 ALTER SEQUENCE houses_link_id_seq OWNED BY houses_link.id;
+
+
+--
+-- Name: houses_rso; Type: TABLE; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE TABLE houses_rso (
+    id integer NOT NULL,
+    house_id integer NOT NULL,
+    heating character varying(20) NOT NULL,
+    heating_uo boolean NOT NULL,
+    electric character varying(20) NOT NULL,
+    electric_uo boolean NOT NULL,
+    gas character varying(20) NOT NULL,
+    gas_uo boolean NOT NULL,
+    hot_water character varying(20) NOT NULL,
+    hot_water_uo boolean NOT NULL,
+    cold_water character varying(20) NOT NULL,
+    cold_water_uo boolean NOT NULL,
+    wastewater character varying(20) NOT NULL,
+    wastewater_uo boolean NOT NULL
+);
+
+
+ALTER TABLE public.houses_rso OWNER TO django;
+
+--
+-- Name: houses_rso_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE houses_rso_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.houses_rso_id_seq OWNER TO django;
+
+--
+-- Name: houses_rso_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE houses_rso_id_seq OWNED BY houses_rso.id;
 
 
 --
@@ -791,6 +873,13 @@ ALTER TABLE ONLY feedback_feedback ALTER COLUMN id SET DEFAULT nextval('feedback
 
 
 --
+-- Name: id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY houses_damage ALTER COLUMN id SET DEFAULT nextval('houses_damage_id_seq'::regclass);
+
+
+--
 -- Name: house_id; Type: DEFAULT; Schema: public; Owner: django
 --
 
@@ -802,6 +891,13 @@ ALTER TABLE ONLY houses_house ALTER COLUMN house_id SET DEFAULT nextval('houses_
 --
 
 ALTER TABLE ONLY houses_link ALTER COLUMN id SET DEFAULT nextval('houses_link_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY houses_rso ALTER COLUMN id SET DEFAULT nextval('houses_rso_id_seq'::regclass);
 
 
 --
@@ -893,6 +989,12 @@ COPY auth_permission (id, name, content_type_id, codename) FROM stdin;
 37	Can add link	13	add_link
 38	Can change link	13	change_link
 39	Can delete link	13	delete_link
+40	Can add damage	14	add_damage
+41	Can change damage	14	change_damage
+42	Can delete damage	14	delete_damage
+43	Can add rso	15	add_rso
+44	Can change rso	15	change_rso
+45	Can delete rso	15	delete_rso
 \.
 
 
@@ -900,7 +1002,7 @@ COPY auth_permission (id, name, content_type_id, codename) FROM stdin;
 -- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
 --
 
-SELECT pg_catalog.setval('auth_permission_id_seq', 39, true);
+SELECT pg_catalog.setval('auth_permission_id_seq', 45, true);
 
 
 --
@@ -1018,6 +1120,15 @@ COPY captcha_captchastore (id, challenge, response, hashkey, expiration) FROM st
 1362	UAPXBWS	uapxbws	cdf0552ed0a33f95e8adedc84c5a2f8efbff642f	2014-06-05 11:08:31.880812+04
 1363	QCRTUYS	qcrtuys	be4f3c658dd46faf87cb03b41dfe4ee2bd006729	2014-06-05 11:15:39.009535+04
 1364	ONKDTXN	onkdtxn	e16f8ada5a401e456c27ca8da0479b5670a435b0	2014-06-05 19:16:51.345436+04
+1365	YWJENUW	ywjenuw	4e970ef7a96e45a0d6357e1a0945c831435ec4d7	2014-06-05 21:20:17.500994+04
+1366	GZILFBA	gzilfba	93048b38daa394ba9abd60a3df5ad2a70567c005	2014-06-05 21:23:37.256421+04
+1367	STRWFEA	strwfea	69b6b697011c4534c803c7a70ca8f350204c4e0a	2014-06-05 21:55:35.550089+04
+1368	TSKYUCB	tskyucb	1039a0d135e93f2703d6b4733ff6f9b87a50b12e	2014-06-05 23:31:46.619455+04
+1369	WDJSAPE	wdjsape	469268a80754016fba93e1183f146e4583ffaeb9	2014-06-05 23:32:07.906717+04
+1370	MPHFDXU	mphfdxu	6ef8212c031480ad8bdb19fa4b030a7a0dd707e6	2014-06-06 02:30:51.683725+04
+1371	CKNBJHI	cknbjhi	dbaaa13a04a0e475d315df3d8c0b70dbbef67686	2014-06-06 02:32:12.197696+04
+1372	ZSKDYCS	zskdycs	832db2cd423989d5fc72bb9d96ff353f7d63bcf4	2014-06-06 02:33:13.80913+04
+1373	TCENWEG	tcenweg	88db211d8a00e68922e841520fc5a41c18d8a7cc	2014-06-06 02:33:54.689538+04
 \.
 
 
@@ -1025,7 +1136,7 @@ COPY captcha_captchastore (id, challenge, response, hashkey, expiration) FROM st
 -- Name: captcha_captchastore_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
 --
 
-SELECT pg_catalog.setval('captcha_captchastore_id_seq', 1364, true);
+SELECT pg_catalog.setval('captcha_captchastore_id_seq', 1373, true);
 
 
 --
@@ -2816,6 +2927,13 @@ COPY django_admin_log (id, action_time, user_id, content_type_id, object_id, obj
 128	2014-06-03 15:03:15.655502+04	1	10	37	Дорожный  12	2	Изменены upload_file для link "/var/jkservice/media/37/otchet_2013.xlsx". Изменены upload_file для link "/var/jkservice/media/37/perechen_rabot.xls".
 129	2014-06-03 15:06:12.580877+04	1	10	35	Дорожный  9	2	Изменены upload_file для link "/var/jkservice/media/35/otchet-_2013.xlsx". Изменены upload_file для link "/var/jkservice/media/35/perechen_rabot_1.xls".
 130	2014-06-03 15:06:28.273581+04	1	10	36	Дорожный  10	2	Изменены upload_file для link "/var/jkservice/media/36/otchet_2013_1.xlsx". Изменены upload_file для link "/var/jkservice/media/36/perechen_rabot_1.xls".
+131	2014-06-06 01:55:58.12964+04	1	10	46	Кувшиново Майская 4	2	Добавлен rso "Rso object".
+132	2014-06-06 02:03:18.470838+04	1	10	46	Кувшиново Майская 4	2	Изменены electric и electric_uo для rso "Rso object".
+133	2014-06-06 02:05:35.186044+04	1	10	46	Кувшиново Майская 4	2	Изменены heating,heating_uo,electric и electric_uo для rso "Rso object".
+134	2014-06-06 02:05:46.607287+04	1	10	46	Кувшиново Майская 4	2	Изменены heating,heating_uo,electric и electric_uo для rso "Rso object".
+135	2014-06-06 02:24:15.593164+04	1	10	46	Кувшиново Майская 4	2	Изменены gas,gas_uo,hot_water,hot_water_uo,cold_water,cold_water_uo,wastewater и wastewater_uo для rso "Rso object".
+136	2014-06-06 02:50:35.566246+04	1	10	46	Кувшиново Майская 4	2	Добавлен damage "Damage object".
+137	2014-06-06 02:51:16.72683+04	1	10	46	Кувшиново Майская 4	2	Удален rso "Rso object". Удален damage "Damage object".
 \.
 
 
@@ -2823,7 +2941,7 @@ COPY django_admin_log (id, action_time, user_id, content_type_id, object_id, obj
 -- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
 --
 
-SELECT pg_catalog.setval('django_admin_log_id_seq', 130, true);
+SELECT pg_catalog.setval('django_admin_log_id_seq', 137, true);
 
 
 --
@@ -2842,6 +2960,8 @@ COPY django_content_type (id, name, app_label, model) FROM stdin;
 11	news model	news	newsmodel
 12	feedback	feedback	feedback
 13	link	houses	link
+14	damage	houses	damage
+15	rso	houses	rso
 \.
 
 
@@ -2849,7 +2969,7 @@ COPY django_content_type (id, name, app_label, model) FROM stdin;
 -- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
 --
 
-SELECT pg_catalog.setval('django_content_type_id_seq', 13, true);
+SELECT pg_catalog.setval('django_content_type_id_seq', 15, true);
 
 
 --
@@ -3134,6 +3254,21 @@ COPY houses (house_id, settlement_id, street_id, house_num, house_corp, house_li
 
 
 --
+-- Data for Name: houses_damage; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY houses_damage (id, house_id, general_damage, foundation_damage, walls_damage, overlap_damage) FROM stdin;
+\.
+
+
+--
+-- Name: houses_damage_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('houses_damage_id_seq', 1, true);
+
+
+--
 -- Data for Name: houses_house; Type: TABLE DATA; Schema: public; Owner: django
 --
 
@@ -3146,7 +3281,6 @@ COPY houses_house (house_id, settlement, street_name, house_number, house_litera
 43	DU	Школьная	8			3371	1974	OK	171	t	
 44	DU	Школьная	10			3369	1983	OK	215	t	
 45	DU	Школьная	12			0	1982	OK	194	t	
-46	CU	Майская	4			686.8	1920	OK	20	t	
 1	S2		1			548.4	1964	OK	32	t	
 2	S2		2			543.6	1964	OK	27	t	
 3	S2		3			761.4	1977	OK	32	t	
@@ -3184,6 +3318,7 @@ COPY houses_house (house_id, settlement, street_name, house_number, house_litera
 37	DO		12			309	1965	OK	17	t	
 35	DO		9			931	1994	OK	56	t	
 36	DO		10			0	0	OK	17	t	
+46	CU	Майская	4			686.8	1920	OK	20	t	
 \.
 
 
@@ -3319,6 +3454,21 @@ COPY houses_link (id, house_id, category, upload_file, filename) FROM stdin;
 --
 
 SELECT pg_catalog.setval('houses_link_id_seq', 108, true);
+
+
+--
+-- Data for Name: houses_rso; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY houses_rso (id, house_id, heating, heating_uo, electric, electric_uo, gas, gas_uo, hot_water, hot_water_uo, cold_water, cold_water_uo, wastewater, wastewater_uo) FROM stdin;
+\.
+
+
+--
+-- Name: houses_rso_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('houses_rso_id_seq', 1, true);
 
 
 --
@@ -5227,6 +5377,14 @@ ALTER TABLE ONLY feedback_feedback
 
 
 --
+-- Name: houses_damage_pkey; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY houses_damage
+    ADD CONSTRAINT houses_damage_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: houses_house_pkey; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
 --
 
@@ -5248,6 +5406,14 @@ ALTER TABLE ONLY houses_link
 
 ALTER TABLE ONLY houses
     ADD CONSTRAINT houses_pkey1 PRIMARY KEY (house_id);
+
+
+--
+-- Name: houses_rso_pkey; Type: CONSTRAINT; Schema: public; Owner: django; Tablespace: 
+--
+
+ALTER TABLE ONLY houses_rso
+    ADD CONSTRAINT houses_rso_pkey PRIMARY KEY (id);
 
 
 --
@@ -5405,10 +5571,24 @@ CREATE INDEX django_session_session_key_like ON django_session USING btree (sess
 
 
 --
+-- Name: houses_damage_house_id; Type: INDEX; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE INDEX houses_damage_house_id ON houses_damage USING btree (house_id);
+
+
+--
 -- Name: houses_link_house_id; Type: INDEX; Schema: public; Owner: django; Tablespace: 
 --
 
 CREATE INDEX houses_link_house_id ON houses_link USING btree (house_id);
+
+
+--
+-- Name: houses_rso_house_id; Type: INDEX; Schema: public; Owner: django; Tablespace: 
+--
+
+CREATE INDEX houses_rso_house_id ON houses_rso USING btree (house_id);
 
 
 --
@@ -5460,11 +5640,27 @@ ALTER TABLE ONLY auth_group_permissions
 
 
 --
+-- Name: houses_damage_house_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY houses_damage
+    ADD CONSTRAINT houses_damage_house_id_fkey FOREIGN KEY (house_id) REFERENCES houses_house(house_id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
 -- Name: houses_link_house_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: django
 --
 
 ALTER TABLE ONLY houses_link
     ADD CONSTRAINT houses_link_house_id_fkey FOREIGN KEY (house_id) REFERENCES houses_house(house_id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: houses_rso_house_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY houses_rso
+    ADD CONSTRAINT houses_rso_house_id_fkey FOREIGN KEY (house_id) REFERENCES houses_house(house_id) DEFERRABLE INITIALLY DEFERRED;
 
 
 --

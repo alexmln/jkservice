@@ -63,3 +63,7 @@ def captcha_refresh(request):
         return HttpResponse(json.dumps(to_json), content_type='application/json')
     else:
         raise Http404
+
+
+def documents(request):
+    return render(request, 'jkservice/documents.html')

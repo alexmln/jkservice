@@ -14,6 +14,7 @@ urlpatterns = patterns('',
     url(r'^houses/', include('houses.urls')),
     url(r'^news/', include('news.urls')),
     url(r'^feedback/', include('feedback.urls')),
+    url(r'^documents/', 'jkservice.views.documents', name='documents'),
 )
 
 urlpatterns += patterns('',

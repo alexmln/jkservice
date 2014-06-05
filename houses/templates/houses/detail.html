@@ -11,22 +11,102 @@
     <link rel="stylesheet" href="{% static 'jkservice/css/watermet.css' %}">
 {% endblock %}
 {% block content %}
-    {% for link in house.link_set.all %}
-        {% if link.category = 'DU' %}
-            <h4>Договор управления</h4>
-            <a href="{{ link.upload_file.url }}">{{ link.filename }}</a>
-        {% elif link.category = 'VR'%}
-            <h4>Выполняемые работы</h4>
-            <a href="{{ link.upload_file.url }}">{{ link.filename }}</a>
-        {% elif link.category = 'VO' %}
-            <h4>Выполенение обязательств</h4>
-            <a href="{{ link.upload_file.url }}">{{ link.filename }}</a>
-        {% elif link.category = 'SU' %}
-            <h4>Стоимость услуг</h4>
-            <a href="{{ link.upload_file.url }}">{{ link.filename }}</a>
-        {% else %}
-            <h4>Прочие документы</h4>
-            <a href="{{ link.upload_file.url }}">{{ link.filename }}</a>
-        {% endif %}
-    {% endfor %}
+    <div class="row">
+        <div class="col-md-6">
+            {% for link in house.link_set.all %}
+                {% if link.category = 'DU' %}
+                    <h4>Договор управления</h4>
+                    <a href="{{ link.upload_file.url }}">{{ link.filename }}</a>
+                {% elif link.category = 'VR'%}
+                    <h4>Выполняемые работы</h4>
+                    <a href="{{ link.upload_file.url }}">{{ link.filename }}</a>
+                {% elif link.category = 'VO' %}
+                    <h4>Выполенение обязательств</h4>
+                    <a href="{{ link.upload_file.url }}">{{ link.filename }}</a>
+                {% elif link.category = 'SU' %}
+                    <h4>Стоимость услуг</h4>
+                    <a href="{{ link.upload_file.url }}">{{ link.filename }}</a>
+                {% else %}
+                    <h4>Прочие документы</h4>
+                    <a href="{{ link.upload_file.url }}">{{ link.filename }}</a>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="col-md-4">
+            <h4>Ресурсоснабжающие организации:</h4>
+            {% for rso in house.rso_set.all %}
+                Поставщик отопления:<br>
+                    {% if rso.heating %}
+                        <nobr>
+                            ИНН: {{ rso.heating }}
+                        </nobr>
+                    {% endif %}
+                    {% if rso.heating_uo %}
+                        <br>Поставляется через уо
+                    {% endif %}
+                <p></p>
+                Поставщик электричества:<br>
+                    {% if rso.electric %}
+                        <nobr>
+                            ИНН: {{ rso.electric }}
+                        </nobr>
+                    {% endif %}
+                    {% if rso.electric_uo %}
+                        <br>Поставляется через уо
+                    {% endif %}
+                <p></p>
+                Поставщик газа:<br>
+                    {% if rso.gas %}
+                        <br>
+                        <nobr>
+                            ИНН: {{ rso.gas }}
+                        </nobr>
+                    {% endif %}
+                    {% if rso.gas_uo %}
+                        <br>Поставляется через уо
+                    {% endif %}
+                <p></p>Поставщик горячей воды:<br>
+                    {% if rso.hot_water %}
+                        <nobr>
+                            ИНН: {{ rso.hot_water }}
+                        </nobr>
+                    {% endif %}
+                    {% if rso.hot_water_uo %}
+                        <br>Поставляется через уо
+                    {% endif %}
+                <p></p>Поставщик холодной воды:<br>
+                    {% if rso.cold_water %}
+                        <nobr>
+                            ИНН: {{ rso.cold_water }}
+                        </nobr>
+                    {% endif %}
+                    {% if rso.cold_water_uo %}
+                        <br>Поставляется через уо
+                    {% endif %}
+                <p></p>Поставщик отопления:<br>
+                    {% if rso.wastewater %}
+                        <nobr>
+                            ИНН: {{ rso.wastewater }}
+                        </nobr>
+                    {% endif %}
+                    {% if rso.wastewater_uo %}
+                        <br>Поставляется через уо
+                    {% endif %}
+            {% endfor %}
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Состояние дома:</h4>
+            {% for damage in house.damage_set.all %}
+            <p>
+                Общая степень износа: {{ damage.general_damage }}<br>
+                Степень износа фундамента: {{ damage.foundation_damage }}<br>
+                Степень износа несущих стен: {{ damage.walls_damage }}<br>
+                Степень износа перекрытий: {{ damage.overlap_damage }}<br>
+            </p>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}
