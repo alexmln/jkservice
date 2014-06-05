@@ -12,6 +12,11 @@
 {% endblock %}
 {% block content %}
     <div class="row">
+        <div class="col-md-12">
+            <h4>{{ house.get_settlement_display }}{% if house.street_name %} ул {{ house.street_name }}{% endif %} д.{{ house.house_number }}</h4>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-md-6">
             {% for link in house.link_set.all %}
                 {% if link.category = 'DU' %}
