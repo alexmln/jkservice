@@ -75,7 +75,7 @@
             {% if house.contract %}
                 <tr>
                     <th>
-                        <a href="{% url 'detail' house.house_id %}">{{ house.get_settlement_display }}{% if house.street_name %} ул {{ house.street_name }}{% endif %} д.{{ house.house_number }}{% if house.comment %} {{ house.comment }}{% endif %}</a>
+                        <a href="{% url 'detail' house.house_id %}">{{ house.get_settlement_display }}{% if house.street_name %} ул {{ house.street_name }}{% endif %} д.{{ house.house_number }}{{ house.house_litera }}{% if house.comment %} {{ house.comment }}{% endif %}</a>
                     </th>
                     <th>
                         {{ house.house_area }}
